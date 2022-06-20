@@ -39,9 +39,11 @@ packages:
   background_location:
     dependency: "direct main"
     description:
-      name: background_location
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: ec4a769277ef4027ae515262f555a8cea50ff611
+      url: "https://github.com/hilalbaig/background_location.git"
+    source: git
     version: "0.8.1"
   boolean_selector:
     dependency: transitive
@@ -429,13 +431,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  multi_select_item:
-    dependency: "direct main"
-    description:
-      name: multi_select_item
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   nested:
     dependency: transitive
     description:

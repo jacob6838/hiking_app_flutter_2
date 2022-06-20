@@ -52,6 +52,7 @@ class HikingService {
   final BehaviorSubject<LocationStatus> _currentLocationStatusSub = BehaviorSubject.seeded(const LocationStatus());
   final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub = BehaviorSubject.seeded(const HikeMetrics());
   final BehaviorSubject<List<LocationStatus>> currentPathSub = BehaviorSubject.seeded([]);
+  final BehaviorSubject<List<LocationStatus>> currentRawPathSub = BehaviorSubject.seeded([]);
 
   HikingService({required LocationService locationService})
       : _lastUpdateTimeSec = 0,
@@ -114,6 +115,7 @@ class HikingService {
       _prevLocation = const LocationStatus();
       // _hikeMetricsTotal = getInitialMetrics(_prevLocation, getCurrentTimeSeconds());
       _currentPath.clear();
+      _unfilteredPath.clear();
       elevationPlotValues = PlotValues(
         values: [],
         xFormat: const PlotFormat(
@@ -147,6 +149,7 @@ class HikingService {
     // print("ARCHIVE CAHANGING TO $dataArchive");
     _currentHikerMetricsSub.value = dataArchive.hikeMetrics!;
     currentPathSub.value = dataArchive.locationHistory!;
+    currentRawPathSub.value = dataArchive.unfilteredLocationHistory!;
     elevationPlot.value = dataArchive.elevationPlot!;
     speedPlot.value = dataArchive.speedPlot!;
   }
@@ -155,6 +158,7 @@ class HikingService {
     final dataArchive = DataArchive(
         hikeMetrics: _currentHikerMetricsSub.value,
         locationHistory: currentPathSub.value,
+        unfilteredLocationHistory: currentRawPathSub.value,
         elevationPlot: elevationPlot.value,
         speedPlot: speedPlot.value);
     DateTime now = DateTime.now();
@@ -165,6 +169,7 @@ class HikingService {
 
   void clearData() {
     currentPathSub.add([]);
+    currentRawPathSub.add([]);
     _currentHikerMetricsSub.add(HikeMetrics());
     elevationPlot.add(PlotValues());
     speedPlot.add(PlotValues());
@@ -236,6 +241,7 @@ class HikingService {
 
       _currentHikerMetricsSub.add(_hikeMetricsTotal);
       currentPathSub.add(_currentPath);
+      _unfilteredPath.add(locationStatus);
       return;
     }
 
@@ -280,6 +286,7 @@ class HikingService {
       /// Calculate hiker status update and publish value for UI
       _currentHikerMetricsSub.add(currMetrics);
       currentPathSub.add(_currentPath);
+      currentRawPathSub.add(_unfilteredPath);
       elevationPlot.add(toElevationPlotValues(currMetrics));
       speedPlot.add(toSpeedPlotValues(currMetrics));
 
@@ -295,7 +302,7 @@ class HikingService {
         deltaDistance: deltaDistance,
         locationHistory: _currentPath,
         updatePeriodSec: deltaSec,
-      ).copyWith(distanceTraveled: totalDistance);
+      ); // .copyWith(distanceTraveled: totalDistance);
 
       /// Save location update to current hike
       _currentPath.add(filteredLocation);
@@ -303,6 +310,7 @@ class HikingService {
       /// Calculate hiker status update and publish value for UI
       _currentHikerMetricsSub.add(currMetrics);
       currentPathSub.add(_currentPath);
+      currentRawPathSub.add(_unfilteredPath);
       elevationPlot.add(toElevationPlotValues(currMetrics));
       speedPlot.add(toSpeedPlotValues(currMetrics));
 
@@ -312,7 +320,7 @@ class HikingService {
   }
 
   PlotValues toElevationPlotValues(HikeMetrics metric) {
-    List<List<double>> elevationValues = elevationPlotValues!.values;
+    List<List<double>> elevationValues = List.of(elevationPlotValues!.values);
     elevationValues.add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
 
     double elevRange = (metric.altitudeMax - metric.altitudeMin) * 3.28084;
@@ -336,7 +344,7 @@ class HikingService {
   }
 
   PlotValues toSpeedPlotValues(HikeMetrics metric) {
-    final List<List<double>> speedValues = speedPlotValues!.values;
+    final List<List<double>> speedValues = List.of(speedPlotValues!.values);
     speedValues.add([metric.metricPeriodSeconds, metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond]);
 
     double speedRangeMPH = metric.speedMax * MilesPerHourPerMetersPerSecond;

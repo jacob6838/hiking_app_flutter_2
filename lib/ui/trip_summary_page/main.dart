@@ -152,8 +152,9 @@ class TripSummaryPageState extends State<TripSummaryPage> {
             StreamBuilder<List<LocationStatus>>(
                 stream: _hikingService!.currentPathSub,
                 builder: (context, snapshot) {
-                  List<LatLng> pathList = snapshot.data?.map(locationStatusToLatLong)?.toList() ?? [];
-                  print("$mapController, ${pathList?.length}");
+                  List<LatLng> pathList = snapshot.data?.map(locationStatusToLatLong).toList() ?? [];
+                  List<LatLng> unfilteredPathList = _hikingService!.currentRawPathSub.value.map(locationStatusToLatLong).toList();
+                  print("$mapController, ${pathList.length}");
                   if (pathList != []) {
                     final pair = getPathBounds(pathList);
                     if (pair != null) {
@@ -169,17 +170,28 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                     child: GoogleMap(
                       polylines: {
                         Polyline(
+                            polylineId: const PolylineId("unfilteredPath"),
+                            // points: [
+                            //   LatLng(40.275266, -74.7244817),
+                            //   LatLng(40.2753119, -74.7242424),
+                            // ]
+                            width: 10,
+                            color: Colors.black,
+                            points: unfilteredPathList),
+                        Polyline(
                             polylineId: const PolylineId("path"),
                             // points: [
                             //   LatLng(40.275266, -74.7244817),
                             //   LatLng(40.2753119, -74.7242424),
                             // ]
-                            points: pathList)
+                            width: 5,
+                            color: Colors.blue,
+                            points: pathList),
                       },
                       onMapCreated: (GoogleMapController controller) {
                         mapController = controller;
                         _controller.complete(controller);
-                        print("$mapController, ${pathList?.length}");
+                        print("$mapController, ${pathList.length}");
                         final pair = getPathBounds(pathList);
                         if (pair != null) {
                           final LatLngBounds bounds = LatLngBounds(northeast: pair.first, southwest: pair.second);
@@ -272,12 +284,12 @@ class TripSummaryPageState extends State<TripSummaryPage> {
           MaterialPageRoute(builder: (context) => SettingsPage()),
         );
         break;
-      case 'Manage Trips':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ManagementPage()),
-        );
-        break;
+      // case 'Manage Trips':
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => ManagementPage()),
+      //   );
+      //   break;
     }
   }
 

@@ -1,4 +1,4 @@
-# hiking_app_flutter_2
+# hiking_app
 
 A new Flutter project.
 

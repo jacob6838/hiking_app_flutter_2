@@ -13,6 +13,7 @@ abstract class DataArchive with _$DataArchive {
   const factory DataArchive({
     HikeMetrics? hikeMetrics,
     List<LocationStatus>? locationHistory,
+    List<LocationStatus>? unfilteredLocationHistory,
     PlotValues? elevationPlot,
     PlotValues? speedPlot,
   }) = _DataArchive;

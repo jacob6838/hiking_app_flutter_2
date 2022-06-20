@@ -37,38 +37,41 @@ class MetricPlotState extends State<MetricPlot> {
               ),
             ),
           ],
-          minX: plotValues.xFormat.min,
-          maxX: plotValues.xFormat.max,
-          minY: plotValues.yFormat.min,
-          maxY: plotValues.yFormat.max,
-          // minY: 0,
+          // minX: plotValues.xFormat.min,
+          // maxX: plotValues.xFormat.max,
+          // minY: plotValues.yFormat.min,
+          // maxY: plotValues.yFormat.max,
+          // // minY: 0,
           // titlesData: FlTitlesData(
-          //   bottomTitles: SideTitles(
-          //     showTitles: true,
-          //     reservedSize: 14,
-          //     interval: plotValues.xFormat.interval,
-          //     getTitles: (value) {
-          //       final int minutes = (value / secPerMin).round() % minPerHour;
-          //       final int hours = ((value / secPerMin) / minPerHour).floor();
-          //       return "$hours:$minutes";
-          //     },
+          //   bottomTitles: AxisTitles(
+          //     sideTitles: SideTitles(
+          //       showTitles: true,
+          //       reservedSize: 14,
+          //       interval: plotValues.xFormat.interval,
+          //       getTitlesWidget: (value, _) {
+          //         final int minutes = (value / secPerMin).round() % minPerHour;
+          //         final int hours = ((value / secPerMin) / minPerHour).floor();
+          //         return Text("$hours:$minutes");
+          //       },
+          //     ),
           //   ),
-          //   leftTitles: SideTitles(
+          //   leftTitles: AxisTitles(
+          //       sideTitles: SideTitles(
           //     showTitles: true,
           //     interval: plotValues.yFormat.interval,
-          //   ),
+          //   )),
           // ),
-          // axisTitleData: FlAxisTitleData(
-          //   bottomTitle:
-          //       AxisTitle(showTitle: true, margin: 0, titleText: plotValues.xFormat.axisTitle, textAlign: TextAlign.right),
-          //   leftTitle: AxisTitle(showTitle: true, titleText: plotValues.yFormat.axisTitle, margin: 4),
+          // // axisTitleData: FlAxisTitleData(
+          // //   bottomTitle:
+          // //       AxisTitle(showTitle: true, margin: 0, titleText: plotValues.xFormat.axisTitle, textAlign: TextAlign.right),
+          // //   leftTitle: AxisTitle(showTitle: true, titleText: plotValues.yFormat.axisTitle, margin: 4),
+          // // ),
+          // gridData: FlGridData(
+          //   show: true,
+          //   checkToShowHorizontalLine: (double value) {
+          //     return value == 1 || value == 6 || value == 4 || value == 5;
+          //   },
           // ),
-          gridData: FlGridData(
-            show: true,
-            checkToShowHorizontalLine: (double value) {
-              return value == 1 || value == 6 || value == 4 || value == 5;
-            },
-          ),
         ),
       ),
     );

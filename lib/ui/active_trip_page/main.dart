@@ -68,7 +68,7 @@ class ActiveTripPageState extends State<ActiveTripPage> {
                 StreamBuilder<bool>(
                     stream: _hikingService!.currentHikerStatus$,
                     builder: (context, AsyncSnapshot<bool> snapshot) {
-                      final bool activeStatus = snapshot?.data ?? false;
+                      final bool activeStatus = snapshot.data ?? false;
                       return SizedBox(
                           height: 80,
                           width: 80,

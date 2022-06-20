@@ -44,13 +44,13 @@ class _MetricsTableState extends State<MetricsTable> {
                     // height: 1
                   ),
                   columns: const <DataColumn>[DataColumn(label: Text("Metric")), DataColumn(label: Text("Value"))],
-                  rows: getDataRows(snapshot.data!, widget.metricsHiddenMap));
+                  rows: getDataRows(snapshot.data, widget.metricsHiddenMap));
             }
             // ),
             );
   }
 
-  List<DataRow> getDataRows(HikeMetricsData hikeMetrics, List<bool> metricsHiddenMap) {
+  List<DataRow> getDataRows(HikeMetricsData? hikeMetrics, List<bool> metricsHiddenMap) {
     if (hikeMetrics == null) return <DataRow>[];
     final vals = List<int>.generate(22, (i) => i + 1);
     final rows = <DataRow>[];

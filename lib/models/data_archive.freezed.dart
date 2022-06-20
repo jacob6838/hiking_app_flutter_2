@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DataArchive {
   HikeMetrics? get hikeMetrics => throw _privateConstructorUsedError;
   List<LocationStatus>? get locationHistory => throw _privateConstructorUsedError;
+  List<LocationStatus>? get unfilteredLocationHistory => throw _privateConstructorUsedError;
   PlotValues? get elevationPlot => throw _privateConstructorUsedError;
   PlotValues? get speedPlot => throw _privateConstructorUsedError;
 
@@ -29,7 +30,12 @@ mixin _$DataArchive {
 /// @nodoc
 abstract class $DataArchiveCopyWith<$Res> {
   factory $DataArchiveCopyWith(DataArchive value, $Res Function(DataArchive) then) = _$DataArchiveCopyWithImpl<$Res>;
-  $Res call({HikeMetrics? hikeMetrics, List<LocationStatus>? locationHistory, PlotValues? elevationPlot, PlotValues? speedPlot});
+  $Res call(
+      {HikeMetrics? hikeMetrics,
+      List<LocationStatus>? locationHistory,
+      List<LocationStatus>? unfilteredLocationHistory,
+      PlotValues? elevationPlot,
+      PlotValues? speedPlot});
 
   $HikeMetricsCopyWith<$Res>? get hikeMetrics;
   $PlotValuesCopyWith<$Res>? get elevationPlot;
@@ -48,6 +54,7 @@ class _$DataArchiveCopyWithImpl<$Res> implements $DataArchiveCopyWith<$Res> {
   $Res call({
     Object? hikeMetrics = freezed,
     Object? locationHistory = freezed,
+    Object? unfilteredLocationHistory = freezed,
     Object? elevationPlot = freezed,
     Object? speedPlot = freezed,
   }) {
@@ -59,6 +66,10 @@ class _$DataArchiveCopyWithImpl<$Res> implements $DataArchiveCopyWith<$Res> {
       locationHistory: locationHistory == freezed
           ? _value.locationHistory
           : locationHistory // ignore: cast_nullable_to_non_nullable
+              as List<LocationStatus>?,
+      unfilteredLocationHistory: unfilteredLocationHistory == freezed
+          ? _value.unfilteredLocationHistory
+          : unfilteredLocationHistory // ignore: cast_nullable_to_non_nullable
               as List<LocationStatus>?,
       elevationPlot: elevationPlot == freezed
           ? _value.elevationPlot
@@ -109,7 +120,12 @@ class _$DataArchiveCopyWithImpl<$Res> implements $DataArchiveCopyWith<$Res> {
 abstract class _$$_DataArchiveCopyWith<$Res> implements $DataArchiveCopyWith<$Res> {
   factory _$$_DataArchiveCopyWith(_$_DataArchive value, $Res Function(_$_DataArchive) then) = __$$_DataArchiveCopyWithImpl<$Res>;
   @override
-  $Res call({HikeMetrics? hikeMetrics, List<LocationStatus>? locationHistory, PlotValues? elevationPlot, PlotValues? speedPlot});
+  $Res call(
+      {HikeMetrics? hikeMetrics,
+      List<LocationStatus>? locationHistory,
+      List<LocationStatus>? unfilteredLocationHistory,
+      PlotValues? elevationPlot,
+      PlotValues? speedPlot});
 
   @override
   $HikeMetricsCopyWith<$Res>? get hikeMetrics;
@@ -131,6 +147,7 @@ class __$$_DataArchiveCopyWithImpl<$Res> extends _$DataArchiveCopyWithImpl<$Res>
   $Res call({
     Object? hikeMetrics = freezed,
     Object? locationHistory = freezed,
+    Object? unfilteredLocationHistory = freezed,
     Object? elevationPlot = freezed,
     Object? speedPlot = freezed,
   }) {
@@ -142,6 +159,10 @@ class __$$_DataArchiveCopyWithImpl<$Res> extends _$DataArchiveCopyWithImpl<$Res>
       locationHistory: locationHistory == freezed
           ? _value._locationHistory
           : locationHistory // ignore: cast_nullable_to_non_nullable
+              as List<LocationStatus>?,
+      unfilteredLocationHistory: unfilteredLocationHistory == freezed
+          ? _value._unfilteredLocationHistory
+          : unfilteredLocationHistory // ignore: cast_nullable_to_non_nullable
               as List<LocationStatus>?,
       elevationPlot: elevationPlot == freezed
           ? _value.elevationPlot
@@ -158,8 +179,14 @@ class __$$_DataArchiveCopyWithImpl<$Res> extends _$DataArchiveCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_DataArchive implements _DataArchive {
-  const _$_DataArchive({this.hikeMetrics, final List<LocationStatus>? locationHistory, this.elevationPlot, this.speedPlot})
-      : _locationHistory = locationHistory;
+  const _$_DataArchive(
+      {this.hikeMetrics,
+      final List<LocationStatus>? locationHistory,
+      final List<LocationStatus>? unfilteredLocationHistory,
+      this.elevationPlot,
+      this.speedPlot})
+      : _locationHistory = locationHistory,
+        _unfilteredLocationHistory = unfilteredLocationHistory;
 
   factory _$_DataArchive.fromJson(Map<String, dynamic> json) => _$$_DataArchiveFromJson(json);
 
@@ -174,6 +201,15 @@ class _$_DataArchive implements _DataArchive {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<LocationStatus>? _unfilteredLocationHistory;
+  @override
+  List<LocationStatus>? get unfilteredLocationHistory {
+    final value = _unfilteredLocationHistory;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final PlotValues? elevationPlot;
   @override
@@ -181,7 +217,7 @@ class _$_DataArchive implements _DataArchive {
 
   @override
   String toString() {
-    return 'DataArchive(hikeMetrics: $hikeMetrics, locationHistory: $locationHistory, elevationPlot: $elevationPlot, speedPlot: $speedPlot)';
+    return 'DataArchive(hikeMetrics: $hikeMetrics, locationHistory: $locationHistory, unfilteredLocationHistory: $unfilteredLocationHistory, elevationPlot: $elevationPlot, speedPlot: $speedPlot)';
   }
 
   @override
@@ -191,6 +227,7 @@ class _$_DataArchive implements _DataArchive {
             other is _$_DataArchive &&
             const DeepCollectionEquality().equals(other.hikeMetrics, hikeMetrics) &&
             const DeepCollectionEquality().equals(other._locationHistory, _locationHistory) &&
+            const DeepCollectionEquality().equals(other._unfilteredLocationHistory, _unfilteredLocationHistory) &&
             const DeepCollectionEquality().equals(other.elevationPlot, elevationPlot) &&
             const DeepCollectionEquality().equals(other.speedPlot, speedPlot));
   }
@@ -201,6 +238,7 @@ class _$_DataArchive implements _DataArchive {
       runtimeType,
       const DeepCollectionEquality().hash(hikeMetrics),
       const DeepCollectionEquality().hash(_locationHistory),
+      const DeepCollectionEquality().hash(_unfilteredLocationHistory),
       const DeepCollectionEquality().hash(elevationPlot),
       const DeepCollectionEquality().hash(speedPlot));
 
@@ -218,6 +256,7 @@ abstract class _DataArchive implements DataArchive {
   const factory _DataArchive(
       {final HikeMetrics? hikeMetrics,
       final List<LocationStatus>? locationHistory,
+      final List<LocationStatus>? unfilteredLocationHistory,
       final PlotValues? elevationPlot,
       final PlotValues? speedPlot}) = _$_DataArchive;
 
@@ -227,6 +266,8 @@ abstract class _DataArchive implements DataArchive {
   HikeMetrics? get hikeMetrics => throw _privateConstructorUsedError;
   @override
   List<LocationStatus>? get locationHistory => throw _privateConstructorUsedError;
+  @override
+  List<LocationStatus>? get unfilteredLocationHistory => throw _privateConstructorUsedError;
   @override
   PlotValues? get elevationPlot => throw _privateConstructorUsedError;
   @override

@@ -1,4 +1,4 @@
-package com.example.hiking_app_flutter_2
+package com.hikelytics.hiking_app
 
 import io.flutter.embedding.android.FlutterActivity
 

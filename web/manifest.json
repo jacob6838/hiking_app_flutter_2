@@ -1,6 +1,6 @@
 {
-    "name": "hiking_app_flutter_2",
-    "short_name": "hiking_app_flutter_2",
+    "name": "hiking_app",
+    "short_name": "hiking_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
