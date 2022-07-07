@@ -52,6 +52,7 @@ class LocationService {
         startLocationService();
         BackgroundLocation.getLocationUpdates((location) {
           if (location != null) {
+            print(location.time);
             _locationController.add(location);
           }
         });

@@ -10,10 +10,8 @@ class ExponentialAverageFilter {
     double y = z - average; // innovation
     double S = variance + R;
     double K = variance / S;
-    print("PRE  Kalman Filter: {average: $average, variance: $variance, z: $z, R: $R, K: $K}");
     average = average + K * y;
-    variance = R; //alpha * variance + (alpha - 1) * R; //(1 - K) * variance;
-    print("POST Kalman Filter: {average: $average, variance: $variance}");
+    variance = (1 - K) * alpha * variance + (1 - alpha) * R; //(1 - K) * variance;
     return average;
   }
 
