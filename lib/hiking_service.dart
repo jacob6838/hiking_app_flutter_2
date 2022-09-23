@@ -29,8 +29,9 @@ const int minimumDistanceThreshold = 4;
 
 class HikingService {
   final LocationService _locationService;
-  bool _hikeIsActive = false;
+  TripStatus _hikeStatus = TripStatus.stopped;
   HikeMetrics _hikeMetricsTotal = const HikeMetrics();
+  List<HikeMetrics> _hikeMetricSegments = [];
   double _lastUpdateTimeSec = 0.0;
   PlotValues? elevationPlotValues;
   PlotValues? speedPlotValues;
@@ -48,17 +49,18 @@ class HikingService {
   LocationStatus? _prevLocation;
   HikeMetrics? _prevHikeMetrics;
 
-  final BehaviorSubject<bool> _activeStatusSub = BehaviorSubject.seeded(false);
-  final BehaviorSubject<LocationStatus> _currentLocationStatusSub = BehaviorSubject.seeded(const LocationStatus());
+  final BehaviorSubject<TripStatus> _activeStatusSub = BehaviorSubject.seeded(false);
   final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub = BehaviorSubject.seeded(const HikeMetrics());
   final BehaviorSubject<List<LocationStatus>> currentPathSub = BehaviorSubject.seeded([]);
   final BehaviorSubject<List<LocationStatus>> currentRawPathSub = BehaviorSubject.seeded([]);
+
+  final BehaviorSubject<TripArchive?> currentTripSub = BehaviorSubject.seeded(null);
 
   HikingService({required LocationService locationService})
       : _lastUpdateTimeSec = 0,
         _locationService = locationService {
     _locationService.locationStream
-        .where((_) => _hikeIsActive)
+        .where((_) => _hikeStatus == TripStatus.active)
         // .doOnData((event) => print("HIKER: location update received."))
         .map(toLocationStatus)
         .listen(_handleLocationUpdate);
@@ -70,14 +72,16 @@ class HikingService {
   final BehaviorSubject<PlotValues> elevationPlot = BehaviorSubject<PlotValues>();
   final BehaviorSubject<PlotValues> speedPlot = BehaviorSubject<PlotValues>();
 
-  Stream<bool> get currentHikerStatus$ => _activeStatusSub.stream.asBroadcastStream();
+  Stream<TripStatus> get currentHikerStatus$ => _activeStatusSub.stream.asBroadcastStream();
 
   BehaviorSubject<LocationStatus> get currentLocationStatus => BehaviorSubject<LocationStatus>();
 
   Stream<HikeMetrics> get currentHikerMetrics$ => _currentHikerMetricsSub.stream.asBroadcastStream();
+  Stream<TripArchive> get currentTrip$ => currentTripSub.stream.asBroadcastStream();
 
-  Future<String?> toggleStatus(BuildContext context, HikingService hikingService) async {
-    if (!_hikeIsActive) {
+  Future<String?> updateStatus(BuildContext context, HikingService hikingService, TripStatusCommand statusCommand) async {
+    TripStatus requestedStatus = statusCommand.newStatus;
+    if (requestedStatus == TripStatus.active) {
       if (!await hikingService._locationService.locationAlwaysGranted()) {
         await showDialog(
           context: context,
@@ -88,8 +92,8 @@ class HikingService {
       final locationAlwaysEnabled = await hikingService._locationService.requestEnableLocationAlways();
       final gpsEnabled = await hikingService._locationService.requestEnableGps();
       if (gpsEnabled && locationAlwaysEnabled) {
-        _hikeIsActive = !_hikeIsActive;
-        _activeStatusSub.add(_hikeIsActive);
+        _hikeStatus = newStatus;
+        _activeStatusSub.add(_hikeStatus);
       } else {
         var reason = "";
         if (!gpsEnabled) {
@@ -105,11 +109,11 @@ class HikingService {
         return null;
       }
     } else {
-      _hikeIsActive = !_hikeIsActive;
-      _activeStatusSub.add(_hikeIsActive);
+      _hikeStatus = requestedStatus;
+      _activeStatusSub.add(_hikeStatus);
     }
 
-    if (_hikeIsActive) {
+    if (statusCommand == TripStatusCommand.start) {
       hikingService._locationService.startLocationUpdates();
       // _prevLocation = toLocationStatus(await _locationService.location);
       _prevLocation = const LocationStatus();
@@ -138,24 +142,24 @@ class HikingService {
         height: 150,
         width: 180,
       );
-    } else {
+    } else if (statusCommand == TripStatusCommand.stop) {
       hikingService._locationService.stopLocationService();
       return archiveCurrentTripData();
     }
     return null;
   }
 
-  void _handleArchiveChange(DataArchive dataArchive) async {
+  void _handleArchiveChange(TripArchive dataArchive) async {
     // print("ARCHIVE CAHANGING TO $dataArchive");
-    _currentHikerMetricsSub.value = dataArchive.hikeMetrics!;
-    currentPathSub.value = dataArchive.locationHistory!;
-    currentRawPathSub.value = dataArchive.unfilteredLocationHistory!;
-    elevationPlot.value = dataArchive.elevationPlot!;
-    speedPlot.value = dataArchive.speedPlot!;
+    currentTripSub.value = dataArchive;
+    // currentPathSub.value = dataArchive.locationHistory!;
+    // currentRawPathSub.value = dataArchive.unfilteredLocationHistory!;
+    // elevationPlot.value = dataArchive.elevationPlot!;
+    // speedPlot.value = dataArchive.speedPlot!;
   }
 
   Future<String> archiveCurrentTripData() async {
-    final dataArchive = DataArchive(
+    final dataArchive = TripArchive(
         hikeMetrics: _currentHikerMetricsSub.value,
         locationHistory: currentPathSub.value,
         unfilteredLocationHistory: currentRawPathSub.value,
@@ -168,11 +172,11 @@ class HikingService {
   }
 
   void clearData() {
-    currentPathSub.add([]);
-    currentRawPathSub.add([]);
-    _currentHikerMetricsSub.add(HikeMetrics());
-    elevationPlot.add(PlotValues());
-    speedPlot.add(PlotValues());
+    // currentPathSub.add([]);
+    // currentRawPathSub.add([]);
+    _currentHikerMetricsSub.add(null);
+    // elevationPlot.add(PlotValues());
+    // speedPlot.add(PlotValues());
   }
 
   Widget locationDisclosurePopup(BuildContext context) {
@@ -235,6 +239,7 @@ class HikingService {
       // print("First Time!");
       _prevLocation = locationStatus;
       _hikeMetricsTotal = getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
+      _hikeMetricSegments.add(getInitialMetrics(_prevLocation!, getCurrentTimeSeconds()));
       _prevHikeMetrics = _hikeMetricsTotal;
 
       _currentPath.add(_prevLocation!);

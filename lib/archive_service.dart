@@ -4,11 +4,11 @@ import 'package:hiking_app/models/hike_metrics.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'models/data_archive.dart';
+import 'models/trip_archive.dart';
 
 class ArchiveService {
   BehaviorSubject<List<String>> currentArchiveList = BehaviorSubject();
-  BehaviorSubject<DataArchive> activeDataArchive = BehaviorSubject.seeded(const DataArchive(hikeMetrics: HikeMetrics()));
+  BehaviorSubject<TripArchive?> activeTripArchive = BehaviorSubject.seeded(null);
 
   ArchiveService() {
     print("INITIALIZING DATA ARCHIVE");
@@ -30,12 +30,12 @@ class ArchiveService {
     return names;
   }
 
-  Future<DataArchive> activateArchive(String name) async {
+  Future<TripArchive> activateArchive(String name) async {
     print("ACTIVATING ARCHIVE $name");
     final path = await _getDocsDir();
     final file = File('$path/$name.json');
     final archive = await _getArchiveFromFile(file);
-    activeDataArchive.value = archive;
+    activeTripArchive.value = archive;
     return archive;
   }
 
@@ -46,7 +46,7 @@ class ArchiveService {
     return str;
   }
 
-  Future<File> createArchive(String name, DataArchive data) async {
+  Future<File> createArchive(String name, TripArchive data) async {
     final file = await _newArchive(name);
     await _writeArchiveToFile(file, data);
     currentArchiveList.value = await listArchives();
@@ -61,16 +61,16 @@ class ArchiveService {
     return true;
   }
 
-  Future<File> _writeArchiveToFile(File file, DataArchive data) {
+  Future<File> _writeArchiveToFile(File file, TripArchive data) {
     final map = data.toJson();
     final str = jsonEncode(map);
     return _writeDataToFile(file, str);
   }
 
-  Future<DataArchive> _getArchiveFromFile(File file) async {
+  Future<TripArchive> _getArchiveFromFile(File file) async {
     final str = await _readDataFromFile(file);
     final map = jsonDecode(str) as Map<String, dynamic>;
-    return DataArchive.fromJson(map);
+    return TripArchive.fromJson(map);
   }
 
   Future<File> _writeDataToFile(File file, String data) async {
