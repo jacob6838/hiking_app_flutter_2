@@ -11,10 +11,11 @@ part 'data_archive.g.dart';
 @JsonSerializable()
 abstract class TripArchive with _$TripArchive {
   const factory TripArchive({
-    List<TripSegment> tripSegments,
-    String tripName,
-    List<LocationStatus>? locationHistory,
-    List<LocationStatus>? unfilteredLocationHistory,
+    @Default([]) List<TripSegment> tripSegments,
+    String? tripName,
+    HikeMetrics? hikeMetrics,
+    @Default([]) List<LocationStatus> locationHistory,
+    @Default([]) List<LocationStatus> unfilteredLocationHistory,
     PlotValues? elevationPlot,
     PlotValues? speedPlot,
   }) = _TripArchive;
@@ -30,8 +31,8 @@ abstract class TripArchive with _$TripArchive {
 abstract class TripSegment with _$TripSegment {
   const factory TripSegment({
     HikeMetrics? hikeMetrics,
-    List<LocationStatus>? locationHistory,
-    List<LocationStatus>? unfilteredLocationHistory,
+    @Default([]) List<LocationStatus> locationHistory,
+    @Default([]) List<LocationStatus> unfilteredLocationHistory,
     PlotValues? elevationPlot,
     PlotValues? speedPlot,
   }) = _TripSegment;
