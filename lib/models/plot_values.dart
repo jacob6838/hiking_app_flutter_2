@@ -13,7 +13,6 @@ typedef String AxisFormat(double d);
 typedef TextStyle AxisTextStyle(double d);
 
 @freezed
-@JsonSerializable()
 class PlotValues with _$PlotValues {
   const factory PlotValues._({
     required List<List<double>> values,
@@ -41,12 +40,12 @@ class PlotValues with _$PlotValues {
     );
   }
 
-  factory PlotValues.fromJson(Map<String, dynamic> json) => _$PlotValuesFromJson(json);
-  Map<String, dynamic> toJson() => _$PlotValuesToJson(this);
+  factory PlotValues.fromJson(Map<String, dynamic> json) =>
+      _$PlotValuesFromJson(json);
+  // Map<String, dynamic> toJson() => _$PlotValuesToJson(this);
 }
 
 @freezed
-@JsonSerializable()
 class PlotFormat with _$PlotFormat {
   const factory PlotFormat({
     double? min,
@@ -58,6 +57,7 @@ class PlotFormat with _$PlotFormat {
     // AxisTextStyle axisTextStyleFunc,
   }) = _PlotFormat;
 
-  factory PlotFormat.fromJson(Map<String, dynamic> json) => _$PlotFormatFromJson(json);
-  Map<String, dynamic> toJson() => _$PlotFormatToJson(this);
+  factory PlotFormat.fromJson(Map<String, dynamic> json) =>
+      _$PlotFormatFromJson(json);
+  // Map<String, dynamic> toJson() => _$PlotFormatToJson(this);
 }

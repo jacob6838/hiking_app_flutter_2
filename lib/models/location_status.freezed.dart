@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'location_status.dart';
 
@@ -13,6 +13,10 @@ T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
+LocationStatus _$LocationStatusFromJson(Map<String, dynamic> json) {
+  return _LocationStatus.fromJson(json);
+}
 
 /// @nodoc
 mixin _$LocationStatus {
@@ -29,12 +33,16 @@ mixin _$LocationStatus {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocationStatusCopyWith<LocationStatus> get copyWith => throw _privateConstructorUsedError;
+  $LocationStatusCopyWith<LocationStatus> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $LocationStatusCopyWith<$Res> {
-  factory $LocationStatusCopyWith(LocationStatus value, $Res Function(LocationStatus) then) = _$LocationStatusCopyWithImpl<$Res>;
+  factory $LocationStatusCopyWith(
+          LocationStatus value, $Res Function(LocationStatus) then) =
+      _$LocationStatusCopyWithImpl<$Res, LocationStatus>;
+  @useResult
   $Res call(
       {double latitude,
       double longitude,
@@ -49,76 +57,82 @@ abstract class $LocationStatusCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LocationStatusCopyWithImpl<$Res> implements $LocationStatusCopyWith<$Res> {
+class _$LocationStatusCopyWithImpl<$Res, $Val extends LocationStatus>
+    implements $LocationStatusCopyWith<$Res> {
   _$LocationStatusCopyWithImpl(this._value, this._then);
 
-  final LocationStatus _value;
   // ignore: unused_field
-  final $Res Function(LocationStatus) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = freezed,
-    Object? longitude = freezed,
-    Object? accuracyValue = freezed,
-    Object? accuracy = freezed,
-    Object? altitude = freezed,
-    Object? speedMetersPerSec = freezed,
-    Object? speedAccuracyValue = freezed,
-    Object? speedAccuracy = freezed,
-    Object? headingDegrees = freezed,
-    Object? timeStampSec = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? accuracyValue = null,
+    Object? accuracy = null,
+    Object? altitude = null,
+    Object? speedMetersPerSec = null,
+    Object? speedAccuracyValue = null,
+    Object? speedAccuracy = null,
+    Object? headingDegrees = null,
+    Object? timeStampSec = null,
   }) {
     return _then(_value.copyWith(
-      latitude: latitude == freezed
+      latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: longitude == freezed
+      longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      accuracyValue: accuracyValue == freezed
+      accuracyValue: null == accuracyValue
           ? _value.accuracyValue
           : accuracyValue // ignore: cast_nullable_to_non_nullable
               as double,
-      accuracy: accuracy == freezed
+      accuracy: null == accuracy
           ? _value.accuracy
           : accuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      altitude: altitude == freezed
+      altitude: null == altitude
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMetersPerSec: speedMetersPerSec == freezed
+      speedMetersPerSec: null == speedMetersPerSec
           ? _value.speedMetersPerSec
           : speedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as double,
-      speedAccuracyValue: speedAccuracyValue == freezed
+      speedAccuracyValue: null == speedAccuracyValue
           ? _value.speedAccuracyValue
           : speedAccuracyValue // ignore: cast_nullable_to_non_nullable
               as double,
-      speedAccuracy: speedAccuracy == freezed
+      speedAccuracy: null == speedAccuracy
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      headingDegrees: headingDegrees == freezed
+      headingDegrees: null == headingDegrees
           ? _value.headingDegrees
           : headingDegrees // ignore: cast_nullable_to_non_nullable
               as double,
-      timeStampSec: timeStampSec == freezed
+      timeStampSec: null == timeStampSec
           ? _value.timeStampSec
           : timeStampSec // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_LocationStatusCopyWith<$Res> implements $LocationStatusCopyWith<$Res> {
-  factory _$$_LocationStatusCopyWith(_$_LocationStatus value, $Res Function(_$_LocationStatus) then) =
+abstract class _$$_LocationStatusCopyWith<$Res>
+    implements $LocationStatusCopyWith<$Res> {
+  factory _$$_LocationStatusCopyWith(
+          _$_LocationStatus value, $Res Function(_$_LocationStatus) then) =
       __$$_LocationStatusCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {double latitude,
       double longitude,
@@ -133,65 +147,65 @@ abstract class _$$_LocationStatusCopyWith<$Res> implements $LocationStatusCopyWi
 }
 
 /// @nodoc
-class __$$_LocationStatusCopyWithImpl<$Res> extends _$LocationStatusCopyWithImpl<$Res>
+class __$$_LocationStatusCopyWithImpl<$Res>
+    extends _$LocationStatusCopyWithImpl<$Res, _$_LocationStatus>
     implements _$$_LocationStatusCopyWith<$Res> {
-  __$$_LocationStatusCopyWithImpl(_$_LocationStatus _value, $Res Function(_$_LocationStatus) _then)
-      : super(_value, (v) => _then(v as _$_LocationStatus));
+  __$$_LocationStatusCopyWithImpl(
+      _$_LocationStatus _value, $Res Function(_$_LocationStatus) _then)
+      : super(_value, _then);
 
-  @override
-  _$_LocationStatus get _value => super._value as _$_LocationStatus;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? latitude = freezed,
-    Object? longitude = freezed,
-    Object? accuracyValue = freezed,
-    Object? accuracy = freezed,
-    Object? altitude = freezed,
-    Object? speedMetersPerSec = freezed,
-    Object? speedAccuracyValue = freezed,
-    Object? speedAccuracy = freezed,
-    Object? headingDegrees = freezed,
-    Object? timeStampSec = freezed,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? accuracyValue = null,
+    Object? accuracy = null,
+    Object? altitude = null,
+    Object? speedMetersPerSec = null,
+    Object? speedAccuracyValue = null,
+    Object? speedAccuracy = null,
+    Object? headingDegrees = null,
+    Object? timeStampSec = null,
   }) {
     return _then(_$_LocationStatus(
-      latitude: latitude == freezed
+      latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: longitude == freezed
+      longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      accuracyValue: accuracyValue == freezed
+      accuracyValue: null == accuracyValue
           ? _value.accuracyValue
           : accuracyValue // ignore: cast_nullable_to_non_nullable
               as double,
-      accuracy: accuracy == freezed
+      accuracy: null == accuracy
           ? _value.accuracy
           : accuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      altitude: altitude == freezed
+      altitude: null == altitude
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMetersPerSec: speedMetersPerSec == freezed
+      speedMetersPerSec: null == speedMetersPerSec
           ? _value.speedMetersPerSec
           : speedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as double,
-      speedAccuracyValue: speedAccuracyValue == freezed
+      speedAccuracyValue: null == speedAccuracyValue
           ? _value.speedAccuracyValue
           : speedAccuracyValue // ignore: cast_nullable_to_non_nullable
               as double,
-      speedAccuracy: speedAccuracy == freezed
+      speedAccuracy: null == speedAccuracy
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      headingDegrees: headingDegrees == freezed
+      headingDegrees: null == headingDegrees
           ? _value.headingDegrees
           : headingDegrees // ignore: cast_nullable_to_non_nullable
               as double,
-      timeStampSec: timeStampSec == freezed
+      timeStampSec: null == timeStampSec
           ? _value.timeStampSec
           : timeStampSec // ignore: cast_nullable_to_non_nullable
               as double,
@@ -214,7 +228,8 @@ class _$_LocationStatus implements _LocationStatus {
       this.headingDegrees = 0.0,
       this.timeStampSec = 0.0});
 
-  factory _$_LocationStatus.fromJson(Map<String, dynamic> json) => _$$_LocationStatusFromJson(json);
+  factory _$_LocationStatus.fromJson(Map<String, dynamic> json) =>
+      _$$_LocationStatusFromJson(json);
 
   @override
   @JsonKey()
@@ -257,41 +272,54 @@ class _$_LocationStatus implements _LocationStatus {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LocationStatus &&
-            const DeepCollectionEquality().equals(other.latitude, latitude) &&
-            const DeepCollectionEquality().equals(other.longitude, longitude) &&
-            const DeepCollectionEquality().equals(other.accuracyValue, accuracyValue) &&
-            const DeepCollectionEquality().equals(other.accuracy, accuracy) &&
-            const DeepCollectionEquality().equals(other.altitude, altitude) &&
-            const DeepCollectionEquality().equals(other.speedMetersPerSec, speedMetersPerSec) &&
-            const DeepCollectionEquality().equals(other.speedAccuracyValue, speedAccuracyValue) &&
-            const DeepCollectionEquality().equals(other.speedAccuracy, speedAccuracy) &&
-            const DeepCollectionEquality().equals(other.headingDegrees, headingDegrees) &&
-            const DeepCollectionEquality().equals(other.timeStampSec, timeStampSec));
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.accuracyValue, accuracyValue) ||
+                other.accuracyValue == accuracyValue) &&
+            (identical(other.accuracy, accuracy) ||
+                other.accuracy == accuracy) &&
+            (identical(other.altitude, altitude) ||
+                other.altitude == altitude) &&
+            (identical(other.speedMetersPerSec, speedMetersPerSec) ||
+                other.speedMetersPerSec == speedMetersPerSec) &&
+            (identical(other.speedAccuracyValue, speedAccuracyValue) ||
+                other.speedAccuracyValue == speedAccuracyValue) &&
+            (identical(other.speedAccuracy, speedAccuracy) ||
+                other.speedAccuracy == speedAccuracy) &&
+            (identical(other.headingDegrees, headingDegrees) ||
+                other.headingDegrees == headingDegrees) &&
+            (identical(other.timeStampSec, timeStampSec) ||
+                other.timeStampSec == timeStampSec));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(latitude),
-      const DeepCollectionEquality().hash(longitude),
-      const DeepCollectionEquality().hash(accuracyValue),
-      const DeepCollectionEquality().hash(accuracy),
-      const DeepCollectionEquality().hash(altitude),
-      const DeepCollectionEquality().hash(speedMetersPerSec),
-      const DeepCollectionEquality().hash(speedAccuracyValue),
-      const DeepCollectionEquality().hash(speedAccuracy),
-      const DeepCollectionEquality().hash(headingDegrees),
-      const DeepCollectionEquality().hash(timeStampSec));
+      latitude,
+      longitude,
+      accuracyValue,
+      accuracy,
+      altitude,
+      speedMetersPerSec,
+      speedAccuracyValue,
+      speedAccuracy,
+      headingDegrees,
+      timeStampSec);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LocationStatusCopyWith<_$_LocationStatus> get copyWith =>
       __$$_LocationStatusCopyWithImpl<_$_LocationStatus>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LocationStatusToJson(this);
+    return _$$_LocationStatusToJson(
+      this,
+    );
   }
 }
 
@@ -308,29 +336,31 @@ abstract class _LocationStatus implements LocationStatus {
       final double headingDegrees,
       final double timeStampSec}) = _$_LocationStatus;
 
-  factory _LocationStatus.fromJson(Map<String, dynamic> json) = _$_LocationStatus.fromJson;
+  factory _LocationStatus.fromJson(Map<String, dynamic> json) =
+      _$_LocationStatus.fromJson;
 
   @override
-  double get latitude => throw _privateConstructorUsedError;
+  double get latitude;
   @override
-  double get longitude => throw _privateConstructorUsedError;
+  double get longitude;
   @override
-  double get accuracyValue => throw _privateConstructorUsedError;
+  double get accuracyValue;
   @override
-  LocationAccuracyType get accuracy => throw _privateConstructorUsedError;
+  LocationAccuracyType get accuracy;
   @override
-  double get altitude => throw _privateConstructorUsedError;
+  double get altitude;
   @override
-  double get speedMetersPerSec => throw _privateConstructorUsedError;
+  double get speedMetersPerSec;
   @override
-  double get speedAccuracyValue => throw _privateConstructorUsedError;
+  double get speedAccuracyValue;
   @override
-  LocationAccuracyType get speedAccuracy => throw _privateConstructorUsedError;
+  LocationAccuracyType get speedAccuracy;
   @override
-  double get headingDegrees => throw _privateConstructorUsedError;
+  double get headingDegrees;
   @override
-  double get timeStampSec => throw _privateConstructorUsedError;
+  double get timeStampSec;
   @override
   @JsonKey(ignore: true)
-  _$$_LocationStatusCopyWith<_$_LocationStatus> get copyWith => throw _privateConstructorUsedError;
+  _$$_LocationStatusCopyWith<_$_LocationStatus> get copyWith =>
+      throw _privateConstructorUsedError;
 }

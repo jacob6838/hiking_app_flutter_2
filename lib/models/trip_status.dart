@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum TripStatus { active, paused, stopped }
 
 extension TripStatusName on TripStatus {
