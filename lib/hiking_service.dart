@@ -49,10 +49,14 @@ class HikingService {
   HikeMetrics? _prevHikeMetrics;
 
   final BehaviorSubject<bool> _activeStatusSub = BehaviorSubject.seeded(false);
-  final BehaviorSubject<LocationStatus> _currentLocationStatusSub = BehaviorSubject.seeded(const LocationStatus());
-  final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub = BehaviorSubject.seeded(const HikeMetrics());
-  final BehaviorSubject<List<LocationStatus>> currentPathSub = BehaviorSubject.seeded([]);
-  final BehaviorSubject<List<LocationStatus>> currentRawPathSub = BehaviorSubject.seeded([]);
+  final BehaviorSubject<LocationStatus> _currentLocationStatusSub =
+      BehaviorSubject.seeded(const LocationStatus());
+  final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub =
+      BehaviorSubject.seeded(const HikeMetrics());
+  final BehaviorSubject<List<LocationStatus>> currentPathSub =
+      BehaviorSubject.seeded([]);
+  final BehaviorSubject<List<LocationStatus>> currentRawPathSub =
+      BehaviorSubject.seeded([]);
 
   HikingService({required LocationService locationService})
       : _lastUpdateTimeSec = 0,
@@ -67,16 +71,21 @@ class HikingService {
     archiveService.activeDataArchive.listen(_handleArchiveChange);
   }
 
-  final BehaviorSubject<PlotValues> elevationPlot = BehaviorSubject<PlotValues>();
+  final BehaviorSubject<PlotValues> elevationPlot =
+      BehaviorSubject<PlotValues>();
   final BehaviorSubject<PlotValues> speedPlot = BehaviorSubject<PlotValues>();
 
-  Stream<bool> get currentHikerStatus$ => _activeStatusSub.stream.asBroadcastStream();
+  Stream<bool> get currentHikerStatus$ =>
+      _activeStatusSub.stream.asBroadcastStream();
 
-  BehaviorSubject<LocationStatus> get currentLocationStatus => BehaviorSubject<LocationStatus>();
+  BehaviorSubject<LocationStatus> get currentLocationStatus =>
+      BehaviorSubject<LocationStatus>();
 
-  Stream<HikeMetrics> get currentHikerMetrics$ => _currentHikerMetricsSub.stream.asBroadcastStream();
+  Stream<HikeMetrics> get currentHikerMetrics$ =>
+      _currentHikerMetricsSub.stream.asBroadcastStream();
 
-  Future<String?> toggleStatus(BuildContext context, HikingService hikingService) async {
+  Future<String?> toggleStatus(
+      BuildContext context, HikingService hikingService) async {
     if (!_hikeIsActive) {
       if (!await hikingService._locationService.locationAlwaysGranted()) {
         await showDialog(
@@ -85,8 +94,10 @@ class HikingService {
         );
       }
 
-      final locationAlwaysEnabled = await hikingService._locationService.requestEnableLocationAlways();
-      final gpsEnabled = await hikingService._locationService.requestEnableGps();
+      final locationAlwaysEnabled =
+          await hikingService._locationService.requestEnableLocationAlways();
+      final gpsEnabled =
+          await hikingService._locationService.requestEnableGps();
       if (gpsEnabled && locationAlwaysEnabled) {
         _hikeIsActive = !_hikeIsActive;
         _activeStatusSub.add(_hikeIsActive);
@@ -188,12 +199,12 @@ class HikingService {
         ],
       ),
       actions: <Widget>[
-        RaisedButton(
+        OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
+          child: Text('Close',
+              style: TextStyle(color: Theme.of(context).primaryColor)),
         ),
       ],
     );
@@ -211,12 +222,12 @@ class HikingService {
         ],
       ),
       actions: <Widget>[
-        RaisedButton(
+        OutlinedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
+          child: Text('Close',
+              style: TextStyle(color: Theme.of(context).primaryColor)),
         ),
       ],
     );
@@ -234,7 +245,8 @@ class HikingService {
       locationFilter = LocationFilter(locationStatus);
       // print("First Time!");
       _prevLocation = locationStatus;
-      _hikeMetricsTotal = getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
+      _hikeMetricsTotal =
+          getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
       _prevHikeMetrics = _hikeMetricsTotal;
 
       _currentPath.add(_prevLocation!);
@@ -252,7 +264,8 @@ class HikingService {
 
     /// Check time elapsed, if less than updateIntervalSec then return
     // final double deltaSec = locationStatus.timeStampSec - _prevLocation.timeStampSec;
-    final double deltaSec = filteredLocation.timeStampSec - _prevLocation!.timeStampSec;
+    final double deltaSec =
+        filteredLocation.timeStampSec - _prevLocation!.timeStampSec;
     if (deltaSec < updateIntervalSec) return;
 
     // print('Updating location');
@@ -269,16 +282,18 @@ class HikingService {
       LatLng(_currentPath.first.latitude, _currentPath.first.longitude),
     ).toDouble();
     // print("DISTANCE: ${totalDistance*3.28/5280}");
-    filteredLocation =
-        filteredLocation.copyWith(speedMetersPerSec: totalDistance / (_prevHikeMetrics!.metricPeriodSeconds + deltaSec));
+    filteredLocation = filteredLocation.copyWith(
+        speedMetersPerSec:
+            totalDistance / (_prevHikeMetrics!.metricPeriodSeconds + deltaSec));
 
     currentLocationStatus.add(locationStatus);
 
     if (deltaDistance < filteredLocation.accuracy.value / 2) {
       // print("NOT MOVED ENOUGH");
 
-      final HikeMetrics currMetrics =
-          _prevHikeMetrics!.copyWith(metricPeriodSeconds: _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
+      final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
+          metricPeriodSeconds:
+              _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
 
       /// Save location update to current hike
       _currentPath.add(_prevLocation!);
@@ -290,7 +305,8 @@ class HikingService {
       elevationPlot.add(toElevationPlotValues(currMetrics));
       speedPlot.add(toSpeedPlotValues(currMetrics));
 
-      _prevLocation = _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
+      _prevLocation =
+          _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
       _prevHikeMetrics = currMetrics;
     } else {
       // print("YES MOVED ENOUGH");
@@ -321,7 +337,8 @@ class HikingService {
 
   PlotValues toElevationPlotValues(HikeMetrics metric) {
     List<List<double>> elevationValues = List.of(elevationPlotValues!.values);
-    elevationValues.add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
+    elevationValues
+        .add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
 
     double elevRange = (metric.altitudeMax - metric.altitudeMin) * 3.28084;
     if (elevRange <= 10) {
@@ -345,7 +362,10 @@ class HikingService {
 
   PlotValues toSpeedPlotValues(HikeMetrics metric) {
     final List<List<double>> speedValues = List.of(speedPlotValues!.values);
-    speedValues.add([metric.metricPeriodSeconds, metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond]);
+    speedValues.add([
+      metric.metricPeriodSeconds,
+      metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond
+    ]);
 
     double speedRangeMPH = metric.speedMax * MilesPerHourPerMetersPerSecond;
     if (speedRangeMPH <= .1) {
@@ -439,10 +459,12 @@ HikeMetrics accumulateMetrics({
     // Heading
     distanceTraveled: prevMetrics.distanceTraveled + deltaDistance,
     netElevationChange: currLoc.altitude - prevMetrics.altitudeStart,
-    cumulativeClimbMeters:
-        deltaAltitude > 0 ? prevMetrics.cumulativeClimbMeters + deltaAltitude : prevMetrics.cumulativeClimbMeters,
-    cumulativeDescentMeters:
-        deltaAltitude < 0 ? prevMetrics.cumulativeDescentMeters - deltaAltitude : prevMetrics.cumulativeDescentMeters,
+    cumulativeClimbMeters: deltaAltitude > 0
+        ? prevMetrics.cumulativeClimbMeters + deltaAltitude
+        : prevMetrics.cumulativeClimbMeters,
+    cumulativeDescentMeters: deltaAltitude < 0
+        ? prevMetrics.cumulativeDescentMeters - deltaAltitude
+        : prevMetrics.cumulativeDescentMeters,
     metricPeriodSeconds: prevMetrics.metricPeriodSeconds + updatePeriodSec,
   );
   // _distanceTraveled += _distanceDelta.abs();
@@ -461,7 +483,8 @@ double getAvgSpeed(
   double currentSpeedMetersPerSec,
 ) {
   // print("prevAvg: $prevAvgSpeedMetersPerSec, prevPeriod: $previousDurationSec, currAvg: $currentSpeedMetersPerSec, currPeriod: $updatePeriodSec");
-  return (prevAvgSpeedMetersPerSec * previousDurationSec + currentSpeedMetersPerSec * updatePeriodSec) /
+  return (prevAvgSpeedMetersPerSec * previousDurationSec +
+          currentSpeedMetersPerSec * updatePeriodSec) /
       (previousDurationSec + updatePeriodSec);
 }
 
@@ -469,7 +492,8 @@ double getAvgSpeed(
 double toSeconds(double timeStamp) => timeStamp / millisecondsPerSecond;
 
 /// Return the current time in seconds since epoch.
-double getCurrentTimeSeconds() => DateTime.now().millisecondsSinceEpoch / millisecondsPerSecond;
+double getCurrentTimeSeconds() =>
+    DateTime.now().millisecondsSinceEpoch / millisecondsPerSecond;
 
 /// Convert an accuracy value from Flutter location API to an enum
 LocationAccuracyType toAccuracyType(double accuracy) {

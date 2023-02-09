@@ -48,11 +48,13 @@ class TripSummaryPageState extends State<TripSummaryPage> {
   @override
   Widget build(BuildContext context) {
     _hikingService = Provider.of<HikingService>(context);
-    _hikingService!.archiveService.currentArchiveList.listen((archiveList) async {
+    _hikingService!.archiveService.currentArchiveList
+        .listen((archiveList) async {
       if (_prevDropdownValue == null && archiveList.isNotEmpty) {
         print("ARCHIVE LIST: $archiveList");
         _prevDropdownValue = archiveList.first;
-        await _hikingService!.archiveService.activateArchive(_prevDropdownValue!);
+        await _hikingService!.archiveService
+            .activateArchive(_prevDropdownValue!);
         setState(() {
           dropdownValue = _prevDropdownValue;
         });
@@ -106,13 +108,15 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                         ),
                         onChanged: (String? newValue) {
                           if (newValue == null) return;
-                          _hikingService!.archiveService.activateArchive(newValue);
+                          _hikingService!.archiveService
+                              .activateArchive(newValue);
                           print("Setting archive to: $newValue");
                           setState(() {
                             dropdownValue = newValue;
                           });
                         },
-                        items: dropDownValues?.map<DropdownMenuItem<String>>((String value) {
+                        items: dropDownValues
+                            ?.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -132,9 +136,11 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                           context,
                           "Are you sure you want to delete trip $dropdownValue?",
                           () async {
-                            await _hikingService!.archiveService.deleteArchive(dropdownValue!);
+                            await _hikingService!.archiveService
+                                .deleteArchive(dropdownValue!);
                             setState(() {
-                              dropdownValue = _hikingService!.archiveService.currentArchiveList.value.first;
+                              dropdownValue = _hikingService!.archiveService
+                                  .currentArchiveList.value.first;
                             });
                           },
                         ),
@@ -152,15 +158,22 @@ class TripSummaryPageState extends State<TripSummaryPage> {
             StreamBuilder<List<LocationStatus>>(
                 stream: _hikingService!.currentPathSub,
                 builder: (context, snapshot) {
-                  List<LatLng> pathList = snapshot.data?.map(locationStatusToLatLong).toList() ?? [];
-                  List<LatLng> unfilteredPathList = _hikingService!.currentRawPathSub.value.map(locationStatusToLatLong).toList();
+                  List<LatLng> pathList =
+                      snapshot.data?.map(locationStatusToLatLong).toList() ??
+                          [];
+                  List<LatLng> unfilteredPathList = _hikingService!
+                      .currentRawPathSub.value
+                      .map(locationStatusToLatLong)
+                      .toList();
                   print("$mapController, ${pathList.length}");
                   if (pathList != []) {
                     final pair = getPathBounds(pathList);
                     if (pair != null) {
-                      final LatLngBounds bounds = LatLngBounds(northeast: pair.first, southwest: pair.second);
+                      final LatLngBounds bounds = LatLngBounds(
+                          northeast: pair.first, southwest: pair.second);
                       if (mapController != null) {
-                        mapController?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 20));
+                        mapController?.animateCamera(
+                            CameraUpdate.newLatLngBounds(bounds, 20));
                       }
                     }
                   }
@@ -194,8 +207,10 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                         print("$mapController, ${pathList.length}");
                         final pair = getPathBounds(pathList);
                         if (pair != null) {
-                          final LatLngBounds bounds = LatLngBounds(northeast: pair.first, southwest: pair.second);
-                          mapController?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 20));
+                          final LatLngBounds bounds = LatLngBounds(
+                              northeast: pair.first, southwest: pair.second);
+                          mapController?.animateCamera(
+                              CameraUpdate.newLatLngBounds(bounds, 20));
                         }
                         // controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 0));
                       },
@@ -204,11 +219,15 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                             -74.7244817), //locationStatusToLatLong(snapshot.data?.first ?? LocationStatus(latitude: 40, longitude: -74)),
                         zoom: 0,
                       ),
-                      gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
+                      gestureRecognizers: Set()
+                        ..add(Factory<EagerGestureRecognizer>(
+                            () => EagerGestureRecognizer())),
                     ),
                   );
                 }),
-            MetricsTable(hikingService: _hikingService!, metricsHiddenMap: List.filled(22, true)),
+            MetricsTable(
+                hikingService: _hikingService!,
+                metricsHiddenMap: List.filled(22, true)),
             Padding(
               padding: EdgeInsets.only(bottom: 50),
               child: Row(children: <Widget>[
@@ -216,13 +235,17 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                     stream: _hikingService!.elevationPlot,
                     builder: (context, snapshot) {
                       final plotValues = snapshot.data ?? PlotValues();
-                      return MetricPlot(hikingService: _hikingService!, plotValues: plotValues);
+                      return MetricPlot(
+                          hikingService: _hikingService!,
+                          plotValues: plotValues);
                     }),
                 StreamBuilder<PlotValues>(
                     stream: _hikingService!.speedPlot,
                     builder: (context, snapshot) {
                       final plotValues = snapshot.data ?? PlotValues();
-                      return MetricPlot(hikingService: _hikingService!, plotValues: plotValues);
+                      return MetricPlot(
+                          hikingService: _hikingService!,
+                          plotValues: plotValues);
                     }),
               ]),
             )
@@ -253,17 +276,21 @@ class TripSummaryPageState extends State<TripSummaryPage> {
     LatLng? southwest;
     path.forEach((point) {
       if (northeast == null || point.latitude > northeast!.latitude) {
-        northeast = LatLng(point.latitude, northeast?.longitude ?? point.longitude);
+        northeast =
+            LatLng(point.latitude, northeast?.longitude ?? point.longitude);
       }
       if (northeast == null || point.longitude > northeast!.longitude) {
-        northeast = LatLng(northeast?.latitude ?? point.latitude, point.longitude);
+        northeast =
+            LatLng(northeast?.latitude ?? point.latitude, point.longitude);
       }
 
       if (southwest == null || point.latitude < southwest!.latitude) {
-        southwest = LatLng(point.latitude, southwest?.longitude ?? point.longitude);
+        southwest =
+            LatLng(point.latitude, southwest?.longitude ?? point.longitude);
       }
       if (southwest == null || point.longitude < southwest!.longitude) {
-        southwest = LatLng(southwest?.latitude ?? point.latitude, point.longitude);
+        southwest =
+            LatLng(southwest?.latitude ?? point.latitude, point.longitude);
       }
     });
     if (northeast == null || southwest == null) return null;
@@ -297,7 +324,8 @@ class TripSummaryPageState extends State<TripSummaryPage> {
     _hikingService.toggleStatus(context, _hikingService);
   }
 
-  Widget confirmDeletionPopup(BuildContext context, String message, Function onConfirmCallback) {
+  Widget confirmDeletionPopup(
+      BuildContext context, String message, Function onConfirmCallback) {
     return AlertDialog(
       title: const Text('Confirm Action'),
       content: Column(
@@ -308,21 +336,20 @@ class TripSummaryPageState extends State<TripSummaryPage> {
         ],
       ),
       actions: <Widget>[
-        RaisedButton(
+        OutlinedButton(
           onPressed: () {
-            print("cancel");
             Navigator.of(context).pop();
           },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Cancel'),
+          child: Text('Cancel',
+              style: TextStyle(color: Theme.of(context).primaryColor)),
         ),
-        RaisedButton(
+        OutlinedButton(
           onPressed: () {
             onConfirmCallback();
             Navigator.of(context).pop();
           },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Confirm'),
+          child: Text('Confirm',
+              style: TextStyle(color: Theme.of(context).primaryColor)),
         ),
       ],
     );
