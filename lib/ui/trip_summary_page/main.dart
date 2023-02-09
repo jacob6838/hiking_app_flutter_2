@@ -193,10 +193,6 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                             points: unfilteredPathList),
                         Polyline(
                             polylineId: const PolylineId("path"),
-                            // points: [
-                            //   LatLng(40.275266, -74.7244817),
-                            //   LatLng(40.2753119, -74.7242424),
-                            // ]
                             width: 5,
                             color: Colors.blue,
                             points: pathList),
@@ -204,19 +200,21 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                       onMapCreated: (GoogleMapController controller) {
                         mapController = controller;
                         _controller.complete(controller);
-                        print("$mapController, ${pathList.length}");
+
                         final pair = getPathBounds(pathList);
                         if (pair != null) {
                           final LatLngBounds bounds = LatLngBounds(
                               northeast: pair.first, southwest: pair.second);
-                          mapController?.animateCamera(
-                              CameraUpdate.newLatLngBounds(bounds, 20));
+                          if (pair.first.latitude != pair.second.latitude &&
+                              pair.first.longitude != pair.second.longitude) {
+                            print("MOVING CAMERA");
+                            mapController?.animateCamera(
+                                CameraUpdate.newLatLngBounds(bounds, 20));
+                          }
                         }
-                        // controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 0));
                       },
                       initialCameraPosition: const CameraPosition(
-                        target: LatLng(40.275266,
-                            -74.7244817), //locationStatusToLatLong(snapshot.data?.first ?? LocationStatus(latitude: 40, longitude: -74)),
+                        target: LatLng(40.275266, -74.7244817),
                         zoom: 0,
                       ),
                       gestureRecognizers: Set()
@@ -321,7 +319,7 @@ class TripSummaryPageState extends State<TripSummaryPage> {
   }
 
   void onEnableBtnClicked(BuildContext context, HikingService _hikingService) {
-    _hikingService.toggleStatus(context, _hikingService);
+    _hikingService.toggleStatus(context, _hikingService, "");
   }
 
   Widget confirmDeletionPopup(

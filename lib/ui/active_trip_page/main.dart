@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hiking_app/models/plot_values.dart';
 import 'package:hiking_app/ui/trip_summary_page/main.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../hiking_service.dart';
@@ -18,11 +19,20 @@ class ActiveTripPage extends StatefulWidget {
 class ActiveTripPageState extends State<ActiveTripPage> {
   HikingService? _hikingService;
   bool isDropdownEnabled = true;
+  String tripName = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tripName = DateFormat('yyyy-MM-dd_kk:mm:ss').format(DateTime.now());
+  }
 
   @override
   Widget build(BuildContext context) {
     _hikingService = Provider.of<HikingService>(context);
-    const dateTextStyle = TextStyle(fontSize: 10, color: Colors.purple, fontWeight: FontWeight.bold);
+    const dateTextStyle = TextStyle(
+        fontSize: 10, color: Colors.purple, fontWeight: FontWeight.bold);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,19 +60,36 @@ class ActiveTripPageState extends State<ActiveTripPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MetricsTable(hikingService: _hikingService!, metricsHiddenMap: List.filled(22, true)),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                      initialValue: tripName,
+                      onChanged: (val) {
+                        print(tripName);
+                        setState(() {
+                          tripName = val;
+                        });
+                      }),
+                ),
+                MetricsTable(
+                    hikingService: _hikingService!,
+                    metricsHiddenMap: List.filled(22, true)),
                 Row(children: <Widget>[
                   StreamBuilder<PlotValues>(
                       stream: _hikingService!.elevationPlot,
                       builder: (context, snapshot) {
                         final plotValues = snapshot.data ?? PlotValues();
-                        return MetricPlot(hikingService: _hikingService!, plotValues: plotValues);
+                        return MetricPlot(
+                            hikingService: _hikingService!,
+                            plotValues: plotValues);
                       }),
                   StreamBuilder<PlotValues>(
                       stream: _hikingService!.speedPlot,
                       builder: (context, snapshot) {
                         final plotValues = snapshot.data ?? PlotValues();
-                        return MetricPlot(hikingService: _hikingService!, plotValues: plotValues);
+                        return MetricPlot(
+                            hikingService: _hikingService!,
+                            plotValues: plotValues);
                       }),
                 ]),
                 StreamBuilder<bool>(
@@ -74,32 +101,37 @@ class ActiveTripPageState extends State<ActiveTripPage> {
                           width: 80,
                           child: Container(
                               decoration: BoxDecoration(
-                                color: !activeStatus ? Colors.green : Colors.red,
+                                color:
+                                    !activeStatus ? Colors.green : Colors.red,
                                 shape: BoxShape.circle,
                               ),
                               child: InkWell(
                                 onTap: () async {
-                                  print("Button Pressed");
-                                  print(activeStatus);
                                   if (activeStatus) {
                                     setState(() {
                                       isDropdownEnabled = true;
                                     });
-                                    final name = await onEnableBtnClicked(context, _hikingService!);
+                                    await onEnableBtnClicked(
+                                        context, _hikingService!, tripName);
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => TripSummaryPage()),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const TripSummaryPage()),
                                     );
                                     // tripName: name
                                   } else {
                                     setState(() {
                                       isDropdownEnabled = false;
                                     });
-                                    onEnableBtnClicked(context, _hikingService!);
+                                    onEnableBtnClicked(
+                                        context, _hikingService!, tripName);
                                   }
                                 },
                                 child: Icon(
-                                  !activeStatus ? Icons.play_arrow : Icons.stop_rounded,
+                                  !activeStatus
+                                      ? Icons.play_arrow
+                                      : Icons.stop_rounded,
                                   color: Colors.white,
                                   size: 60,
                                 ),
@@ -134,8 +166,9 @@ class ActiveTripPageState extends State<ActiveTripPage> {
   //   }
   // }
 
-  Future<String?> onEnableBtnClicked(BuildContext context, HikingService _hikingService) async {
-    return _hikingService.toggleStatus(context, _hikingService);
+  Future<String?> onEnableBtnClicked(BuildContext context,
+      HikingService _hikingService, String tripName) async {
+    return _hikingService.toggleStatus(context, _hikingService, tripName);
   }
 
   String _enableBtnName(bool activeStatus) {

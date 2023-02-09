@@ -84,8 +84,8 @@ class HikingService {
   Stream<HikeMetrics> get currentHikerMetrics$ =>
       _currentHikerMetricsSub.stream.asBroadcastStream();
 
-  Future<String?> toggleStatus(
-      BuildContext context, HikingService hikingService) async {
+  Future<String?> toggleStatus(BuildContext context,
+      HikingService hikingService, String tripName) async {
     if (!_hikeIsActive) {
       if (!await hikingService._locationService.locationAlwaysGranted()) {
         await showDialog(
@@ -151,31 +151,30 @@ class HikingService {
       );
     } else {
       hikingService._locationService.stopLocationService();
-      return archiveCurrentTripData();
+      return archiveCurrentTripData(tripName);
     }
     return null;
   }
 
   void _handleArchiveChange(DataArchive dataArchive) async {
     // print("ARCHIVE CAHANGING TO $dataArchive");
-    _currentHikerMetricsSub.value = dataArchive.hikeMetrics!;
-    currentPathSub.value = dataArchive.locationHistory!;
-    currentRawPathSub.value = dataArchive.unfilteredLocationHistory!;
-    elevationPlot.value = dataArchive.elevationPlot!;
-    speedPlot.value = dataArchive.speedPlot!;
+    _currentHikerMetricsSub.value =
+        dataArchive.hikeMetrics ?? const HikeMetrics();
+    currentPathSub.value = dataArchive.locationHistory ?? [];
+    currentRawPathSub.value = dataArchive.unfilteredLocationHistory ?? [];
+    elevationPlot.value = dataArchive.elevationPlot ?? PlotValues();
+    speedPlot.value = dataArchive.speedPlot ?? PlotValues();
   }
 
-  Future<String> archiveCurrentTripData() async {
+  Future<String> archiveCurrentTripData(String tripName) async {
     final dataArchive = DataArchive(
         hikeMetrics: _currentHikerMetricsSub.value,
         locationHistory: currentPathSub.value,
         unfilteredLocationHistory: currentRawPathSub.value,
         elevationPlot: elevationPlot.value,
         speedPlot: speedPlot.value);
-    DateTime now = DateTime.now();
-    final name = DateFormat('yyyy-MM-dd_kk:mm:ss').format(now);
-    await archiveService.createArchive(name, dataArchive);
-    return name;
+    await archiveService.createArchive(tripName, dataArchive);
+    return tripName;
   }
 
   void clearData() {

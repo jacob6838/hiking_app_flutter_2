@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:hiking_app/models/hike_metrics.dart';
+import 'package:kt_dart/collection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -8,22 +9,30 @@ import 'models/data_archive.dart';
 
 class ArchiveService {
   BehaviorSubject<List<String>> currentArchiveList = BehaviorSubject();
-  BehaviorSubject<DataArchive> activeDataArchive = BehaviorSubject.seeded(const DataArchive(hikeMetrics: HikeMetrics()));
+  BehaviorSubject<DataArchive> activeDataArchive =
+      BehaviorSubject.seeded(const DataArchive(hikeMetrics: HikeMetrics()));
 
   ArchiveService() {
     print("INITIALIZING DATA ARCHIVE");
     listArchives().then((value) => currentArchiveList.value = value);
   }
 
-  String getNameFromPath(String fullPath) => fullPath.split('/').last.replaceAll(".json", "");
+  String getNameFromPath(String fullPath) =>
+      fullPath.split('/').last.replaceAll(".json", "");
 
   Future<List<String>> listArchives() async {
     final path = await _getDocsDir();
     final docs = Directory(path);
     List<String> names = [];
     if (await docs.exists()) {
-      names = await docs.list().map((it) => getNameFromPath(it.path)).toList();
-      names.sort();
+      List<KtPair<String, DateTime>> files = [];
+      await docs.list().forEach((f) async {
+        String name = getNameFromPath(f.path);
+        DateTime modified = (await f.stat()).modified;
+        files.add(KtPair(name, modified));
+      });
+      files.sort((a, b) => a.second.compareTo(b.second));
+      names = files.map((it) => it.first).toList();
       names = names.reversed.toList();
     }
     print(names);
@@ -49,6 +58,7 @@ class ArchiveService {
   Future<File> createArchive(String name, DataArchive data) async {
     final file = await _newArchive(name);
     await _writeArchiveToFile(file, data);
+    print("CREATED ARCHIVE FOR $name");
     currentArchiveList.value = await listArchives();
     return file;
   }
