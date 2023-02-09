@@ -29,22 +29,7 @@ class ActiveTripPageState extends State<ActiveTripPage> {
 
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: const Text('Hello, Hiker!'),
-        // actions: <Widget>[
-        //   PopupMenuButton<String>(
-        //     onSelected: handleClick,
-        //     itemBuilder: (BuildContext context) {
-        //       return {'Trips', 'Settings'}.map((String choice) {
-        //         return PopupMenuItem<String>(
-        //           value: choice,
-        //           child: Text(choice),
-        //         );
-        //       }).toList();
-        //     },
-        //   ),
-        // ],
       ),
       body: ListView(
         // shrinkWrap: true,
@@ -79,9 +64,8 @@ class ActiveTripPageState extends State<ActiveTripPage> {
                     builder: (context, AsyncSnapshot<TripStatus> snapshot) {
                       final TripStatus activeStatus =
                           snapshot.data ?? TripStatus.stopped;
-                      Function(TripStatusCommand sendCommand) sendCommand =
-                          (command) => onEnableBtnClicked(
-                              context, _hikingService!, command);
+                      sendCommand(command) =>
+                          onEnableBtnClicked(context, _hikingService!, command);
 
                       return StatusButtons(activeStatus, sendCommand);
                     }),
@@ -90,29 +74,8 @@ class ActiveTripPageState extends State<ActiveTripPage> {
           ),
         ],
       ),
-      // floatingActionButton: !isDropdownEnabled ? null : FloatingActionButton.extended(
-      //   onPressed: () {
-      //     Navigator.pop(context);
-      //   },
-      //   label: const Text('View Trips'),
-      //   icon: const Icon(Icons.remove_red_eye),
-      //   backgroundColor: Colors.pink,
-      // ),
     );
   }
-
-  // void handleClick(String value) {
-  //   switch (value) {
-  //     case 'Trips':
-  //       Navigator.pop(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const TripSummaryPage()),
-  //       );
-  //       break;
-  //     case 'Settings':
-  //       break;
-  //   }
-  // }
 
   Future<String?> onEnableBtnClicked(BuildContext context,
       HikingService _hikingService, TripStatusCommand command) async {

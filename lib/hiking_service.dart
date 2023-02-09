@@ -31,8 +31,6 @@ const int minimumDistanceThreshold = 4;
 class HikingService {
   final LocationService _locationService;
   TripStatus _hikeStatus = TripStatus.stopped;
-  HikeMetrics _hikeMetricsTotal = const HikeMetrics();
-  List<HikeMetrics> _hikeMetricSegments = [];
   double _lastUpdateTimeSec = 0.0;
   PlotValues? elevationPlotValues;
   PlotValues? speedPlotValues;
@@ -41,8 +39,12 @@ class HikingService {
   /// List of all points for the current hike
   final List<LocationStatus> _currentPath = [];
   final List<LocationStatus> _unfilteredPath = [];
+  final List<LocationStatus> _segmentCurrentPath = [];
+  final List<LocationStatus> _segmentUnfilteredPath = [];
 
-  TripArchive? _currentTrip = null;
+  TripArchive? _currentTrip;
+  TripSegment? _segmentCurrentTrip;
+  bool isFirstLocation = true;
 
   int? reportPeriodSec;
 
@@ -51,6 +53,7 @@ class HikingService {
   /// Previous position used to determine when a location change is sufficiently large to warrant a hiker status update.
   LocationStatus? _prevLocation;
   HikeMetrics? _prevHikeMetrics;
+  HikeMetrics? _segmentPrevHikeMetrics;
 
   final BehaviorSubject<TripStatus> _activeStatusSub =
       BehaviorSubject.seeded(TripStatus.stopped);
@@ -59,6 +62,11 @@ class HikingService {
   final BehaviorSubject<List<LocationStatus>> currentPathSub =
       BehaviorSubject.seeded([]);
   final BehaviorSubject<List<LocationStatus>> currentRawPathSub =
+      BehaviorSubject.seeded([]);
+
+  final BehaviorSubject<List<LocationStatus>> currentSegmentPathSub =
+      BehaviorSubject.seeded([]);
+  final BehaviorSubject<List<LocationStatus>> currentSegmentRawPathSub =
       BehaviorSubject.seeded([]);
 
   final BehaviorSubject<TripArchive?> currentTripSub =
@@ -96,12 +104,12 @@ class HikingService {
       HikingService hikingService, TripStatusCommand statusCommand) async {
     TripStatus requestedStatus = statusCommand.newStatus;
     if (requestedStatus == TripStatus.active) {
-      if (!await hikingService._locationService.locationAlwaysGranted()) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) => locationDisclosurePopup(context),
-        );
-      }
+      // if (!await hikingService._locationService.locationAlwaysGranted()) {
+      //   await showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) => locationDisclosurePopup(context),
+      //   );
+      // }
 
       final locationAlwaysEnabled =
           await hikingService._locationService.requestEnableLocationAlways();
@@ -131,11 +139,11 @@ class HikingService {
 
     if (statusCommand == TripStatusCommand.start) {
       hikingService._locationService.startLocationUpdates();
-      // _prevLocation = toLocationStatus(await _locationService.location);
       _prevLocation = const LocationStatus();
-      // _hikeMetricsTotal = getInitialMetrics(_prevLocation, getCurrentTimeSeconds());
       _currentPath.clear();
       _unfilteredPath.clear();
+      _segmentCurrentPath.clear();
+      _segmentUnfilteredPath.clear();
       elevationPlotValues = PlotValues(
         values: [],
         xFormat: const PlotFormat(
@@ -159,9 +167,11 @@ class HikingService {
         width: 180,
       );
     } else if (statusCommand == TripStatusCommand.unpause) {
-      List<TripSegment> segments = _currentTrip!.tripSegments;
+      _currentTrip ??= const TripArchive();
+      List<TripSegment> segments = _currentTrip!.tripSegments.toList();
+      segments.add(const TripSegment());
 
-      _currentTrip!.tripSegments.add(new TripSegment());
+      _currentTrip = _currentTrip!.copyWith(tripSegments: segments);
       currentTripSub.add(_currentTrip);
     } else if (statusCommand == TripStatusCommand.stop) {
       hikingService._locationService.stopLocationService();
@@ -193,11 +203,11 @@ class HikingService {
   }
 
   void clearData() {
-    // currentPathSub.add([]);
-    // currentRawPathSub.add([]);
+    currentPathSub.add([]);
+    currentRawPathSub.add([]);
     _currentHikerMetricsSub.add(const HikeMetrics());
-    // elevationPlot.add(PlotValues());
-    // speedPlot.add(PlotValues());
+    elevationPlot.add(PlotValues());
+    speedPlot.add(PlotValues());
   }
 
   Widget locationDisclosurePopup(BuildContext context) {
@@ -253,21 +263,36 @@ class HikingService {
 
   /// Process an updated location from device
   void _handleLocationUpdate(LocationStatus locationStatus) {
-    // print(locationStatus.toJson());
+    print(locationStatus.toJson());
+
     /// If first point, initialize variables and return
+
+    if (isFirstLocation) {
+      isFirstLocation = false;
+      return;
+    }
     if (_prevLocation == null || _prevLocation!.timeStampSec == 0.0) {
       locationFilter = LocationFilter(locationStatus);
-      // print("First Time!");
       _prevLocation = locationStatus;
-      _hikeMetricsTotal =
+      _prevHikeMetrics =
           getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
-      _prevHikeMetrics = _hikeMetricsTotal;
+      _segmentPrevHikeMetrics =
+          getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
+
+      _currentPath.add(_prevLocation!);
+      _segmentCurrentPath.add(_prevLocation!);
+
+      _segmentCurrentTrip = TripSegment(
+          hikeMetrics: _segmentPrevHikeMetrics,
+          locationHistory: [_prevLocation!],
+          unfilteredLocationHistory: [locationStatus]);
 
       _currentTrip = TripArchive(
-        hikeMetrics: _hikeMetricsTotal,
-        tripSegments: [_currentTripSegment],
+        hikeMetrics: _prevHikeMetrics,
+        tripSegments: [_segmentCurrentTrip!],
         tripName:
             "trip_${DateFormat('yyyy-MM-dd_kk-mm-ss').format(DateTime.now())}",
+        // TODO: Add textbox
         locationHistory: [_prevLocation!],
         unfilteredLocationHistory: [locationStatus],
       );
@@ -276,6 +301,7 @@ class HikingService {
     }
 
     _unfilteredPath.add(locationStatus);
+    _segmentUnfilteredPath.add(locationStatus);
 
     // final filteredLocation = locationStatus;
     LocationStatus filteredLocation = locationFilter!.getValue(locationStatus);
@@ -312,25 +338,29 @@ class HikingService {
       final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
           metricPeriodSeconds:
               _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
+      final HikeMetrics currSegmentMetrics = _segmentPrevHikeMetrics!.copyWith(
+          metricPeriodSeconds:
+              _segmentPrevHikeMetrics!.metricPeriodSeconds + deltaSec);
 
       /// Save location update to current hike
       _currentPath.add(_prevLocation!);
+      _segmentCurrentPath.add(_prevLocation!);
 
       /// Calculate hiker status update and publish value for UI
       _currentHikerMetricsSub.add(currMetrics);
       currentPathSub.add(_currentPath);
       currentRawPathSub.add(_unfilteredPath);
+      currentSegmentPathSub.add(_segmentCurrentPath);
+      currentSegmentRawPathSub.add(_segmentUnfilteredPath);
       elevationPlot.add(toElevationPlotValues(currMetrics));
       speedPlot.add(toSpeedPlotValues(currMetrics));
 
       _prevLocation =
           _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
       _prevHikeMetrics = currMetrics;
+      _segmentPrevHikeMetrics = currSegmentMetrics;
     } else {
-      // print("YES MOVED ENOUGH");
-      _currentPath.add(filteredLocation);
-
-      final HikeMetrics currMetrics = accumulateMetrics(
+      final HikeMetrics currTotalMetrics = accumulateMetrics(
         prevMetrics: _prevHikeMetrics!,
         currLoc: filteredLocation,
         deltaDistance: deltaDistance,
@@ -338,18 +368,30 @@ class HikingService {
         updatePeriodSec: deltaSec,
       ); // .copyWith(distanceTraveled: totalDistance);
 
+      final HikeMetrics currSegmentMetrics = accumulateMetrics(
+        prevMetrics: _segmentPrevHikeMetrics!,
+        currLoc: filteredLocation,
+        deltaDistance: deltaDistance,
+        locationHistory: _segmentCurrentPath,
+        updatePeriodSec: deltaSec,
+      ); // .copyWith(distanceTraveled: totalDistance);
+
       /// Save location update to current hike
       _currentPath.add(filteredLocation);
+      _segmentCurrentPath.add(filteredLocation);
 
       /// Calculate hiker status update and publish value for UI
-      _currentHikerMetricsSub.add(currMetrics);
+      _currentHikerMetricsSub.add(currTotalMetrics);
       currentPathSub.add(_currentPath);
       currentRawPathSub.add(_unfilteredPath);
-      elevationPlot.add(toElevationPlotValues(currMetrics));
-      speedPlot.add(toSpeedPlotValues(currMetrics));
+      currentSegmentPathSub.add(_segmentCurrentPath);
+      currentSegmentRawPathSub.add(_segmentUnfilteredPath);
+      elevationPlot.add(toElevationPlotValues(currTotalMetrics));
+      speedPlot.add(toSpeedPlotValues(currTotalMetrics));
 
       _prevLocation = filteredLocation;
-      _prevHikeMetrics = currMetrics;
+      _prevHikeMetrics = currTotalMetrics;
+      _segmentPrevHikeMetrics = currTotalMetrics;
     }
   }
 
