@@ -8,7 +8,6 @@ part 'data_archive.freezed.dart';
 part 'data_archive.g.dart';
 
 @freezed
-@JsonSerializable()
 abstract class DataArchive with _$DataArchive {
   const factory DataArchive({
     HikeMetrics? hikeMetrics,
@@ -19,7 +18,6 @@ abstract class DataArchive with _$DataArchive {
   }) = _DataArchive;
 
   @override
-  factory DataArchive.fromJson(Map<String, dynamic> json) => _$DataArchiveFromJson(json);
-  @override
-  Map<String, dynamic> toJson() => _$DataArchiveToJson(this);
+  factory DataArchive.fromJson(Map<String, dynamic> json) =>
+      _$DataArchiveFromJson(json);
 }

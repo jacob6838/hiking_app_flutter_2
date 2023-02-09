@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_archive.dart';
 
@@ -14,22 +14,32 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+DataArchive _$DataArchiveFromJson(Map<String, dynamic> json) {
+  return _DataArchive.fromJson(json);
+}
+
 /// @nodoc
 mixin _$DataArchive {
   HikeMetrics? get hikeMetrics => throw _privateConstructorUsedError;
-  List<LocationStatus>? get locationHistory => throw _privateConstructorUsedError;
-  List<LocationStatus>? get unfilteredLocationHistory => throw _privateConstructorUsedError;
+  List<LocationStatus>? get locationHistory =>
+      throw _privateConstructorUsedError;
+  List<LocationStatus>? get unfilteredLocationHistory =>
+      throw _privateConstructorUsedError;
   PlotValues? get elevationPlot => throw _privateConstructorUsedError;
   PlotValues? get speedPlot => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataArchiveCopyWith<DataArchive> get copyWith => throw _privateConstructorUsedError;
+  $DataArchiveCopyWith<DataArchive> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $DataArchiveCopyWith<$Res> {
-  factory $DataArchiveCopyWith(DataArchive value, $Res Function(DataArchive) then) = _$DataArchiveCopyWithImpl<$Res>;
+  factory $DataArchiveCopyWith(
+          DataArchive value, $Res Function(DataArchive) then) =
+      _$DataArchiveCopyWithImpl<$Res, DataArchive>;
+  @useResult
   $Res call(
       {HikeMetrics? hikeMetrics,
       List<LocationStatus>? locationHistory,
@@ -43,13 +53,16 @@ abstract class $DataArchiveCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DataArchiveCopyWithImpl<$Res> implements $DataArchiveCopyWith<$Res> {
+class _$DataArchiveCopyWithImpl<$Res, $Val extends DataArchive>
+    implements $DataArchiveCopyWith<$Res> {
   _$DataArchiveCopyWithImpl(this._value, this._then);
 
-  final DataArchive _value;
   // ignore: unused_field
-  final $Res Function(DataArchive) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? hikeMetrics = freezed,
@@ -59,67 +72,74 @@ class _$DataArchiveCopyWithImpl<$Res> implements $DataArchiveCopyWith<$Res> {
     Object? speedPlot = freezed,
   }) {
     return _then(_value.copyWith(
-      hikeMetrics: hikeMetrics == freezed
+      hikeMetrics: freezed == hikeMetrics
           ? _value.hikeMetrics
           : hikeMetrics // ignore: cast_nullable_to_non_nullable
               as HikeMetrics?,
-      locationHistory: locationHistory == freezed
+      locationHistory: freezed == locationHistory
           ? _value.locationHistory
           : locationHistory // ignore: cast_nullable_to_non_nullable
               as List<LocationStatus>?,
-      unfilteredLocationHistory: unfilteredLocationHistory == freezed
+      unfilteredLocationHistory: freezed == unfilteredLocationHistory
           ? _value.unfilteredLocationHistory
           : unfilteredLocationHistory // ignore: cast_nullable_to_non_nullable
               as List<LocationStatus>?,
-      elevationPlot: elevationPlot == freezed
+      elevationPlot: freezed == elevationPlot
           ? _value.elevationPlot
           : elevationPlot // ignore: cast_nullable_to_non_nullable
               as PlotValues?,
-      speedPlot: speedPlot == freezed
+      speedPlot: freezed == speedPlot
           ? _value.speedPlot
           : speedPlot // ignore: cast_nullable_to_non_nullable
               as PlotValues?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $HikeMetricsCopyWith<$Res>? get hikeMetrics {
     if (_value.hikeMetrics == null) {
       return null;
     }
 
     return $HikeMetricsCopyWith<$Res>(_value.hikeMetrics!, (value) {
-      return _then(_value.copyWith(hikeMetrics: value));
+      return _then(_value.copyWith(hikeMetrics: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PlotValuesCopyWith<$Res>? get elevationPlot {
     if (_value.elevationPlot == null) {
       return null;
     }
 
     return $PlotValuesCopyWith<$Res>(_value.elevationPlot!, (value) {
-      return _then(_value.copyWith(elevationPlot: value));
+      return _then(_value.copyWith(elevationPlot: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PlotValuesCopyWith<$Res>? get speedPlot {
     if (_value.speedPlot == null) {
       return null;
     }
 
     return $PlotValuesCopyWith<$Res>(_value.speedPlot!, (value) {
-      return _then(_value.copyWith(speedPlot: value));
+      return _then(_value.copyWith(speedPlot: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_DataArchiveCopyWith<$Res> implements $DataArchiveCopyWith<$Res> {
-  factory _$$_DataArchiveCopyWith(_$_DataArchive value, $Res Function(_$_DataArchive) then) = __$$_DataArchiveCopyWithImpl<$Res>;
+abstract class _$$_DataArchiveCopyWith<$Res>
+    implements $DataArchiveCopyWith<$Res> {
+  factory _$$_DataArchiveCopyWith(
+          _$_DataArchive value, $Res Function(_$_DataArchive) then) =
+      __$$_DataArchiveCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {HikeMetrics? hikeMetrics,
       List<LocationStatus>? locationHistory,
@@ -136,13 +156,14 @@ abstract class _$$_DataArchiveCopyWith<$Res> implements $DataArchiveCopyWith<$Re
 }
 
 /// @nodoc
-class __$$_DataArchiveCopyWithImpl<$Res> extends _$DataArchiveCopyWithImpl<$Res> implements _$$_DataArchiveCopyWith<$Res> {
-  __$$_DataArchiveCopyWithImpl(_$_DataArchive _value, $Res Function(_$_DataArchive) _then)
-      : super(_value, (v) => _then(v as _$_DataArchive));
+class __$$_DataArchiveCopyWithImpl<$Res>
+    extends _$DataArchiveCopyWithImpl<$Res, _$_DataArchive>
+    implements _$$_DataArchiveCopyWith<$Res> {
+  __$$_DataArchiveCopyWithImpl(
+      _$_DataArchive _value, $Res Function(_$_DataArchive) _then)
+      : super(_value, _then);
 
-  @override
-  _$_DataArchive get _value => super._value as _$_DataArchive;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? hikeMetrics = freezed,
@@ -152,23 +173,23 @@ class __$$_DataArchiveCopyWithImpl<$Res> extends _$DataArchiveCopyWithImpl<$Res>
     Object? speedPlot = freezed,
   }) {
     return _then(_$_DataArchive(
-      hikeMetrics: hikeMetrics == freezed
+      hikeMetrics: freezed == hikeMetrics
           ? _value.hikeMetrics
           : hikeMetrics // ignore: cast_nullable_to_non_nullable
               as HikeMetrics?,
-      locationHistory: locationHistory == freezed
+      locationHistory: freezed == locationHistory
           ? _value._locationHistory
           : locationHistory // ignore: cast_nullable_to_non_nullable
               as List<LocationStatus>?,
-      unfilteredLocationHistory: unfilteredLocationHistory == freezed
+      unfilteredLocationHistory: freezed == unfilteredLocationHistory
           ? _value._unfilteredLocationHistory
           : unfilteredLocationHistory // ignore: cast_nullable_to_non_nullable
               as List<LocationStatus>?,
-      elevationPlot: elevationPlot == freezed
+      elevationPlot: freezed == elevationPlot
           ? _value.elevationPlot
           : elevationPlot // ignore: cast_nullable_to_non_nullable
               as PlotValues?,
-      speedPlot: speedPlot == freezed
+      speedPlot: freezed == speedPlot
           ? _value.speedPlot
           : speedPlot // ignore: cast_nullable_to_non_nullable
               as PlotValues?,
@@ -188,7 +209,8 @@ class _$_DataArchive implements _DataArchive {
       : _locationHistory = locationHistory,
         _unfilteredLocationHistory = unfilteredLocationHistory;
 
-  factory _$_DataArchive.fromJson(Map<String, dynamic> json) => _$$_DataArchiveFromJson(json);
+  factory _$_DataArchive.fromJson(Map<String, dynamic> json) =>
+      _$$_DataArchiveFromJson(json);
 
   @override
   final HikeMetrics? hikeMetrics;
@@ -197,6 +219,7 @@ class _$_DataArchive implements _DataArchive {
   List<LocationStatus>? get locationHistory {
     final value = _locationHistory;
     if (value == null) return null;
+    if (_locationHistory is EqualUnmodifiableListView) return _locationHistory;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -206,6 +229,8 @@ class _$_DataArchive implements _DataArchive {
   List<LocationStatus>? get unfilteredLocationHistory {
     final value = _unfilteredLocationHistory;
     if (value == null) return null;
+    if (_unfilteredLocationHistory is EqualUnmodifiableListView)
+      return _unfilteredLocationHistory;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -225,30 +250,39 @@ class _$_DataArchive implements _DataArchive {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DataArchive &&
-            const DeepCollectionEquality().equals(other.hikeMetrics, hikeMetrics) &&
-            const DeepCollectionEquality().equals(other._locationHistory, _locationHistory) &&
-            const DeepCollectionEquality().equals(other._unfilteredLocationHistory, _unfilteredLocationHistory) &&
-            const DeepCollectionEquality().equals(other.elevationPlot, elevationPlot) &&
-            const DeepCollectionEquality().equals(other.speedPlot, speedPlot));
+            (identical(other.hikeMetrics, hikeMetrics) ||
+                other.hikeMetrics == hikeMetrics) &&
+            const DeepCollectionEquality()
+                .equals(other._locationHistory, _locationHistory) &&
+            const DeepCollectionEquality().equals(
+                other._unfilteredLocationHistory, _unfilteredLocationHistory) &&
+            (identical(other.elevationPlot, elevationPlot) ||
+                other.elevationPlot == elevationPlot) &&
+            (identical(other.speedPlot, speedPlot) ||
+                other.speedPlot == speedPlot));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(hikeMetrics),
+      hikeMetrics,
       const DeepCollectionEquality().hash(_locationHistory),
       const DeepCollectionEquality().hash(_unfilteredLocationHistory),
-      const DeepCollectionEquality().hash(elevationPlot),
-      const DeepCollectionEquality().hash(speedPlot));
+      elevationPlot,
+      speedPlot);
 
   @JsonKey(ignore: true)
   @override
-  _$$_DataArchiveCopyWith<_$_DataArchive> get copyWith => __$$_DataArchiveCopyWithImpl<_$_DataArchive>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$_DataArchiveCopyWith<_$_DataArchive> get copyWith =>
+      __$$_DataArchiveCopyWithImpl<_$_DataArchive>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataArchiveToJson(this);
+    return _$$_DataArchiveToJson(
+      this,
+    );
   }
 }
 
@@ -260,19 +294,21 @@ abstract class _DataArchive implements DataArchive {
       final PlotValues? elevationPlot,
       final PlotValues? speedPlot}) = _$_DataArchive;
 
-  factory _DataArchive.fromJson(Map<String, dynamic> json) = _$_DataArchive.fromJson;
+  factory _DataArchive.fromJson(Map<String, dynamic> json) =
+      _$_DataArchive.fromJson;
 
   @override
-  HikeMetrics? get hikeMetrics => throw _privateConstructorUsedError;
+  HikeMetrics? get hikeMetrics;
   @override
-  List<LocationStatus>? get locationHistory => throw _privateConstructorUsedError;
+  List<LocationStatus>? get locationHistory;
   @override
-  List<LocationStatus>? get unfilteredLocationHistory => throw _privateConstructorUsedError;
+  List<LocationStatus>? get unfilteredLocationHistory;
   @override
-  PlotValues? get elevationPlot => throw _privateConstructorUsedError;
+  PlotValues? get elevationPlot;
   @override
-  PlotValues? get speedPlot => throw _privateConstructorUsedError;
+  PlotValues? get speedPlot;
   @override
   @JsonKey(ignore: true)
-  _$$_DataArchiveCopyWith<_$_DataArchive> get copyWith => throw _privateConstructorUsedError;
+  _$$_DataArchiveCopyWith<_$_DataArchive> get copyWith =>
+      throw _privateConstructorUsedError;
 }

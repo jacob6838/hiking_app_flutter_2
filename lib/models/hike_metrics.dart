@@ -8,7 +8,6 @@ part 'hike_metrics.freezed.dart';
 part 'hike_metrics.g.dart';
 
 @freezed
-@JsonSerializable()
 class HikeMetrics with _$HikeMetrics {
   const factory HikeMetrics({
     @Default(0.0) double timeStartSec,
@@ -36,12 +35,11 @@ class HikeMetrics with _$HikeMetrics {
     // @Default(KtList.empty()) KtList<LocationStatus> path,
   }) = _HikeMetrics;
 
-  factory HikeMetrics.fromJson(Map<String, dynamic> json) => _$HikeMetricsFromJson(json);
-  Map<String, dynamic> toJson() => _$HikeMetricsToJson(this);
+  factory HikeMetrics.fromJson(Map<String, dynamic> json) =>
+      _$HikeMetricsFromJson(json);
 }
 
 @freezed
-@JsonSerializable()
 class HikeMetricsData with _$HikeMetricsData {
   const factory HikeMetricsData({
     Metric? timeStartSec,
@@ -69,12 +67,11 @@ class HikeMetricsData with _$HikeMetricsData {
     // @Default(KtList.empty()) KtList<LocationStatus> path,
   }) = _HikeMetricsData;
 
-  factory HikeMetricsData.fromJson(Map<String, dynamic> json) => _$HikeMetricsDataFromJson(json);
-  Map<String, dynamic> toJson() => _$HikeMetricsDataToJson(this);
+  factory HikeMetricsData.fromJson(Map<String, dynamic> json) =>
+      _$HikeMetricsDataFromJson(json);
 }
 
 @freezed
-@JsonSerializable()
 class Metric with _$Metric {
   const factory Metric({
     @Default("") String name,
@@ -84,5 +81,4 @@ class Metric with _$Metric {
   }) = _Metric;
 
   factory Metric.fromJson(Map<String, dynamic> json) => _$MetricFromJson(json);
-  Map<String, dynamic> toJson() => _$MetricToJson(this);
 }
