@@ -293,8 +293,8 @@ class TripSummaryPageState extends State<TripSummaryPage> {
     }
   }
 
-  void onEnableBtnClicked(BuildContext context, HikingService _hikingService, TripStatus newStatus) {
-    _hikingService.updateStatus(context, _hikingService, newStatus);
+  void onEnableBtnClicked(BuildContext context, HikingService _hikingService) {
+    _hikingService.toggleStatus(context, _hikingService);
   }
 
   Widget confirmDeletionPopup(BuildContext context, String message, Function onConfirmCallback) {

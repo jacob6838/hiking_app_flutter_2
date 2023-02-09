@@ -65,14 +65,45 @@ class ActiveTripPageState extends State<ActiveTripPage> {
                         return MetricPlot(hikingService: _hikingService!, plotValues: plotValues);
                       }),
                 ]),
-                StreamBuilder<TripStatus>(
+                StreamBuilder<bool>(
                     stream: _hikingService!.currentHikerStatus$,
-                    builder: (context, AsyncSnapshot<TripStatus> snapshot) {
-                      final TripStatus activeStatus = snapshot.data ?? TripStatus.stopped;
-                      Function(TripStatusCommand sendCommand) sendCommand =
-                          (command) => onEnableBtnClicked(context, _hikingService!, command);
-
-                      return StatusButtons(activeStatus, sendCommand);
+                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                      final bool activeStatus = snapshot.data ?? false;
+                      return SizedBox(
+                          height: 80,
+                          width: 80,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: !activeStatus ? Colors.green : Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: InkWell(
+                                onTap: () async {
+                                  print("Button Pressed");
+                                  print(activeStatus);
+                                  if (activeStatus) {
+                                    setState(() {
+                                      isDropdownEnabled = true;
+                                    });
+                                    final name = await onEnableBtnClicked(context, _hikingService!);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => TripSummaryPage()),
+                                    );
+                                    // tripName: name
+                                  } else {
+                                    setState(() {
+                                      isDropdownEnabled = false;
+                                    });
+                                    onEnableBtnClicked(context, _hikingService!);
+                                  }
+                                },
+                                child: Icon(
+                                  !activeStatus ? Icons.play_arrow : Icons.stop_rounded,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                              )));
                     }),
               ],
             ),
@@ -103,7 +134,15 @@ class ActiveTripPageState extends State<ActiveTripPage> {
   //   }
   // }
 
-  Future<String?> onEnableBtnClicked(BuildContext context, HikingService _hikingService, TripStatusCommand command) async {
-    return _hikingService.toggleStatus(context, _hikingService, command);
+  Future<String?> onEnableBtnClicked(BuildContext context, HikingService _hikingService) async {
+    return _hikingService.toggleStatus(context, _hikingService);
+  }
+
+  String _enableBtnName(bool activeStatus) {
+    if (activeStatus) {
+      return "STOP";
+    } else {
+      return "START";
+    }
   }
 }
