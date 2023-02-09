@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:background_location/background_location.dart';
 import 'package:flutter/material.dart';
 import 'package:hiking_app/location_service.dart';
+import 'package:hiking_app/models/data_archive.dart';
 import 'package:hiking_app/models/hike_metrics.dart';
 import 'package:hiking_app/models/location_accuracy_type.dart';
 import 'package:hiking_app/models/location_status.dart';
@@ -13,8 +14,6 @@ import 'package:rxdart/rxdart.dart';
 import 'archive_service.dart';
 import 'filters/location_filter.dart';
 import 'models/plot_values.dart';
-import 'models/trip_archive.dart';
-import 'models/trip_status.dart';
 
 const int millisecondsPerSecond = 1000;
 const double MilesPerHourPerMetersPerSecond = 2.23694;
@@ -52,17 +51,12 @@ class HikingService {
   LocationStatus? _prevLocation;
   HikeMetrics? _prevHikeMetrics;
 
-  final BehaviorSubject<TripStatus> _activeStatusSub =
-      BehaviorSubject.seeded(TripStatus.stopped);
-  final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub =
-      BehaviorSubject.seeded(const HikeMetrics());
-  final BehaviorSubject<List<LocationStatus>> currentPathSub =
-      BehaviorSubject.seeded([]);
-  final BehaviorSubject<List<LocationStatus>> currentRawPathSub =
-      BehaviorSubject.seeded([]);
+  final BehaviorSubject<TripStatus> _activeStatusSub = BehaviorSubject.seeded(false);
+  final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub = BehaviorSubject.seeded(const HikeMetrics());
+  final BehaviorSubject<List<LocationStatus>> currentPathSub = BehaviorSubject.seeded([]);
+  final BehaviorSubject<List<LocationStatus>> currentRawPathSub = BehaviorSubject.seeded([]);
 
-  final BehaviorSubject<TripArchive?> currentTripSub =
-      BehaviorSubject.seeded(null);
+  final BehaviorSubject<TripArchive?> currentTripSub = BehaviorSubject.seeded(null);
 
   HikingService({required LocationService locationService})
       : _lastUpdateTimeSec = 0,
@@ -74,26 +68,20 @@ class HikingService {
         .listen(_handleLocationUpdate);
     // updateCurrentLocation();
     // print("INITIALIZING ARCHIVE SUB ${archiveService.activeDataArchive.value}");
-    archiveService.activeTripArchive.listen(_handleArchiveChange);
+    archiveService.activeDataArchive.listen(_handleArchiveChange);
   }
 
-  final BehaviorSubject<PlotValues> elevationPlot =
-      BehaviorSubject<PlotValues>();
+  final BehaviorSubject<PlotValues> elevationPlot = BehaviorSubject<PlotValues>();
   final BehaviorSubject<PlotValues> speedPlot = BehaviorSubject<PlotValues>();
 
-  Stream<TripStatus> get currentHikerStatus$ =>
-      _activeStatusSub.stream.asBroadcastStream();
+  Stream<TripStatus> get currentHikerStatus$ => _activeStatusSub.stream.asBroadcastStream();
 
-  BehaviorSubject<LocationStatus> get currentLocationStatus =>
-      BehaviorSubject<LocationStatus>();
+  BehaviorSubject<LocationStatus> get currentLocationStatus => BehaviorSubject<LocationStatus>();
 
-  Stream<HikeMetrics> get currentHikerMetrics$ =>
-      _currentHikerMetricsSub.stream.asBroadcastStream();
-  Stream<TripArchive?> get currentTrip$ =>
-      currentTripSub.stream.asBroadcastStream();
+  Stream<HikeMetrics> get currentHikerMetrics$ => _currentHikerMetricsSub.stream.asBroadcastStream();
+  Stream<TripArchive> get currentTrip$ => currentTripSub.stream.asBroadcastStream();
 
-  Future<String?> updateStatus(BuildContext context,
-      HikingService hikingService, TripStatusCommand statusCommand) async {
+  Future<String?> updateStatus(BuildContext context, HikingService hikingService, TripStatusCommand statusCommand) async {
     TripStatus requestedStatus = statusCommand.newStatus;
     if (requestedStatus == TripStatus.active) {
       if (!await hikingService._locationService.locationAlwaysGranted()) {
@@ -103,12 +91,10 @@ class HikingService {
         );
       }
 
-      final locationAlwaysEnabled =
-          await hikingService._locationService.requestEnableLocationAlways();
-      final gpsEnabled =
-          await hikingService._locationService.requestEnableGps();
+      final locationAlwaysEnabled = await hikingService._locationService.requestEnableLocationAlways();
+      final gpsEnabled = await hikingService._locationService.requestEnableGps();
       if (gpsEnabled && locationAlwaysEnabled) {
-        _hikeStatus = requestedStatus;
+        _hikeStatus = newStatus;
         _activeStatusSub.add(_hikeStatus);
       } else {
         var reason = "";
@@ -159,9 +145,7 @@ class HikingService {
         width: 180,
       );
     } else if (statusCommand == TripStatusCommand.unpause) {
-      List<TripSegment> segments = _currentTrip!.tripSegments;
-
-      _currentTrip!.tripSegments.add(new TripSegment());
+      _currentTrip.tripSegments.add(new TripSegment());
       currentTripSub.add(_currentTrip);
     } else if (statusCommand == TripStatusCommand.stop) {
       hikingService._locationService.stopLocationService();
@@ -170,7 +154,7 @@ class HikingService {
     return null;
   }
 
-  void _handleArchiveChange(TripArchive? dataArchive) async {
+  void _handleArchiveChange(TripArchive dataArchive) async {
     // print("ARCHIVE CAHANGING TO $dataArchive");
     currentTripSub.value = dataArchive;
     // currentPathSub.value = dataArchive.locationHistory!;
@@ -195,7 +179,7 @@ class HikingService {
   void clearData() {
     // currentPathSub.add([]);
     // currentRawPathSub.add([]);
-    _currentHikerMetricsSub.add(const HikeMetrics());
+    _currentHikerMetricsSub.add(null);
     // elevationPlot.add(PlotValues());
     // speedPlot.add(PlotValues());
   }
@@ -213,12 +197,12 @@ class HikingService {
         ],
       ),
       actions: <Widget>[
-        OutlinedButton(
+        RaisedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Close',
-              style: TextStyle(color: Theme.of(context).primaryColor)),
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Close'),
         ),
       ],
     );
@@ -236,12 +220,12 @@ class HikingService {
         ],
       ),
       actions: <Widget>[
-        OutlinedButton(
+        RaisedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Close',
-              style: TextStyle(color: Theme.of(context).primaryColor)),
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Close'),
         ),
       ],
     );
@@ -259,16 +243,14 @@ class HikingService {
       locationFilter = LocationFilter(locationStatus);
       // print("First Time!");
       _prevLocation = locationStatus;
-      _hikeMetricsTotal =
-          getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
+      _hikeMetricsTotal = getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
       _prevHikeMetrics = _hikeMetricsTotal;
 
-      _currentTrip = TripArchive(
+      _currentTrip = new TripArchive(
         hikeMetrics: _hikeMetricsTotal,
         tripSegments: [_currentTripSegment],
-        tripName:
-            "trip_${DateFormat('yyyy-MM-dd_kk-mm-ss').format(DateTime.now())}",
-        locationHistory: [_prevLocation!],
+        tripName: "trip_${DateFormat('yyyy-MM-dd_kk-mm-ss').format(DateTime.now())}",
+        locationHistory: [_prevLocation],
         unfilteredLocationHistory: [locationStatus],
       );
 
@@ -282,8 +264,7 @@ class HikingService {
 
     /// Check time elapsed, if less than updateIntervalSec then return
     // final double deltaSec = locationStatus.timeStampSec - _prevLocation.timeStampSec;
-    final double deltaSec =
-        filteredLocation.timeStampSec - _prevLocation!.timeStampSec;
+    final double deltaSec = filteredLocation.timeStampSec - _prevLocation!.timeStampSec;
     if (deltaSec < updateIntervalSec) return;
 
     // print('Updating location');
@@ -300,18 +281,16 @@ class HikingService {
       LatLng(_currentPath.first.latitude, _currentPath.first.longitude),
     ).toDouble();
     // print("DISTANCE: ${totalDistance*3.28/5280}");
-    filteredLocation = filteredLocation.copyWith(
-        speedMetersPerSec:
-            totalDistance / (_prevHikeMetrics!.metricPeriodSeconds + deltaSec));
+    filteredLocation =
+        filteredLocation.copyWith(speedMetersPerSec: totalDistance / (_prevHikeMetrics!.metricPeriodSeconds + deltaSec));
 
     currentLocationStatus.add(locationStatus);
 
     if (deltaDistance < filteredLocation.accuracy.value / 2) {
       // print("NOT MOVED ENOUGH");
 
-      final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
-          metricPeriodSeconds:
-              _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
+      final HikeMetrics currMetrics =
+          _prevHikeMetrics!.copyWith(metricPeriodSeconds: _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
 
       /// Save location update to current hike
       _currentPath.add(_prevLocation!);
@@ -323,8 +302,7 @@ class HikingService {
       elevationPlot.add(toElevationPlotValues(currMetrics));
       speedPlot.add(toSpeedPlotValues(currMetrics));
 
-      _prevLocation =
-          _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
+      _prevLocation = _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
       _prevHikeMetrics = currMetrics;
     } else {
       // print("YES MOVED ENOUGH");
@@ -355,8 +333,7 @@ class HikingService {
 
   PlotValues toElevationPlotValues(HikeMetrics metric) {
     List<List<double>> elevationValues = List.of(elevationPlotValues!.values);
-    elevationValues
-        .add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
+    elevationValues.add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
 
     double elevRange = (metric.altitudeMax - metric.altitudeMin) * 3.28084;
     if (elevRange <= 10) {
@@ -380,10 +357,7 @@ class HikingService {
 
   PlotValues toSpeedPlotValues(HikeMetrics metric) {
     final List<List<double>> speedValues = List.of(speedPlotValues!.values);
-    speedValues.add([
-      metric.metricPeriodSeconds,
-      metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond
-    ]);
+    speedValues.add([metric.metricPeriodSeconds, metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond]);
 
     double speedRangeMPH = metric.speedMax * MilesPerHourPerMetersPerSecond;
     if (speedRangeMPH <= .1) {
@@ -477,12 +451,10 @@ HikeMetrics accumulateMetrics({
     // Heading
     distanceTraveled: prevMetrics.distanceTraveled + deltaDistance,
     netElevationChange: currLoc.altitude - prevMetrics.altitudeStart,
-    cumulativeClimbMeters: deltaAltitude > 0
-        ? prevMetrics.cumulativeClimbMeters + deltaAltitude
-        : prevMetrics.cumulativeClimbMeters,
-    cumulativeDescentMeters: deltaAltitude < 0
-        ? prevMetrics.cumulativeDescentMeters - deltaAltitude
-        : prevMetrics.cumulativeDescentMeters,
+    cumulativeClimbMeters:
+        deltaAltitude > 0 ? prevMetrics.cumulativeClimbMeters + deltaAltitude : prevMetrics.cumulativeClimbMeters,
+    cumulativeDescentMeters:
+        deltaAltitude < 0 ? prevMetrics.cumulativeDescentMeters - deltaAltitude : prevMetrics.cumulativeDescentMeters,
     metricPeriodSeconds: prevMetrics.metricPeriodSeconds + updatePeriodSec,
   );
   // _distanceTraveled += _distanceDelta.abs();
@@ -501,8 +473,7 @@ double getAvgSpeed(
   double currentSpeedMetersPerSec,
 ) {
   // print("prevAvg: $prevAvgSpeedMetersPerSec, prevPeriod: $previousDurationSec, currAvg: $currentSpeedMetersPerSec, currPeriod: $updatePeriodSec");
-  return (prevAvgSpeedMetersPerSec * previousDurationSec +
-          currentSpeedMetersPerSec * updatePeriodSec) /
+  return (prevAvgSpeedMetersPerSec * previousDurationSec + currentSpeedMetersPerSec * updatePeriodSec) /
       (previousDurationSec + updatePeriodSec);
 }
 
@@ -510,8 +481,7 @@ double getAvgSpeed(
 double toSeconds(double timeStamp) => timeStamp / millisecondsPerSecond;
 
 /// Return the current time in seconds since epoch.
-double getCurrentTimeSeconds() =>
-    DateTime.now().millisecondsSinceEpoch / millisecondsPerSecond;
+double getCurrentTimeSeconds() => DateTime.now().millisecondsSinceEpoch / millisecondsPerSecond;
 
 /// Convert an accuracy value from Flutter location API to an enum
 LocationAccuracyType toAccuracyType(double accuracy) {

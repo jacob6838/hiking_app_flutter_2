@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'hike_metrics.dart';
 
@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-HikeMetrics _$HikeMetricsFromJson(Map<String, dynamic> json) {
-  return _HikeMetrics.fromJson(json);
-}
-
 /// @nodoc
 mixin _$HikeMetrics {
   double get timeStartSec => throw _privateConstructorUsedError;
@@ -29,8 +25,7 @@ mixin _$HikeMetrics {
   double get altitude => throw _privateConstructorUsedError;
   double get speedMetersPerSec => throw _privateConstructorUsedError;
   double get headingDegrees => throw _privateConstructorUsedError;
-  LocationAccuracyType get locationAccuracy =>
-      throw _privateConstructorUsedError;
+  LocationAccuracyType get locationAccuracy => throw _privateConstructorUsedError;
   LocationAccuracyType get speedAccuracy => throw _privateConstructorUsedError;
   double get altitudeMax => throw _privateConstructorUsedError;
   double get altitudeMin => throw _privateConstructorUsedError;
@@ -46,16 +41,12 @@ mixin _$HikeMetrics {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $HikeMetricsCopyWith<HikeMetrics> get copyWith =>
-      throw _privateConstructorUsedError;
+  $HikeMetricsCopyWith<HikeMetrics> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HikeMetricsCopyWith<$Res> {
-  factory $HikeMetricsCopyWith(
-          HikeMetrics value, $Res Function(HikeMetrics) then) =
-      _$HikeMetricsCopyWithImpl<$Res, HikeMetrics>;
-  @useResult
+  factory $HikeMetricsCopyWith(HikeMetrics value, $Res Function(HikeMetrics) then) = _$HikeMetricsCopyWithImpl<$Res>;
   $Res call(
       {double timeStartSec,
       double latitudeStart,
@@ -82,142 +73,135 @@ abstract class $HikeMetricsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$HikeMetricsCopyWithImpl<$Res, $Val extends HikeMetrics>
-    implements $HikeMetricsCopyWith<$Res> {
+class _$HikeMetricsCopyWithImpl<$Res> implements $HikeMetricsCopyWith<$Res> {
   _$HikeMetricsCopyWithImpl(this._value, this._then);
 
+  final HikeMetrics _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(HikeMetrics) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? timeStartSec = null,
-    Object? latitudeStart = null,
-    Object? longitudeStart = null,
-    Object? altitudeStart = null,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? altitude = null,
-    Object? speedMetersPerSec = null,
-    Object? headingDegrees = null,
-    Object? locationAccuracy = null,
-    Object? speedAccuracy = null,
-    Object? altitudeMax = null,
-    Object? altitudeMin = null,
-    Object? speedMax = null,
-    Object? speedMin = null,
-    Object? averageSpeedMetersPerSec = null,
-    Object? netHeadingDegrees = null,
-    Object? distanceTraveled = null,
-    Object? netElevationChange = null,
-    Object? cumulativeClimbMeters = null,
-    Object? cumulativeDescentMeters = null,
-    Object? metricPeriodSeconds = null,
+    Object? timeStartSec = freezed,
+    Object? latitudeStart = freezed,
+    Object? longitudeStart = freezed,
+    Object? altitudeStart = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? altitude = freezed,
+    Object? speedMetersPerSec = freezed,
+    Object? headingDegrees = freezed,
+    Object? locationAccuracy = freezed,
+    Object? speedAccuracy = freezed,
+    Object? altitudeMax = freezed,
+    Object? altitudeMin = freezed,
+    Object? speedMax = freezed,
+    Object? speedMin = freezed,
+    Object? averageSpeedMetersPerSec = freezed,
+    Object? netHeadingDegrees = freezed,
+    Object? distanceTraveled = freezed,
+    Object? netElevationChange = freezed,
+    Object? cumulativeClimbMeters = freezed,
+    Object? cumulativeDescentMeters = freezed,
+    Object? metricPeriodSeconds = freezed,
   }) {
     return _then(_value.copyWith(
-      timeStartSec: null == timeStartSec
+      timeStartSec: timeStartSec == freezed
           ? _value.timeStartSec
           : timeStartSec // ignore: cast_nullable_to_non_nullable
               as double,
-      latitudeStart: null == latitudeStart
+      latitudeStart: latitudeStart == freezed
           ? _value.latitudeStart
           : latitudeStart // ignore: cast_nullable_to_non_nullable
               as double,
-      longitudeStart: null == longitudeStart
+      longitudeStart: longitudeStart == freezed
           ? _value.longitudeStart
           : longitudeStart // ignore: cast_nullable_to_non_nullable
               as double,
-      altitudeStart: null == altitudeStart
+      altitudeStart: altitudeStart == freezed
           ? _value.altitudeStart
           : altitudeStart // ignore: cast_nullable_to_non_nullable
               as double,
-      latitude: null == latitude
+      latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: null == longitude
+      longitude: longitude == freezed
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      altitude: null == altitude
+      altitude: altitude == freezed
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMetersPerSec: null == speedMetersPerSec
+      speedMetersPerSec: speedMetersPerSec == freezed
           ? _value.speedMetersPerSec
           : speedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as double,
-      headingDegrees: null == headingDegrees
+      headingDegrees: headingDegrees == freezed
           ? _value.headingDegrees
           : headingDegrees // ignore: cast_nullable_to_non_nullable
               as double,
-      locationAccuracy: null == locationAccuracy
+      locationAccuracy: locationAccuracy == freezed
           ? _value.locationAccuracy
           : locationAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      speedAccuracy: null == speedAccuracy
+      speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      altitudeMax: null == altitudeMax
+      altitudeMax: altitudeMax == freezed
           ? _value.altitudeMax
           : altitudeMax // ignore: cast_nullable_to_non_nullable
               as double,
-      altitudeMin: null == altitudeMin
+      altitudeMin: altitudeMin == freezed
           ? _value.altitudeMin
           : altitudeMin // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMax: null == speedMax
+      speedMax: speedMax == freezed
           ? _value.speedMax
           : speedMax // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMin: null == speedMin
+      speedMin: speedMin == freezed
           ? _value.speedMin
           : speedMin // ignore: cast_nullable_to_non_nullable
               as double,
-      averageSpeedMetersPerSec: null == averageSpeedMetersPerSec
+      averageSpeedMetersPerSec: averageSpeedMetersPerSec == freezed
           ? _value.averageSpeedMetersPerSec
           : averageSpeedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as double,
-      netHeadingDegrees: null == netHeadingDegrees
+      netHeadingDegrees: netHeadingDegrees == freezed
           ? _value.netHeadingDegrees
           : netHeadingDegrees // ignore: cast_nullable_to_non_nullable
               as double,
-      distanceTraveled: null == distanceTraveled
+      distanceTraveled: distanceTraveled == freezed
           ? _value.distanceTraveled
           : distanceTraveled // ignore: cast_nullable_to_non_nullable
               as double,
-      netElevationChange: null == netElevationChange
+      netElevationChange: netElevationChange == freezed
           ? _value.netElevationChange
           : netElevationChange // ignore: cast_nullable_to_non_nullable
               as double,
-      cumulativeClimbMeters: null == cumulativeClimbMeters
+      cumulativeClimbMeters: cumulativeClimbMeters == freezed
           ? _value.cumulativeClimbMeters
           : cumulativeClimbMeters // ignore: cast_nullable_to_non_nullable
               as double,
-      cumulativeDescentMeters: null == cumulativeDescentMeters
+      cumulativeDescentMeters: cumulativeDescentMeters == freezed
           ? _value.cumulativeDescentMeters
           : cumulativeDescentMeters // ignore: cast_nullable_to_non_nullable
               as double,
-      metricPeriodSeconds: null == metricPeriodSeconds
+      metricPeriodSeconds: metricPeriodSeconds == freezed
           ? _value.metricPeriodSeconds
           : metricPeriodSeconds // ignore: cast_nullable_to_non_nullable
               as double,
-    ) as $Val);
+    ));
   }
 }
 
 /// @nodoc
-abstract class _$$_HikeMetricsCopyWith<$Res>
-    implements $HikeMetricsCopyWith<$Res> {
-  factory _$$_HikeMetricsCopyWith(
-          _$_HikeMetrics value, $Res Function(_$_HikeMetrics) then) =
-      __$$_HikeMetricsCopyWithImpl<$Res>;
+abstract class _$$_HikeMetricsCopyWith<$Res> implements $HikeMetricsCopyWith<$Res> {
+  factory _$$_HikeMetricsCopyWith(_$_HikeMetrics value, $Res Function(_$_HikeMetrics) then) = __$$_HikeMetricsCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {double timeStartSec,
       double latitudeStart,
@@ -244,125 +228,124 @@ abstract class _$$_HikeMetricsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HikeMetricsCopyWithImpl<$Res>
-    extends _$HikeMetricsCopyWithImpl<$Res, _$_HikeMetrics>
-    implements _$$_HikeMetricsCopyWith<$Res> {
-  __$$_HikeMetricsCopyWithImpl(
-      _$_HikeMetrics _value, $Res Function(_$_HikeMetrics) _then)
-      : super(_value, _then);
+class __$$_HikeMetricsCopyWithImpl<$Res> extends _$HikeMetricsCopyWithImpl<$Res> implements _$$_HikeMetricsCopyWith<$Res> {
+  __$$_HikeMetricsCopyWithImpl(_$_HikeMetrics _value, $Res Function(_$_HikeMetrics) _then)
+      : super(_value, (v) => _then(v as _$_HikeMetrics));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_HikeMetrics get _value => super._value as _$_HikeMetrics;
+
   @override
   $Res call({
-    Object? timeStartSec = null,
-    Object? latitudeStart = null,
-    Object? longitudeStart = null,
-    Object? altitudeStart = null,
-    Object? latitude = null,
-    Object? longitude = null,
-    Object? altitude = null,
-    Object? speedMetersPerSec = null,
-    Object? headingDegrees = null,
-    Object? locationAccuracy = null,
-    Object? speedAccuracy = null,
-    Object? altitudeMax = null,
-    Object? altitudeMin = null,
-    Object? speedMax = null,
-    Object? speedMin = null,
-    Object? averageSpeedMetersPerSec = null,
-    Object? netHeadingDegrees = null,
-    Object? distanceTraveled = null,
-    Object? netElevationChange = null,
-    Object? cumulativeClimbMeters = null,
-    Object? cumulativeDescentMeters = null,
-    Object? metricPeriodSeconds = null,
+    Object? timeStartSec = freezed,
+    Object? latitudeStart = freezed,
+    Object? longitudeStart = freezed,
+    Object? altitudeStart = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
+    Object? altitude = freezed,
+    Object? speedMetersPerSec = freezed,
+    Object? headingDegrees = freezed,
+    Object? locationAccuracy = freezed,
+    Object? speedAccuracy = freezed,
+    Object? altitudeMax = freezed,
+    Object? altitudeMin = freezed,
+    Object? speedMax = freezed,
+    Object? speedMin = freezed,
+    Object? averageSpeedMetersPerSec = freezed,
+    Object? netHeadingDegrees = freezed,
+    Object? distanceTraveled = freezed,
+    Object? netElevationChange = freezed,
+    Object? cumulativeClimbMeters = freezed,
+    Object? cumulativeDescentMeters = freezed,
+    Object? metricPeriodSeconds = freezed,
   }) {
     return _then(_$_HikeMetrics(
-      timeStartSec: null == timeStartSec
+      timeStartSec: timeStartSec == freezed
           ? _value.timeStartSec
           : timeStartSec // ignore: cast_nullable_to_non_nullable
               as double,
-      latitudeStart: null == latitudeStart
+      latitudeStart: latitudeStart == freezed
           ? _value.latitudeStart
           : latitudeStart // ignore: cast_nullable_to_non_nullable
               as double,
-      longitudeStart: null == longitudeStart
+      longitudeStart: longitudeStart == freezed
           ? _value.longitudeStart
           : longitudeStart // ignore: cast_nullable_to_non_nullable
               as double,
-      altitudeStart: null == altitudeStart
+      altitudeStart: altitudeStart == freezed
           ? _value.altitudeStart
           : altitudeStart // ignore: cast_nullable_to_non_nullable
               as double,
-      latitude: null == latitude
+      latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double,
-      longitude: null == longitude
+      longitude: longitude == freezed
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      altitude: null == altitude
+      altitude: altitude == freezed
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMetersPerSec: null == speedMetersPerSec
+      speedMetersPerSec: speedMetersPerSec == freezed
           ? _value.speedMetersPerSec
           : speedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as double,
-      headingDegrees: null == headingDegrees
+      headingDegrees: headingDegrees == freezed
           ? _value.headingDegrees
           : headingDegrees // ignore: cast_nullable_to_non_nullable
               as double,
-      locationAccuracy: null == locationAccuracy
+      locationAccuracy: locationAccuracy == freezed
           ? _value.locationAccuracy
           : locationAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      speedAccuracy: null == speedAccuracy
+      speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracyType,
-      altitudeMax: null == altitudeMax
+      altitudeMax: altitudeMax == freezed
           ? _value.altitudeMax
           : altitudeMax // ignore: cast_nullable_to_non_nullable
               as double,
-      altitudeMin: null == altitudeMin
+      altitudeMin: altitudeMin == freezed
           ? _value.altitudeMin
           : altitudeMin // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMax: null == speedMax
+      speedMax: speedMax == freezed
           ? _value.speedMax
           : speedMax // ignore: cast_nullable_to_non_nullable
               as double,
-      speedMin: null == speedMin
+      speedMin: speedMin == freezed
           ? _value.speedMin
           : speedMin // ignore: cast_nullable_to_non_nullable
               as double,
-      averageSpeedMetersPerSec: null == averageSpeedMetersPerSec
+      averageSpeedMetersPerSec: averageSpeedMetersPerSec == freezed
           ? _value.averageSpeedMetersPerSec
           : averageSpeedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as double,
-      netHeadingDegrees: null == netHeadingDegrees
+      netHeadingDegrees: netHeadingDegrees == freezed
           ? _value.netHeadingDegrees
           : netHeadingDegrees // ignore: cast_nullable_to_non_nullable
               as double,
-      distanceTraveled: null == distanceTraveled
+      distanceTraveled: distanceTraveled == freezed
           ? _value.distanceTraveled
           : distanceTraveled // ignore: cast_nullable_to_non_nullable
               as double,
-      netElevationChange: null == netElevationChange
+      netElevationChange: netElevationChange == freezed
           ? _value.netElevationChange
           : netElevationChange // ignore: cast_nullable_to_non_nullable
               as double,
-      cumulativeClimbMeters: null == cumulativeClimbMeters
+      cumulativeClimbMeters: cumulativeClimbMeters == freezed
           ? _value.cumulativeClimbMeters
           : cumulativeClimbMeters // ignore: cast_nullable_to_non_nullable
               as double,
-      cumulativeDescentMeters: null == cumulativeDescentMeters
+      cumulativeDescentMeters: cumulativeDescentMeters == freezed
           ? _value.cumulativeDescentMeters
           : cumulativeDescentMeters // ignore: cast_nullable_to_non_nullable
               as double,
-      metricPeriodSeconds: null == metricPeriodSeconds
+      metricPeriodSeconds: metricPeriodSeconds == freezed
           ? _value.metricPeriodSeconds
           : metricPeriodSeconds // ignore: cast_nullable_to_non_nullable
               as double,
@@ -397,8 +380,7 @@ class _$_HikeMetrics implements _HikeMetrics {
       this.cumulativeDescentMeters = 0.0,
       this.metricPeriodSeconds = 0.0});
 
-  factory _$_HikeMetrics.fromJson(Map<String, dynamic> json) =>
-      _$$_HikeMetricsFromJson(json);
+  factory _$_HikeMetrics.fromJson(Map<String, dynamic> json) => _$$_HikeMetricsFromJson(json);
 
   @override
   @JsonKey()
@@ -477,93 +459,65 @@ class _$_HikeMetrics implements _HikeMetrics {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HikeMetrics &&
-            (identical(other.timeStartSec, timeStartSec) ||
-                other.timeStartSec == timeStartSec) &&
-            (identical(other.latitudeStart, latitudeStart) ||
-                other.latitudeStart == latitudeStart) &&
-            (identical(other.longitudeStart, longitudeStart) ||
-                other.longitudeStart == longitudeStart) &&
-            (identical(other.altitudeStart, altitudeStart) ||
-                other.altitudeStart == altitudeStart) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.altitude, altitude) ||
-                other.altitude == altitude) &&
-            (identical(other.speedMetersPerSec, speedMetersPerSec) ||
-                other.speedMetersPerSec == speedMetersPerSec) &&
-            (identical(other.headingDegrees, headingDegrees) ||
-                other.headingDegrees == headingDegrees) &&
-            (identical(other.locationAccuracy, locationAccuracy) ||
-                other.locationAccuracy == locationAccuracy) &&
-            (identical(other.speedAccuracy, speedAccuracy) ||
-                other.speedAccuracy == speedAccuracy) &&
-            (identical(other.altitudeMax, altitudeMax) ||
-                other.altitudeMax == altitudeMax) &&
-            (identical(other.altitudeMin, altitudeMin) ||
-                other.altitudeMin == altitudeMin) &&
-            (identical(other.speedMax, speedMax) ||
-                other.speedMax == speedMax) &&
-            (identical(other.speedMin, speedMin) ||
-                other.speedMin == speedMin) &&
-            (identical(
-                    other.averageSpeedMetersPerSec, averageSpeedMetersPerSec) ||
-                other.averageSpeedMetersPerSec == averageSpeedMetersPerSec) &&
-            (identical(other.netHeadingDegrees, netHeadingDegrees) ||
-                other.netHeadingDegrees == netHeadingDegrees) &&
-            (identical(other.distanceTraveled, distanceTraveled) ||
-                other.distanceTraveled == distanceTraveled) &&
-            (identical(other.netElevationChange, netElevationChange) ||
-                other.netElevationChange == netElevationChange) &&
-            (identical(other.cumulativeClimbMeters, cumulativeClimbMeters) ||
-                other.cumulativeClimbMeters == cumulativeClimbMeters) &&
-            (identical(
-                    other.cumulativeDescentMeters, cumulativeDescentMeters) ||
-                other.cumulativeDescentMeters == cumulativeDescentMeters) &&
-            (identical(other.metricPeriodSeconds, metricPeriodSeconds) ||
-                other.metricPeriodSeconds == metricPeriodSeconds));
+            const DeepCollectionEquality().equals(other.timeStartSec, timeStartSec) &&
+            const DeepCollectionEquality().equals(other.latitudeStart, latitudeStart) &&
+            const DeepCollectionEquality().equals(other.longitudeStart, longitudeStart) &&
+            const DeepCollectionEquality().equals(other.altitudeStart, altitudeStart) &&
+            const DeepCollectionEquality().equals(other.latitude, latitude) &&
+            const DeepCollectionEquality().equals(other.longitude, longitude) &&
+            const DeepCollectionEquality().equals(other.altitude, altitude) &&
+            const DeepCollectionEquality().equals(other.speedMetersPerSec, speedMetersPerSec) &&
+            const DeepCollectionEquality().equals(other.headingDegrees, headingDegrees) &&
+            const DeepCollectionEquality().equals(other.locationAccuracy, locationAccuracy) &&
+            const DeepCollectionEquality().equals(other.speedAccuracy, speedAccuracy) &&
+            const DeepCollectionEquality().equals(other.altitudeMax, altitudeMax) &&
+            const DeepCollectionEquality().equals(other.altitudeMin, altitudeMin) &&
+            const DeepCollectionEquality().equals(other.speedMax, speedMax) &&
+            const DeepCollectionEquality().equals(other.speedMin, speedMin) &&
+            const DeepCollectionEquality().equals(other.averageSpeedMetersPerSec, averageSpeedMetersPerSec) &&
+            const DeepCollectionEquality().equals(other.netHeadingDegrees, netHeadingDegrees) &&
+            const DeepCollectionEquality().equals(other.distanceTraveled, distanceTraveled) &&
+            const DeepCollectionEquality().equals(other.netElevationChange, netElevationChange) &&
+            const DeepCollectionEquality().equals(other.cumulativeClimbMeters, cumulativeClimbMeters) &&
+            const DeepCollectionEquality().equals(other.cumulativeDescentMeters, cumulativeDescentMeters) &&
+            const DeepCollectionEquality().equals(other.metricPeriodSeconds, metricPeriodSeconds));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        timeStartSec,
-        latitudeStart,
-        longitudeStart,
-        altitudeStart,
-        latitude,
-        longitude,
-        altitude,
-        speedMetersPerSec,
-        headingDegrees,
-        locationAccuracy,
-        speedAccuracy,
-        altitudeMax,
-        altitudeMin,
-        speedMax,
-        speedMin,
-        averageSpeedMetersPerSec,
-        netHeadingDegrees,
-        distanceTraveled,
-        netElevationChange,
-        cumulativeClimbMeters,
-        cumulativeDescentMeters,
-        metricPeriodSeconds
+        const DeepCollectionEquality().hash(timeStartSec),
+        const DeepCollectionEquality().hash(latitudeStart),
+        const DeepCollectionEquality().hash(longitudeStart),
+        const DeepCollectionEquality().hash(altitudeStart),
+        const DeepCollectionEquality().hash(latitude),
+        const DeepCollectionEquality().hash(longitude),
+        const DeepCollectionEquality().hash(altitude),
+        const DeepCollectionEquality().hash(speedMetersPerSec),
+        const DeepCollectionEquality().hash(headingDegrees),
+        const DeepCollectionEquality().hash(locationAccuracy),
+        const DeepCollectionEquality().hash(speedAccuracy),
+        const DeepCollectionEquality().hash(altitudeMax),
+        const DeepCollectionEquality().hash(altitudeMin),
+        const DeepCollectionEquality().hash(speedMax),
+        const DeepCollectionEquality().hash(speedMin),
+        const DeepCollectionEquality().hash(averageSpeedMetersPerSec),
+        const DeepCollectionEquality().hash(netHeadingDegrees),
+        const DeepCollectionEquality().hash(distanceTraveled),
+        const DeepCollectionEquality().hash(netElevationChange),
+        const DeepCollectionEquality().hash(cumulativeClimbMeters),
+        const DeepCollectionEquality().hash(cumulativeDescentMeters),
+        const DeepCollectionEquality().hash(metricPeriodSeconds)
       ]);
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_HikeMetricsCopyWith<_$_HikeMetrics> get copyWith =>
-      __$$_HikeMetricsCopyWithImpl<_$_HikeMetrics>(this, _$identity);
+  _$$_HikeMetricsCopyWith<_$_HikeMetrics> get copyWith => __$$_HikeMetricsCopyWithImpl<_$_HikeMetrics>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HikeMetricsToJson(
-      this,
-    );
+    return _$$_HikeMetricsToJson(this);
   }
 }
 
@@ -592,61 +546,55 @@ abstract class _HikeMetrics implements HikeMetrics {
       final double cumulativeDescentMeters,
       final double metricPeriodSeconds}) = _$_HikeMetrics;
 
-  factory _HikeMetrics.fromJson(Map<String, dynamic> json) =
-      _$_HikeMetrics.fromJson;
+  factory _HikeMetrics.fromJson(Map<String, dynamic> json) = _$_HikeMetrics.fromJson;
 
   @override
-  double get timeStartSec;
+  double get timeStartSec => throw _privateConstructorUsedError;
   @override
-  double get latitudeStart;
+  double get latitudeStart => throw _privateConstructorUsedError;
   @override
-  double get longitudeStart;
+  double get longitudeStart => throw _privateConstructorUsedError;
   @override
-  double get altitudeStart;
+  double get altitudeStart => throw _privateConstructorUsedError;
   @override
-  double get latitude;
+  double get latitude => throw _privateConstructorUsedError;
   @override
-  double get longitude;
+  double get longitude => throw _privateConstructorUsedError;
   @override
-  double get altitude;
+  double get altitude => throw _privateConstructorUsedError;
   @override
-  double get speedMetersPerSec;
+  double get speedMetersPerSec => throw _privateConstructorUsedError;
   @override
-  double get headingDegrees;
+  double get headingDegrees => throw _privateConstructorUsedError;
   @override
-  LocationAccuracyType get locationAccuracy;
+  LocationAccuracyType get locationAccuracy => throw _privateConstructorUsedError;
   @override
-  LocationAccuracyType get speedAccuracy;
+  LocationAccuracyType get speedAccuracy => throw _privateConstructorUsedError;
   @override
-  double get altitudeMax;
+  double get altitudeMax => throw _privateConstructorUsedError;
   @override
-  double get altitudeMin;
+  double get altitudeMin => throw _privateConstructorUsedError;
   @override
-  double get speedMax;
+  double get speedMax => throw _privateConstructorUsedError;
   @override
-  double get speedMin;
+  double get speedMin => throw _privateConstructorUsedError;
   @override
-  double get averageSpeedMetersPerSec;
+  double get averageSpeedMetersPerSec => throw _privateConstructorUsedError;
   @override
-  double get netHeadingDegrees;
+  double get netHeadingDegrees => throw _privateConstructorUsedError;
   @override
-  double get distanceTraveled;
+  double get distanceTraveled => throw _privateConstructorUsedError;
   @override
-  double get netElevationChange;
+  double get netElevationChange => throw _privateConstructorUsedError;
   @override
-  double get cumulativeClimbMeters;
+  double get cumulativeClimbMeters => throw _privateConstructorUsedError;
   @override
-  double get cumulativeDescentMeters;
+  double get cumulativeDescentMeters => throw _privateConstructorUsedError;
   @override
-  double get metricPeriodSeconds;
+  double get metricPeriodSeconds => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_HikeMetricsCopyWith<_$_HikeMetrics> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-HikeMetricsData _$HikeMetricsDataFromJson(Map<String, dynamic> json) {
-  return _HikeMetricsData.fromJson(json);
+  _$$_HikeMetricsCopyWith<_$_HikeMetrics> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -676,16 +624,13 @@ mixin _$HikeMetricsData {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $HikeMetricsDataCopyWith<HikeMetricsData> get copyWith =>
-      throw _privateConstructorUsedError;
+  $HikeMetricsDataCopyWith<HikeMetricsData> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HikeMetricsDataCopyWith<$Res> {
-  factory $HikeMetricsDataCopyWith(
-          HikeMetricsData value, $Res Function(HikeMetricsData) then) =
-      _$HikeMetricsDataCopyWithImpl<$Res, HikeMetricsData>;
-  @useResult
+  factory $HikeMetricsDataCopyWith(HikeMetricsData value, $Res Function(HikeMetricsData) then) =
+      _$HikeMetricsDataCopyWithImpl<$Res>;
   $Res call(
       {Metric? timeStartSec,
       Metric? latitudeStart,
@@ -735,16 +680,13 @@ abstract class $HikeMetricsDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$HikeMetricsDataCopyWithImpl<$Res, $Val extends HikeMetricsData>
-    implements $HikeMetricsDataCopyWith<$Res> {
+class _$HikeMetricsDataCopyWithImpl<$Res> implements $HikeMetricsDataCopyWith<$Res> {
   _$HikeMetricsDataCopyWithImpl(this._value, this._then);
 
+  final HikeMetricsData _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(HikeMetricsData) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? timeStartSec = freezed,
@@ -771,370 +713,345 @@ class _$HikeMetricsDataCopyWithImpl<$Res, $Val extends HikeMetricsData>
     Object? metricPeriodSeconds = freezed,
   }) {
     return _then(_value.copyWith(
-      timeStartSec: freezed == timeStartSec
+      timeStartSec: timeStartSec == freezed
           ? _value.timeStartSec
           : timeStartSec // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      latitudeStart: freezed == latitudeStart
+      latitudeStart: latitudeStart == freezed
           ? _value.latitudeStart
           : latitudeStart // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      longitudeStart: freezed == longitudeStart
+      longitudeStart: longitudeStart == freezed
           ? _value.longitudeStart
           : longitudeStart // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitudeStart: freezed == altitudeStart
+      altitudeStart: altitudeStart == freezed
           ? _value.altitudeStart
           : altitudeStart // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      latitude: freezed == latitude
+      latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      longitude: freezed == longitude
+      longitude: longitude == freezed
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitude: freezed == altitude
+      altitude: altitude == freezed
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedMetersPerSec: freezed == speedMetersPerSec
+      speedMetersPerSec: speedMetersPerSec == freezed
           ? _value.speedMetersPerSec
           : speedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      headingDegrees: freezed == headingDegrees
+      headingDegrees: headingDegrees == freezed
           ? _value.headingDegrees
           : headingDegrees // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      locationAccuracy: freezed == locationAccuracy
+      locationAccuracy: locationAccuracy == freezed
           ? _value.locationAccuracy
           : locationAccuracy // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedAccuracy: freezed == speedAccuracy
+      speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitudeMax: freezed == altitudeMax
+      altitudeMax: altitudeMax == freezed
           ? _value.altitudeMax
           : altitudeMax // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitudeMin: freezed == altitudeMin
+      altitudeMin: altitudeMin == freezed
           ? _value.altitudeMin
           : altitudeMin // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedMax: freezed == speedMax
+      speedMax: speedMax == freezed
           ? _value.speedMax
           : speedMax // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedMin: freezed == speedMin
+      speedMin: speedMin == freezed
           ? _value.speedMin
           : speedMin // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      averageSpeedMetersPerSec: freezed == averageSpeedMetersPerSec
+      averageSpeedMetersPerSec: averageSpeedMetersPerSec == freezed
           ? _value.averageSpeedMetersPerSec
           : averageSpeedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      netHeadingDegrees: freezed == netHeadingDegrees
+      netHeadingDegrees: netHeadingDegrees == freezed
           ? _value.netHeadingDegrees
           : netHeadingDegrees // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      distanceTraveled: freezed == distanceTraveled
+      distanceTraveled: distanceTraveled == freezed
           ? _value.distanceTraveled
           : distanceTraveled // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      netElevationChange: freezed == netElevationChange
+      netElevationChange: netElevationChange == freezed
           ? _value.netElevationChange
           : netElevationChange // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      cumulativeClimbMeters: freezed == cumulativeClimbMeters
+      cumulativeClimbMeters: cumulativeClimbMeters == freezed
           ? _value.cumulativeClimbMeters
           : cumulativeClimbMeters // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      cumulativeDescentMeters: freezed == cumulativeDescentMeters
+      cumulativeDescentMeters: cumulativeDescentMeters == freezed
           ? _value.cumulativeDescentMeters
           : cumulativeDescentMeters // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      metricPeriodSeconds: freezed == metricPeriodSeconds
+      metricPeriodSeconds: metricPeriodSeconds == freezed
           ? _value.metricPeriodSeconds
           : metricPeriodSeconds // ignore: cast_nullable_to_non_nullable
               as Metric?,
-    ) as $Val);
+    ));
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get timeStartSec {
     if (_value.timeStartSec == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.timeStartSec!, (value) {
-      return _then(_value.copyWith(timeStartSec: value) as $Val);
+      return _then(_value.copyWith(timeStartSec: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get latitudeStart {
     if (_value.latitudeStart == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.latitudeStart!, (value) {
-      return _then(_value.copyWith(latitudeStart: value) as $Val);
+      return _then(_value.copyWith(latitudeStart: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get longitudeStart {
     if (_value.longitudeStart == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.longitudeStart!, (value) {
-      return _then(_value.copyWith(longitudeStart: value) as $Val);
+      return _then(_value.copyWith(longitudeStart: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get altitudeStart {
     if (_value.altitudeStart == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.altitudeStart!, (value) {
-      return _then(_value.copyWith(altitudeStart: value) as $Val);
+      return _then(_value.copyWith(altitudeStart: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get latitude {
     if (_value.latitude == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.latitude!, (value) {
-      return _then(_value.copyWith(latitude: value) as $Val);
+      return _then(_value.copyWith(latitude: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get longitude {
     if (_value.longitude == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.longitude!, (value) {
-      return _then(_value.copyWith(longitude: value) as $Val);
+      return _then(_value.copyWith(longitude: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get altitude {
     if (_value.altitude == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.altitude!, (value) {
-      return _then(_value.copyWith(altitude: value) as $Val);
+      return _then(_value.copyWith(altitude: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get speedMetersPerSec {
     if (_value.speedMetersPerSec == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.speedMetersPerSec!, (value) {
-      return _then(_value.copyWith(speedMetersPerSec: value) as $Val);
+      return _then(_value.copyWith(speedMetersPerSec: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get headingDegrees {
     if (_value.headingDegrees == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.headingDegrees!, (value) {
-      return _then(_value.copyWith(headingDegrees: value) as $Val);
+      return _then(_value.copyWith(headingDegrees: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get locationAccuracy {
     if (_value.locationAccuracy == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.locationAccuracy!, (value) {
-      return _then(_value.copyWith(locationAccuracy: value) as $Val);
+      return _then(_value.copyWith(locationAccuracy: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get speedAccuracy {
     if (_value.speedAccuracy == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.speedAccuracy!, (value) {
-      return _then(_value.copyWith(speedAccuracy: value) as $Val);
+      return _then(_value.copyWith(speedAccuracy: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get altitudeMax {
     if (_value.altitudeMax == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.altitudeMax!, (value) {
-      return _then(_value.copyWith(altitudeMax: value) as $Val);
+      return _then(_value.copyWith(altitudeMax: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get altitudeMin {
     if (_value.altitudeMin == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.altitudeMin!, (value) {
-      return _then(_value.copyWith(altitudeMin: value) as $Val);
+      return _then(_value.copyWith(altitudeMin: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get speedMax {
     if (_value.speedMax == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.speedMax!, (value) {
-      return _then(_value.copyWith(speedMax: value) as $Val);
+      return _then(_value.copyWith(speedMax: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get speedMin {
     if (_value.speedMin == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.speedMin!, (value) {
-      return _then(_value.copyWith(speedMin: value) as $Val);
+      return _then(_value.copyWith(speedMin: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get averageSpeedMetersPerSec {
     if (_value.averageSpeedMetersPerSec == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.averageSpeedMetersPerSec!, (value) {
-      return _then(_value.copyWith(averageSpeedMetersPerSec: value) as $Val);
+      return _then(_value.copyWith(averageSpeedMetersPerSec: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get netHeadingDegrees {
     if (_value.netHeadingDegrees == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.netHeadingDegrees!, (value) {
-      return _then(_value.copyWith(netHeadingDegrees: value) as $Val);
+      return _then(_value.copyWith(netHeadingDegrees: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get distanceTraveled {
     if (_value.distanceTraveled == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.distanceTraveled!, (value) {
-      return _then(_value.copyWith(distanceTraveled: value) as $Val);
+      return _then(_value.copyWith(distanceTraveled: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get netElevationChange {
     if (_value.netElevationChange == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.netElevationChange!, (value) {
-      return _then(_value.copyWith(netElevationChange: value) as $Val);
+      return _then(_value.copyWith(netElevationChange: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get cumulativeClimbMeters {
     if (_value.cumulativeClimbMeters == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.cumulativeClimbMeters!, (value) {
-      return _then(_value.copyWith(cumulativeClimbMeters: value) as $Val);
+      return _then(_value.copyWith(cumulativeClimbMeters: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get cumulativeDescentMeters {
     if (_value.cumulativeDescentMeters == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.cumulativeDescentMeters!, (value) {
-      return _then(_value.copyWith(cumulativeDescentMeters: value) as $Val);
+      return _then(_value.copyWith(cumulativeDescentMeters: value));
     });
   }
 
   @override
-  @pragma('vm:prefer-inline')
   $MetricCopyWith<$Res>? get metricPeriodSeconds {
     if (_value.metricPeriodSeconds == null) {
       return null;
     }
 
     return $MetricCopyWith<$Res>(_value.metricPeriodSeconds!, (value) {
-      return _then(_value.copyWith(metricPeriodSeconds: value) as $Val);
+      return _then(_value.copyWith(metricPeriodSeconds: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_HikeMetricsDataCopyWith<$Res>
-    implements $HikeMetricsDataCopyWith<$Res> {
-  factory _$$_HikeMetricsDataCopyWith(
-          _$_HikeMetricsData value, $Res Function(_$_HikeMetricsData) then) =
+abstract class _$$_HikeMetricsDataCopyWith<$Res> implements $HikeMetricsDataCopyWith<$Res> {
+  factory _$$_HikeMetricsDataCopyWith(_$_HikeMetricsData value, $Res Function(_$_HikeMetricsData) then) =
       __$$_HikeMetricsDataCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {Metric? timeStartSec,
       Metric? latitudeStart,
@@ -1206,14 +1123,14 @@ abstract class _$$_HikeMetricsDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HikeMetricsDataCopyWithImpl<$Res>
-    extends _$HikeMetricsDataCopyWithImpl<$Res, _$_HikeMetricsData>
+class __$$_HikeMetricsDataCopyWithImpl<$Res> extends _$HikeMetricsDataCopyWithImpl<$Res>
     implements _$$_HikeMetricsDataCopyWith<$Res> {
-  __$$_HikeMetricsDataCopyWithImpl(
-      _$_HikeMetricsData _value, $Res Function(_$_HikeMetricsData) _then)
-      : super(_value, _then);
+  __$$_HikeMetricsDataCopyWithImpl(_$_HikeMetricsData _value, $Res Function(_$_HikeMetricsData) _then)
+      : super(_value, (v) => _then(v as _$_HikeMetricsData));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_HikeMetricsData get _value => super._value as _$_HikeMetricsData;
+
   @override
   $Res call({
     Object? timeStartSec = freezed,
@@ -1240,91 +1157,91 @@ class __$$_HikeMetricsDataCopyWithImpl<$Res>
     Object? metricPeriodSeconds = freezed,
   }) {
     return _then(_$_HikeMetricsData(
-      timeStartSec: freezed == timeStartSec
+      timeStartSec: timeStartSec == freezed
           ? _value.timeStartSec
           : timeStartSec // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      latitudeStart: freezed == latitudeStart
+      latitudeStart: latitudeStart == freezed
           ? _value.latitudeStart
           : latitudeStart // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      longitudeStart: freezed == longitudeStart
+      longitudeStart: longitudeStart == freezed
           ? _value.longitudeStart
           : longitudeStart // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitudeStart: freezed == altitudeStart
+      altitudeStart: altitudeStart == freezed
           ? _value.altitudeStart
           : altitudeStart // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      latitude: freezed == latitude
+      latitude: latitude == freezed
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      longitude: freezed == longitude
+      longitude: longitude == freezed
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitude: freezed == altitude
+      altitude: altitude == freezed
           ? _value.altitude
           : altitude // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedMetersPerSec: freezed == speedMetersPerSec
+      speedMetersPerSec: speedMetersPerSec == freezed
           ? _value.speedMetersPerSec
           : speedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      headingDegrees: freezed == headingDegrees
+      headingDegrees: headingDegrees == freezed
           ? _value.headingDegrees
           : headingDegrees // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      locationAccuracy: freezed == locationAccuracy
+      locationAccuracy: locationAccuracy == freezed
           ? _value.locationAccuracy
           : locationAccuracy // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedAccuracy: freezed == speedAccuracy
+      speedAccuracy: speedAccuracy == freezed
           ? _value.speedAccuracy
           : speedAccuracy // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitudeMax: freezed == altitudeMax
+      altitudeMax: altitudeMax == freezed
           ? _value.altitudeMax
           : altitudeMax // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      altitudeMin: freezed == altitudeMin
+      altitudeMin: altitudeMin == freezed
           ? _value.altitudeMin
           : altitudeMin // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedMax: freezed == speedMax
+      speedMax: speedMax == freezed
           ? _value.speedMax
           : speedMax // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      speedMin: freezed == speedMin
+      speedMin: speedMin == freezed
           ? _value.speedMin
           : speedMin // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      averageSpeedMetersPerSec: freezed == averageSpeedMetersPerSec
+      averageSpeedMetersPerSec: averageSpeedMetersPerSec == freezed
           ? _value.averageSpeedMetersPerSec
           : averageSpeedMetersPerSec // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      netHeadingDegrees: freezed == netHeadingDegrees
+      netHeadingDegrees: netHeadingDegrees == freezed
           ? _value.netHeadingDegrees
           : netHeadingDegrees // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      distanceTraveled: freezed == distanceTraveled
+      distanceTraveled: distanceTraveled == freezed
           ? _value.distanceTraveled
           : distanceTraveled // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      netElevationChange: freezed == netElevationChange
+      netElevationChange: netElevationChange == freezed
           ? _value.netElevationChange
           : netElevationChange // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      cumulativeClimbMeters: freezed == cumulativeClimbMeters
+      cumulativeClimbMeters: cumulativeClimbMeters == freezed
           ? _value.cumulativeClimbMeters
           : cumulativeClimbMeters // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      cumulativeDescentMeters: freezed == cumulativeDescentMeters
+      cumulativeDescentMeters: cumulativeDescentMeters == freezed
           ? _value.cumulativeDescentMeters
           : cumulativeDescentMeters // ignore: cast_nullable_to_non_nullable
               as Metric?,
-      metricPeriodSeconds: freezed == metricPeriodSeconds
+      metricPeriodSeconds: metricPeriodSeconds == freezed
           ? _value.metricPeriodSeconds
           : metricPeriodSeconds // ignore: cast_nullable_to_non_nullable
               as Metric?,
@@ -1359,8 +1276,7 @@ class _$_HikeMetricsData implements _HikeMetricsData {
       this.cumulativeDescentMeters,
       this.metricPeriodSeconds});
 
-  factory _$_HikeMetricsData.fromJson(Map<String, dynamic> json) =>
-      _$$_HikeMetricsDataFromJson(json);
+  factory _$_HikeMetricsData.fromJson(Map<String, dynamic> json) => _$$_HikeMetricsDataFromJson(json);
 
   @override
   final Metric? timeStartSec;
@@ -1417,93 +1333,66 @@ class _$_HikeMetricsData implements _HikeMetricsData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HikeMetricsData &&
-            (identical(other.timeStartSec, timeStartSec) ||
-                other.timeStartSec == timeStartSec) &&
-            (identical(other.latitudeStart, latitudeStart) ||
-                other.latitudeStart == latitudeStart) &&
-            (identical(other.longitudeStart, longitudeStart) ||
-                other.longitudeStart == longitudeStart) &&
-            (identical(other.altitudeStart, altitudeStart) ||
-                other.altitudeStart == altitudeStart) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
-            (identical(other.altitude, altitude) ||
-                other.altitude == altitude) &&
-            (identical(other.speedMetersPerSec, speedMetersPerSec) ||
-                other.speedMetersPerSec == speedMetersPerSec) &&
-            (identical(other.headingDegrees, headingDegrees) ||
-                other.headingDegrees == headingDegrees) &&
-            (identical(other.locationAccuracy, locationAccuracy) ||
-                other.locationAccuracy == locationAccuracy) &&
-            (identical(other.speedAccuracy, speedAccuracy) ||
-                other.speedAccuracy == speedAccuracy) &&
-            (identical(other.altitudeMax, altitudeMax) ||
-                other.altitudeMax == altitudeMax) &&
-            (identical(other.altitudeMin, altitudeMin) ||
-                other.altitudeMin == altitudeMin) &&
-            (identical(other.speedMax, speedMax) ||
-                other.speedMax == speedMax) &&
-            (identical(other.speedMin, speedMin) ||
-                other.speedMin == speedMin) &&
-            (identical(
-                    other.averageSpeedMetersPerSec, averageSpeedMetersPerSec) ||
-                other.averageSpeedMetersPerSec == averageSpeedMetersPerSec) &&
-            (identical(other.netHeadingDegrees, netHeadingDegrees) ||
-                other.netHeadingDegrees == netHeadingDegrees) &&
-            (identical(other.distanceTraveled, distanceTraveled) ||
-                other.distanceTraveled == distanceTraveled) &&
-            (identical(other.netElevationChange, netElevationChange) ||
-                other.netElevationChange == netElevationChange) &&
-            (identical(other.cumulativeClimbMeters, cumulativeClimbMeters) ||
-                other.cumulativeClimbMeters == cumulativeClimbMeters) &&
-            (identical(
-                    other.cumulativeDescentMeters, cumulativeDescentMeters) ||
-                other.cumulativeDescentMeters == cumulativeDescentMeters) &&
-            (identical(other.metricPeriodSeconds, metricPeriodSeconds) ||
-                other.metricPeriodSeconds == metricPeriodSeconds));
+            const DeepCollectionEquality().equals(other.timeStartSec, timeStartSec) &&
+            const DeepCollectionEquality().equals(other.latitudeStart, latitudeStart) &&
+            const DeepCollectionEquality().equals(other.longitudeStart, longitudeStart) &&
+            const DeepCollectionEquality().equals(other.altitudeStart, altitudeStart) &&
+            const DeepCollectionEquality().equals(other.latitude, latitude) &&
+            const DeepCollectionEquality().equals(other.longitude, longitude) &&
+            const DeepCollectionEquality().equals(other.altitude, altitude) &&
+            const DeepCollectionEquality().equals(other.speedMetersPerSec, speedMetersPerSec) &&
+            const DeepCollectionEquality().equals(other.headingDegrees, headingDegrees) &&
+            const DeepCollectionEquality().equals(other.locationAccuracy, locationAccuracy) &&
+            const DeepCollectionEquality().equals(other.speedAccuracy, speedAccuracy) &&
+            const DeepCollectionEquality().equals(other.altitudeMax, altitudeMax) &&
+            const DeepCollectionEquality().equals(other.altitudeMin, altitudeMin) &&
+            const DeepCollectionEquality().equals(other.speedMax, speedMax) &&
+            const DeepCollectionEquality().equals(other.speedMin, speedMin) &&
+            const DeepCollectionEquality().equals(other.averageSpeedMetersPerSec, averageSpeedMetersPerSec) &&
+            const DeepCollectionEquality().equals(other.netHeadingDegrees, netHeadingDegrees) &&
+            const DeepCollectionEquality().equals(other.distanceTraveled, distanceTraveled) &&
+            const DeepCollectionEquality().equals(other.netElevationChange, netElevationChange) &&
+            const DeepCollectionEquality().equals(other.cumulativeClimbMeters, cumulativeClimbMeters) &&
+            const DeepCollectionEquality().equals(other.cumulativeDescentMeters, cumulativeDescentMeters) &&
+            const DeepCollectionEquality().equals(other.metricPeriodSeconds, metricPeriodSeconds));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        timeStartSec,
-        latitudeStart,
-        longitudeStart,
-        altitudeStart,
-        latitude,
-        longitude,
-        altitude,
-        speedMetersPerSec,
-        headingDegrees,
-        locationAccuracy,
-        speedAccuracy,
-        altitudeMax,
-        altitudeMin,
-        speedMax,
-        speedMin,
-        averageSpeedMetersPerSec,
-        netHeadingDegrees,
-        distanceTraveled,
-        netElevationChange,
-        cumulativeClimbMeters,
-        cumulativeDescentMeters,
-        metricPeriodSeconds
+        const DeepCollectionEquality().hash(timeStartSec),
+        const DeepCollectionEquality().hash(latitudeStart),
+        const DeepCollectionEquality().hash(longitudeStart),
+        const DeepCollectionEquality().hash(altitudeStart),
+        const DeepCollectionEquality().hash(latitude),
+        const DeepCollectionEquality().hash(longitude),
+        const DeepCollectionEquality().hash(altitude),
+        const DeepCollectionEquality().hash(speedMetersPerSec),
+        const DeepCollectionEquality().hash(headingDegrees),
+        const DeepCollectionEquality().hash(locationAccuracy),
+        const DeepCollectionEquality().hash(speedAccuracy),
+        const DeepCollectionEquality().hash(altitudeMax),
+        const DeepCollectionEquality().hash(altitudeMin),
+        const DeepCollectionEquality().hash(speedMax),
+        const DeepCollectionEquality().hash(speedMin),
+        const DeepCollectionEquality().hash(averageSpeedMetersPerSec),
+        const DeepCollectionEquality().hash(netHeadingDegrees),
+        const DeepCollectionEquality().hash(distanceTraveled),
+        const DeepCollectionEquality().hash(netElevationChange),
+        const DeepCollectionEquality().hash(cumulativeClimbMeters),
+        const DeepCollectionEquality().hash(cumulativeDescentMeters),
+        const DeepCollectionEquality().hash(metricPeriodSeconds)
       ]);
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_HikeMetricsDataCopyWith<_$_HikeMetricsData> get copyWith =>
       __$$_HikeMetricsDataCopyWithImpl<_$_HikeMetricsData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HikeMetricsDataToJson(
-      this,
-    );
+    return _$$_HikeMetricsDataToJson(this);
   }
 }
 
@@ -1532,61 +1421,55 @@ abstract class _HikeMetricsData implements HikeMetricsData {
       final Metric? cumulativeDescentMeters,
       final Metric? metricPeriodSeconds}) = _$_HikeMetricsData;
 
-  factory _HikeMetricsData.fromJson(Map<String, dynamic> json) =
-      _$_HikeMetricsData.fromJson;
+  factory _HikeMetricsData.fromJson(Map<String, dynamic> json) = _$_HikeMetricsData.fromJson;
 
   @override
-  Metric? get timeStartSec;
+  Metric? get timeStartSec => throw _privateConstructorUsedError;
   @override
-  Metric? get latitudeStart;
+  Metric? get latitudeStart => throw _privateConstructorUsedError;
   @override
-  Metric? get longitudeStart;
+  Metric? get longitudeStart => throw _privateConstructorUsedError;
   @override
-  Metric? get altitudeStart;
+  Metric? get altitudeStart => throw _privateConstructorUsedError;
   @override
-  Metric? get latitude;
+  Metric? get latitude => throw _privateConstructorUsedError;
   @override
-  Metric? get longitude;
+  Metric? get longitude => throw _privateConstructorUsedError;
   @override
-  Metric? get altitude;
+  Metric? get altitude => throw _privateConstructorUsedError;
   @override
-  Metric? get speedMetersPerSec;
+  Metric? get speedMetersPerSec => throw _privateConstructorUsedError;
   @override
-  Metric? get headingDegrees;
+  Metric? get headingDegrees => throw _privateConstructorUsedError;
   @override
-  Metric? get locationAccuracy;
+  Metric? get locationAccuracy => throw _privateConstructorUsedError;
   @override
-  Metric? get speedAccuracy;
+  Metric? get speedAccuracy => throw _privateConstructorUsedError;
   @override
-  Metric? get altitudeMax;
+  Metric? get altitudeMax => throw _privateConstructorUsedError;
   @override
-  Metric? get altitudeMin;
+  Metric? get altitudeMin => throw _privateConstructorUsedError;
   @override
-  Metric? get speedMax;
+  Metric? get speedMax => throw _privateConstructorUsedError;
   @override
-  Metric? get speedMin;
+  Metric? get speedMin => throw _privateConstructorUsedError;
   @override
-  Metric? get averageSpeedMetersPerSec;
+  Metric? get averageSpeedMetersPerSec => throw _privateConstructorUsedError;
   @override
-  Metric? get netHeadingDegrees;
+  Metric? get netHeadingDegrees => throw _privateConstructorUsedError;
   @override
-  Metric? get distanceTraveled;
+  Metric? get distanceTraveled => throw _privateConstructorUsedError;
   @override
-  Metric? get netElevationChange;
+  Metric? get netElevationChange => throw _privateConstructorUsedError;
   @override
-  Metric? get cumulativeClimbMeters;
+  Metric? get cumulativeClimbMeters => throw _privateConstructorUsedError;
   @override
-  Metric? get cumulativeDescentMeters;
+  Metric? get cumulativeDescentMeters => throw _privateConstructorUsedError;
   @override
-  Metric? get metricPeriodSeconds;
+  Metric? get metricPeriodSeconds => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_HikeMetricsDataCopyWith<_$_HikeMetricsData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Metric _$MetricFromJson(Map<String, dynamic> json) {
-  return _Metric.fromJson(json);
+  _$$_HikeMetricsDataCopyWith<_$_HikeMetricsData> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1602,79 +1485,71 @@ mixin _$Metric {
 
 /// @nodoc
 abstract class $MetricCopyWith<$Res> {
-  factory $MetricCopyWith(Metric value, $Res Function(Metric) then) =
-      _$MetricCopyWithImpl<$Res, Metric>;
-  @useResult
+  factory $MetricCopyWith(Metric value, $Res Function(Metric) then) = _$MetricCopyWithImpl<$Res>;
   $Res call({String name, String value, bool visible});
 }
 
 /// @nodoc
-class _$MetricCopyWithImpl<$Res, $Val extends Metric>
-    implements $MetricCopyWith<$Res> {
+class _$MetricCopyWithImpl<$Res> implements $MetricCopyWith<$Res> {
   _$MetricCopyWithImpl(this._value, this._then);
 
+  final Metric _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(Metric) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? value = null,
-    Object? visible = null,
+    Object? name = freezed,
+    Object? value = freezed,
+    Object? visible = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: null == value
+      value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
-      visible: null == visible
+      visible: visible == freezed
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
-    ) as $Val);
+    ));
   }
 }
 
 /// @nodoc
 abstract class _$$_MetricCopyWith<$Res> implements $MetricCopyWith<$Res> {
-  factory _$$_MetricCopyWith(_$_Metric value, $Res Function(_$_Metric) then) =
-      __$$_MetricCopyWithImpl<$Res>;
+  factory _$$_MetricCopyWith(_$_Metric value, $Res Function(_$_Metric) then) = __$$_MetricCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call({String name, String value, bool visible});
 }
 
 /// @nodoc
-class __$$_MetricCopyWithImpl<$Res>
-    extends _$MetricCopyWithImpl<$Res, _$_Metric>
-    implements _$$_MetricCopyWith<$Res> {
-  __$$_MetricCopyWithImpl(_$_Metric _value, $Res Function(_$_Metric) _then)
-      : super(_value, _then);
+class __$$_MetricCopyWithImpl<$Res> extends _$MetricCopyWithImpl<$Res> implements _$$_MetricCopyWith<$Res> {
+  __$$_MetricCopyWithImpl(_$_Metric _value, $Res Function(_$_Metric) _then) : super(_value, (v) => _then(v as _$_Metric));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_Metric get _value => super._value as _$_Metric;
+
   @override
   $Res call({
-    Object? name = null,
-    Object? value = null,
-    Object? visible = null,
+    Object? name = freezed,
+    Object? value = freezed,
+    Object? visible = freezed,
   }) {
     return _then(_$_Metric(
-      name: null == name
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      value: null == value
+      value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as String,
-      visible: null == visible
+      visible: visible == freezed
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -1687,8 +1562,7 @@ class __$$_MetricCopyWithImpl<$Res>
 class _$_Metric implements _Metric {
   const _$_Metric({this.name = "", this.value = "", this.visible = true});
 
-  factory _$_Metric.fromJson(Map<String, dynamic> json) =>
-      _$$_MetricFromJson(json);
+  factory _$_Metric.fromJson(Map<String, dynamic> json) => _$$_MetricFromJson(json);
 
   @override
   @JsonKey()
@@ -1710,43 +1584,38 @@ class _$_Metric implements _Metric {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Metric &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value) &&
-            (identical(other.visible, visible) || other.visible == visible));
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.value, value) &&
+            const DeepCollectionEquality().equals(other.visible, visible));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, value, visible);
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(value), const DeepCollectionEquality().hash(visible));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$_MetricCopyWith<_$_Metric> get copyWith =>
-      __$$_MetricCopyWithImpl<_$_Metric>(this, _$identity);
+  _$$_MetricCopyWith<_$_Metric> get copyWith => __$$_MetricCopyWithImpl<_$_Metric>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MetricToJson(
-      this,
-    );
+    return _$$_MetricToJson(this);
   }
 }
 
 abstract class _Metric implements Metric {
-  const factory _Metric(
-      {final String name, final String value, final bool visible}) = _$_Metric;
+  const factory _Metric({final String name, final String value, final bool visible}) = _$_Metric;
 
   factory _Metric.fromJson(Map<String, dynamic> json) = _$_Metric.fromJson;
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String get value;
+  String get value => throw _privateConstructorUsedError;
   @override
-  bool get visible;
+  bool get visible => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$$_MetricCopyWith<_$_Metric> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_MetricCopyWith<_$_Metric> get copyWith => throw _privateConstructorUsedError;
 }

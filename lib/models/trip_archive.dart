@@ -4,11 +4,12 @@ import 'package:hiking_app/models/plot_values.dart';
 import 'hike_metrics.dart';
 import 'location_status.dart';
 
-part 'trip_archive.freezed.dart';
-part 'trip_archive.g.dart';
+part 'data_archive.freezed.dart';
+part 'data_archive.g.dart';
 
 @freezed
-class TripArchive with _$TripArchive {
+@JsonSerializable()
+abstract class TripArchive with _$TripArchive {
   const factory TripArchive({
     @Default([]) List<TripSegment> tripSegments,
     String? tripName,
@@ -19,12 +20,15 @@ class TripArchive with _$TripArchive {
     PlotValues? speedPlot,
   }) = _TripArchive;
 
-  factory TripArchive.fromJson(Map<String, dynamic> json) =>
-      _$TripArchiveFromJson(json);
+  @override
+  factory TripArchive.fromJson(Map<String, dynamic> json) => _$TripArchiveFromJson(json);
+  @override
+  Map<String, dynamic> toJson() => _$TripArchiveToJson(this);
 }
 
 @freezed
-class TripSegment with _$TripSegment {
+@JsonSerializable()
+abstract class TripSegment with _$TripSegment {
   const factory TripSegment({
     HikeMetrics? hikeMetrics,
     @Default([]) List<LocationStatus> locationHistory,
@@ -33,6 +37,8 @@ class TripSegment with _$TripSegment {
     PlotValues? speedPlot,
   }) = _TripSegment;
 
-  factory TripSegment.fromJson(Map<String, dynamic> json) =>
-      _$TripSegmentFromJson(json);
+  @override
+  factory TripSegment.fromJson(Map<String, dynamic> json) => _$TripSegmentFromJson(json);
+  @override
+  Map<String, dynamic> toJson() => _$TripSegmentToJson(this);
 }
