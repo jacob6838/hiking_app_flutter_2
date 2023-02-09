@@ -41,8 +41,6 @@ class HikingService {
   final List<LocationStatus> _currentPath = [];
   final List<LocationStatus> _unfilteredPath = [];
 
-  TripArchive? _currentTrip = null;
-
   int? reportPeriodSec;
 
   LocationFilter? locationFilter;
@@ -144,9 +142,6 @@ class HikingService {
         height: 150,
         width: 180,
       );
-    } else if (statusCommand == TripStatusCommand.unpause) {
-      _currentTrip.tripSegments.add(new TripSegment());
-      currentTripSub.add(_currentTrip);
     } else if (statusCommand == TripStatusCommand.stop) {
       hikingService._locationService.stopLocationService();
       return archiveCurrentTripData();
@@ -244,16 +239,14 @@ class HikingService {
       // print("First Time!");
       _prevLocation = locationStatus;
       _hikeMetricsTotal = getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
+      _hikeMetricSegments.add(getInitialMetrics(_prevLocation!, getCurrentTimeSeconds()));
       _prevHikeMetrics = _hikeMetricsTotal;
 
-      _currentTrip = new TripArchive(
-        hikeMetrics: _hikeMetricsTotal,
-        tripSegments: [_currentTripSegment],
-        tripName: "trip_${DateFormat('yyyy-MM-dd_kk-mm-ss').format(DateTime.now())}",
-        locationHistory: [_prevLocation],
-        unfilteredLocationHistory: [locationStatus],
-      );
+      _currentPath.add(_prevLocation!);
 
+      _currentHikerMetricsSub.add(_hikeMetricsTotal);
+      currentPathSub.add(_currentPath);
+      _unfilteredPath.add(locationStatus);
       return;
     }
 
