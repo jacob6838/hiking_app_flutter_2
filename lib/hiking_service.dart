@@ -158,11 +158,12 @@ class HikingService {
 
   void _handleArchiveChange(DataArchive dataArchive) async {
     // print("ARCHIVE CAHANGING TO $dataArchive");
-    _currentHikerMetricsSub.value = dataArchive.hikeMetrics!;
-    currentPathSub.value = dataArchive.locationHistory!;
-    currentRawPathSub.value = dataArchive.unfilteredLocationHistory!;
-    elevationPlot.value = dataArchive.elevationPlot!;
-    speedPlot.value = dataArchive.speedPlot!;
+    _currentHikerMetricsSub.value =
+        dataArchive.hikeMetrics ?? const HikeMetrics();
+    currentPathSub.value = dataArchive.locationHistory ?? [];
+    currentRawPathSub.value = dataArchive.unfilteredLocationHistory ?? [];
+    elevationPlot.value = dataArchive.elevationPlot ?? PlotValues();
+    speedPlot.value = dataArchive.speedPlot ?? PlotValues();
   }
 
   Future<String> archiveCurrentTripData() async {
@@ -339,6 +340,8 @@ class HikingService {
     List<List<double>> elevationValues = List.of(elevationPlotValues!.values);
     elevationValues
         .add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
+    elevationPlotValues =
+        elevationPlotValues?.copyWith(values: elevationValues);
 
     double elevRange = (metric.altitudeMax - metric.altitudeMin) * 3.28084;
     if (elevRange <= 10) {
@@ -346,7 +349,6 @@ class HikingService {
     }
 
     return elevationPlotValues!.copyWith(
-      values: elevationValues,
       xFormat: elevationPlotValues!.xFormat.copyWith(
         min: 0,
         max: metric.metricPeriodSeconds * 1.05,
@@ -366,6 +368,7 @@ class HikingService {
       metric.metricPeriodSeconds,
       metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond
     ]);
+    speedPlotValues = speedPlotValues?.copyWith(values: speedValues);
 
     double speedRangeMPH = metric.speedMax * MilesPerHourPerMetersPerSecond;
     if (speedRangeMPH <= .1) {
@@ -373,7 +376,6 @@ class HikingService {
     }
 
     return speedPlotValues!.copyWith(
-      values: speedValues,
       xFormat: speedPlotValues!.xFormat.copyWith(
         min: 0,
         max: metric.metricPeriodSeconds * 1.05,

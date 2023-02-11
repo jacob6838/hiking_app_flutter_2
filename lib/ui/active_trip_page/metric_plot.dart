@@ -6,7 +6,9 @@ import '../../hiking_service.dart';
 import '../../hiking_service_conversions.dart';
 
 class MetricPlot extends StatefulWidget {
-  const MetricPlot({Key? key, required this.hikingService, required this.plotValues}) : super(key: key);
+  const MetricPlot(
+      {Key? key, required this.hikingService, required this.plotValues})
+      : super(key: key);
 
   final HikingService hikingService;
   final PlotValues plotValues;
@@ -28,7 +30,8 @@ class MetricPlotState extends State<MetricPlot> {
           lineTouchData: LineTouchData(enabled: false),
           lineBarsData: [
             LineChartBarData(
-              spots: plotValues.values.map((it) => FlSpot(it[0], it[1])).toList(),
+              spots:
+                  plotValues.values.map((it) => FlSpot(it[0], it[1])).toList(),
               // isCurved: true,
               barWidth: 3,
               color: Colors.purpleAccent,
