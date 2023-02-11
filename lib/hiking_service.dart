@@ -7,7 +7,6 @@ import 'package:hiking_app/models/data_archive.dart';
 import 'package:hiking_app/models/hike_metrics.dart';
 import 'package:hiking_app/models/location_accuracy_type.dart';
 import 'package:hiking_app/models/location_status.dart';
-import 'package:intl/intl.dart';
 import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -154,7 +153,6 @@ class HikingService {
   }
 
   void _handleArchiveChange(DataArchive dataArchive) async {
-    // print("ARCHIVE CAHANGING TO $dataArchive");
     _currentHikerMetricsSub.value =
         dataArchive.hikeMetrics ?? const HikeMetrics();
     currentPathSub.value = dataArchive.locationHistory ?? [];
@@ -177,7 +175,7 @@ class HikingService {
   void clearData() {
     currentPathSub.add([]);
     currentRawPathSub.add([]);
-    _currentHikerMetricsSub.add(HikeMetrics());
+    _currentHikerMetricsSub.add(const HikeMetrics());
     elevationPlot.add(PlotValues());
     speedPlot.add(PlotValues());
   }
@@ -229,17 +227,11 @@ class HikingService {
     );
   }
 
-  // Future<void> updateCurrentLocation() async {
-  //   await _locationService.location.then((location) => currentLocationStatus.add(toLocationStatus(location)));
-  // }
-
   /// Process an updated location from device
   void _handleLocationUpdate(LocationStatus locationStatus) {
-    // print(locationStatus.toJson());
     /// If first point, initialize variables and return
     if (_prevLocation == null || _prevLocation!.timeStampSec == 0.0) {
       locationFilter = LocationFilter(locationStatus);
-      // print("First Time!");
       _prevLocation = locationStatus;
       _hikeMetricsTotal =
           getInitialMetrics(_prevLocation!, getCurrentTimeSeconds());
@@ -264,10 +256,6 @@ class HikingService {
         filteredLocation.timeStampSec - _prevLocation!.timeStampSec;
     if (deltaSec < updateIntervalSec) return;
 
-    // print('Updating location');
-    // print(filteredLocation.toString());
-    // currentLocationStatus.add(filteredLocation);
-
     final deltaDistance = SphericalUtil.computeDistanceBetween(
       LatLng(locationStatus.latitude, locationStatus.longitude),
       LatLng(_prevLocation!.latitude, _prevLocation!.longitude),
@@ -277,7 +265,6 @@ class HikingService {
       LatLng(locationStatus.latitude, locationStatus.longitude),
       LatLng(_currentPath.first.latitude, _currentPath.first.longitude),
     ).toDouble();
-    // print("DISTANCE: ${totalDistance*3.28/5280}");
     filteredLocation = filteredLocation.copyWith(
         speedMetersPerSec:
             totalDistance / (_prevHikeMetrics!.metricPeriodSeconds + deltaSec));
@@ -437,6 +424,8 @@ HikeMetrics accumulateMetrics({
   // final speedMetersPerSec = deltaDistance / updatePeriodSec;
 
   final deltaAltitude = currLoc.altitude - prevMetrics.altitude;
+  final totalDistance = prevMetrics.distanceTraveled + deltaDistance;
+  final metricPeriodSeconds = prevMetrics.metricPeriodSeconds + updatePeriodSec;
 
   return prevMetrics.copyWith(
     latitude: currLoc.latitude,
@@ -448,15 +437,10 @@ HikeMetrics accumulateMetrics({
     altitudeMin: min(prevMetrics.altitudeMin, currLoc.altitude),
     speedMax: max(prevMetrics.speedMax, currLoc.speedMetersPerSec),
     speedMin: min(prevMetrics.speedMin, currLoc.speedMetersPerSec),
-    averageSpeedMetersPerSec: getAvgSpeed(
-      prevMetrics.averageSpeedMetersPerSec,
-      prevMetrics.metricPeriodSeconds,
-      updatePeriodSec,
-      currLoc.speedMetersPerSec,
-    ),
+    averageSpeedMetersPerSec: totalDistance / metricPeriodSeconds,
     netHeadingDegrees: 1.0,
     // Heading
-    distanceTraveled: prevMetrics.distanceTraveled + deltaDistance,
+    distanceTraveled: totalDistance,
     netElevationChange: currLoc.altitude - prevMetrics.altitudeStart,
     cumulativeClimbMeters: deltaAltitude > 0
         ? prevMetrics.cumulativeClimbMeters + deltaAltitude
@@ -464,7 +448,7 @@ HikeMetrics accumulateMetrics({
     cumulativeDescentMeters: deltaAltitude < 0
         ? prevMetrics.cumulativeDescentMeters - deltaAltitude
         : prevMetrics.cumulativeDescentMeters,
-    metricPeriodSeconds: prevMetrics.metricPeriodSeconds + updatePeriodSec,
+    metricPeriodSeconds: metricPeriodSeconds,
   );
   // _distanceTraveled += _distanceDelta.abs();
   // final hikerData = HikerStatus(
