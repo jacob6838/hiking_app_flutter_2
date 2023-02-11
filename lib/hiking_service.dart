@@ -335,23 +335,26 @@ class HikingService {
     List<List<double>> elevationValues = List.of(elevationPlotValues!.values);
     elevationValues
         .add([metric.metricPeriodSeconds, metric.altitude * 3.28084]);
+    elevationPlotValues =
+        elevationPlotValues?.copyWith(values: elevationValues);
 
     double elevRange = (metric.altitudeMax - metric.altitudeMin) * 3.28084;
     if (elevRange <= 10) {
       elevRange = 10;
     }
+    double minElev = metric.altitudeMin * 3.28084 - elevRange * .2;
+    double maxElev = metric.altitudeMax * 3.28084 + elevRange * .2;
 
     return elevationPlotValues!.copyWith(
-      values: elevationValues,
       xFormat: elevationPlotValues!.xFormat.copyWith(
         min: 0,
         max: metric.metricPeriodSeconds * 1.05,
-        interval: metric.metricPeriodSeconds * 1.05 / 5,
+        interval: metric.metricPeriodSeconds * 1.05 / 2,
       ),
       yFormat: elevationPlotValues!.yFormat.copyWith(
-        min: metric.altitudeMin * 3.28084 - elevRange * .2,
-        max: metric.altitudeMax * 3.28084 + elevRange * .2,
-        interval: elevRange * 1.4 / 5,
+        min: minElev,
+        max: maxElev,
+        interval: (maxElev - minElev) / 2,
       ),
     );
   }
@@ -362,6 +365,7 @@ class HikingService {
       metric.metricPeriodSeconds,
       metric.speedMetersPerSec * MilesPerHourPerMetersPerSecond
     ]);
+    speedPlotValues = speedPlotValues?.copyWith(values: speedValues);
 
     double speedRangeMPH = metric.speedMax * MilesPerHourPerMetersPerSecond;
     if (speedRangeMPH <= .1) {
@@ -369,16 +373,15 @@ class HikingService {
     }
 
     return speedPlotValues!.copyWith(
-      values: speedValues,
       xFormat: speedPlotValues!.xFormat.copyWith(
         min: 0,
         max: metric.metricPeriodSeconds * 1.05,
-        interval: metric.metricPeriodSeconds * 1.05 / 5,
+        interval: metric.metricPeriodSeconds * 1.05 / 2,
       ),
       yFormat: speedPlotValues!.yFormat.copyWith(
         min: 0,
         max: speedRangeMPH * 1.2,
-        interval: speedRangeMPH * 1.2 / 5,
+        interval: speedRangeMPH * 1.2 / 2,
       ),
     );
   }
