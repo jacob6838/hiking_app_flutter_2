@@ -63,11 +63,8 @@ class HikingService {
         _locationService = locationService {
     _locationService.locationStream
         .where((_) => _hikeIsActive)
-        // .doOnData((event) => print("HIKER: location update received."))
         .map(toLocationStatus)
         .listen(_handleLocationUpdate);
-    // updateCurrentLocation();
-    // print("INITIALIZING ARCHIVE SUB ${archiveService.activeDataArchive.value}");
     archiveService.activeDataArchive.listen(_handleArchiveChange);
   }
 
