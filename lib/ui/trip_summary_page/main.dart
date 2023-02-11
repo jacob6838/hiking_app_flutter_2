@@ -45,6 +45,15 @@ class TripSummaryPageState extends State<TripSummaryPage> {
     dropdownValue = widget.tripName;
   }
 
+  bool validateBounds(LatLngBounds bounds) {
+    LatLng northeast = bounds.northeast;
+    LatLng southwest = bounds.southwest;
+    double latLngThreshold = 0.000001;
+
+    return (northeast.latitude - southwest.latitude).abs() > latLngThreshold &&
+        (northeast.longitude - southwest.longitude).abs() > latLngThreshold;
+  }
+
   @override
   Widget build(BuildContext context) {
     _hikingService = Provider.of<HikingService>(context);
@@ -121,7 +130,7 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                             value: value,
                             child: Text(value),
                           );
-                        })?.toList(),
+                        }).toList(),
                       );
                     },
                   ),
@@ -165,15 +174,19 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                       .currentRawPathSub.value
                       .map(locationStatusToLatLong)
                       .toList();
-                  print("$mapController, ${pathList.length}");
+                  print("Re-generating Map: ${snapshot.data?.length}");
+                  LatLngBounds? bounds;
                   if (pathList != []) {
                     final pair = getPathBounds(pathList);
                     if (pair != null) {
-                      final LatLngBounds bounds = LatLngBounds(
+                      bounds = LatLngBounds(
                           northeast: pair.first, southwest: pair.second);
                       if (mapController != null) {
-                        mapController?.animateCamera(
-                            CameraUpdate.newLatLngBounds(bounds, 20));
+                        if (validateBounds(bounds)) {
+                          print("MOVING CAMERA BASE");
+                          mapController?.animateCamera(
+                              CameraUpdate.newLatLngBounds(bounds, 20));
+                        }
                       }
                     }
                   }
@@ -184,19 +197,11 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                       polylines: {
                         Polyline(
                             polylineId: const PolylineId("unfilteredPath"),
-                            // points: [
-                            //   LatLng(40.275266, -74.7244817),
-                            //   LatLng(40.2753119, -74.7242424),
-                            // ]
                             width: 10,
                             color: Colors.black,
                             points: unfilteredPathList),
                         Polyline(
                             polylineId: const PolylineId("path"),
-                            // points: [
-                            //   LatLng(40.275266, -74.7244817),
-                            //   LatLng(40.2753119, -74.7242424),
-                            // ]
                             width: 5,
                             color: Colors.blue,
                             points: pathList),
@@ -204,19 +209,17 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                       onMapCreated: (GoogleMapController controller) {
                         mapController = controller;
                         _controller.complete(controller);
-                        print("$mapController, ${pathList.length}");
-                        final pair = getPathBounds(pathList);
-                        if (pair != null) {
-                          final LatLngBounds bounds = LatLngBounds(
-                              northeast: pair.first, southwest: pair.second);
-                          mapController?.animateCamera(
-                              CameraUpdate.newLatLngBounds(bounds, 20));
+
+                        if (bounds != null) {
+                          if (validateBounds(bounds)) {
+                            print("MOVING CAMERA INIT");
+                            mapController?.animateCamera(
+                                CameraUpdate.newLatLngBounds(bounds, 20));
+                          }
                         }
-                        // controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 0));
                       },
                       initialCameraPosition: const CameraPosition(
-                        target: LatLng(40.275266,
-                            -74.7244817), //locationStatusToLatLong(snapshot.data?.first ?? LocationStatus(latitude: 40, longitude: -74)),
+                        target: LatLng(40.275266, -74.7244817),
                         zoom: 0,
                       ),
                       gestureRecognizers: Set()
@@ -321,7 +324,7 @@ class TripSummaryPageState extends State<TripSummaryPage> {
   }
 
   void onEnableBtnClicked(BuildContext context, HikingService _hikingService) {
-    _hikingService.toggleStatus(context, _hikingService);
+    _hikingService.toggleStatus(context, _hikingService, "");
   }
 
   Widget confirmDeletionPopup(
