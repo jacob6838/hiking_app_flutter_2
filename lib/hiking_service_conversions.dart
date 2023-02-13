@@ -1,4 +1,5 @@
 import 'package:hiking_app/models/hike_metrics.dart';
+import 'package:kt_dart/collection.dart';
 
 import 'models/location_accuracy_type.dart';
 import 'models/units.dart';
@@ -29,7 +30,9 @@ class HikingServiceConversions {
   static const cumulativeDescentMetersName = "cumulative descent";
   static const metricPeriodSecondsName = "time elapsed";
 
-  HikeMetricsData? metricsToData(HikeMetrics hikeMetrics) => HikeMetricsData(
+  HikeMetricsData? metricsToData(
+          HikeMetrics hikeMetrics, KtMap<String, Unit> units) =>
+      HikeMetricsData(
         timeStartSec: Metric(
             name: timeStartSecName,
             value: hikeMetrics.timeStartSec.toString(),
@@ -49,17 +52,22 @@ class HikingServiceConversions {
             unitType: UnitType.distance),
         latitude: Metric(
             name: latitudeName,
-            value: _toCurrentLatitude(hikeMetrics.latitude)),
+            value: _toCurrentLatitude(
+              hikeMetrics.latitude,
+            )),
         longitude: Metric(
             name: longitudeName,
             value: _toCurrentLongitude(hikeMetrics.longitude)),
         altitude: Metric(
             name: altitudeName,
-            value: _toCurrentAltitude(hikeMetrics.altitude),
+            value: _toCurrentAltitude(hikeMetrics.altitude,
+                unit: units.getOrDefault(altitudeName, UnspecifiedUnits.unit)),
             unitType: UnitType.distance),
         speedMetersPerSec: Metric(
             name: speedMetersPerSecName,
-            value: _toSpeedMetersPerSec(hikeMetrics.speedMetersPerSec),
+            value: _toSpeedMetersPerSec(hikeMetrics.speedMetersPerSec,
+                unit: units.getOrDefault(
+                    speedMetersPerSecName, UnspecifiedUnits.unit)),
             unitType: UnitType.speed),
         headingDegrees: Metric(
             name: headingDegreesName,
@@ -67,22 +75,29 @@ class HikingServiceConversions {
             visible: false),
         locationAccuracy: Metric(
             name: locationAccuracyName,
-            value: _toCurrentAccuracy(hikeMetrics.locationAccuracy)),
+            value: _toCurrentAccuracy(hikeMetrics.locationAccuracy,
+                unit: units.getOrDefault(
+                    locationAccuracyName, UnspecifiedUnits.unit))),
         speedAccuracy: Metric(
             name: speedAccuracyName,
             value: hikeMetrics.speedAccuracy.toString(),
             visible: false),
         altitudeMax: Metric(
             name: altitudeMaxName,
-            value: _toAltitudeMax(hikeMetrics.altitudeMax),
+            value: _toAltitudeMax(hikeMetrics.altitudeMax,
+                unit:
+                    units.getOrDefault(altitudeMaxName, UnspecifiedUnits.unit)),
             unitType: UnitType.distance),
         altitudeMin: Metric(
             name: altitudeMinName,
-            value: _toAltitudeMin(hikeMetrics.altitudeMin),
+            value: _toAltitudeMin(hikeMetrics.altitudeMin,
+                unit:
+                    units.getOrDefault(altitudeMinName, UnspecifiedUnits.unit)),
             unitType: UnitType.distance),
         speedMax: Metric(
             name: speedMaxName,
-            value: _toSpeedMax(hikeMetrics.speedMax),
+            value: _toSpeedMax(hikeMetrics.speedMax,
+                unit: units.getOrDefault(speedMaxName, UnspecifiedUnits.unit)),
             unitType: UnitType.speed),
         speedMin: Metric(
             name: speedMinName,
@@ -92,34 +107,48 @@ class HikingServiceConversions {
         averageSpeedMetersPerSec: Metric(
             name: averageSpeedMetersPerSecName,
             value: _toAverageSpeedMetersPerSec(
-                hikeMetrics.averageSpeedMetersPerSec),
+                hikeMetrics.averageSpeedMetersPerSec,
+                unit: units.getOrDefault(
+                    averageSpeedMetersPerSecName, UnspecifiedUnits.unit)),
             unitType: UnitType.speed),
         netHeadingDegrees: Metric(
             name: netHeadingDegreesName,
-            value: _toNetHeading(hikeMetrics.netHeadingDegrees),
+            value: _toNetHeading(hikeMetrics.netHeadingDegrees,
+                unit: units.getOrDefault(
+                    netHeadingDegreesName, UnspecifiedUnits.unit)),
             visible: false),
         distanceTraveled: Metric(
             name: distanceTraveledName,
-            value: _toDistanceTraveledString(hikeMetrics.distanceTraveled),
+            value: _toDistanceTraveledString(hikeMetrics.distanceTraveled,
+                unit: units.getOrDefault(
+                    distanceTraveledName, UnspecifiedUnits.unit)),
             unitType: UnitType.distance),
         netElevationChange: Metric(
             name: netElevationChangeName,
-            value: _toElevationChangeString(hikeMetrics.netElevationChange),
+            value: _toElevationChangeString(hikeMetrics.netElevationChange,
+                unit: units.getOrDefault(
+                    netElevationChangeName, UnspecifiedUnits.unit)),
             unitType: UnitType.distance),
         cumulativeClimbMeters: Metric(
             name: cumulativeClimbMetersName,
-            value: _toCumulativeClimbMeters(hikeMetrics.cumulativeClimbMeters),
+            value: _toCumulativeClimbMeters(hikeMetrics.cumulativeClimbMeters,
+                unit: units.getOrDefault(
+                    cumulativeClimbMetersName, UnspecifiedUnits.unit)),
             visible: false,
             unitType: UnitType.distance),
         cumulativeDescentMeters: Metric(
             name: cumulativeDescentMetersName,
-            value:
-                _toCumulativeDescentMeters(hikeMetrics.cumulativeDescentMeters),
+            value: _toCumulativeDescentMeters(
+                hikeMetrics.cumulativeDescentMeters,
+                unit: units.getOrDefault(
+                    cumulativeDescentMetersName, UnspecifiedUnits.unit)),
             visible: false,
             unitType: UnitType.distance),
         metricPeriodSeconds: Metric(
           name: metricPeriodSecondsName,
-          value: _toTimeElapsedString(hikeMetrics.metricPeriodSeconds),
+          value: _toTimeElapsedString(hikeMetrics.metricPeriodSeconds,
+              unit: units.getOrDefault(
+                  metricPeriodSecondsName, UnspecifiedUnits.unit)),
         ),
       );
 
