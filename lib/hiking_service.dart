@@ -272,50 +272,51 @@ class HikingService {
     currentLocationStatus.add(locationStatus);
 
     if (deltaDistance < filteredLocation.accuracy.value / 2) {
-      // print("NOT MOVED ENOUGH");
-
-      final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
-          metricPeriodSeconds:
-              _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
-
-      /// Save location update to current hike
-      _currentPath.add(_prevLocation!);
-
-      /// Calculate hiker status update and publish value for UI
-      _currentHikerMetricsSub.add(currMetrics);
-      currentPathSub.add(_currentPath);
-      currentRawPathSub.add(_unfilteredPath);
-      elevationPlot.add(toElevationPlotValues(currMetrics));
-      speedPlot.add(toSpeedPlotValues(currMetrics));
-
-      _prevLocation =
-          _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
-      _prevHikeMetrics = currMetrics;
-    } else {
-      // print("YES MOVED ENOUGH");
-      _currentPath.add(filteredLocation);
-
-      final HikeMetrics currMetrics = accumulateMetrics(
-        prevMetrics: _prevHikeMetrics!,
-        currLoc: filteredLocation,
-        deltaDistance: deltaDistance,
-        locationHistory: _currentPath,
-        updatePeriodSec: deltaSec,
-      ); // .copyWith(distanceTraveled: totalDistance);
-
-      /// Save location update to current hike
-      _currentPath.add(filteredLocation);
-
-      /// Calculate hiker status update and publish value for UI
-      _currentHikerMetricsSub.add(currMetrics);
-      currentPathSub.add(_currentPath);
-      currentRawPathSub.add(_unfilteredPath);
-      elevationPlot.add(toElevationPlotValues(currMetrics));
-      speedPlot.add(toSpeedPlotValues(currMetrics));
-
-      _prevLocation = filteredLocation;
-      _prevHikeMetrics = currMetrics;
+      // NOT MOVED ENOUGH\
+      filteredLocation = _prevLocation!;
     }
+
+    // final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
+    //     metricPeriodSeconds:
+    //         _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
+
+    // /// Save location update to current hike
+    // _currentPath.add(_prevLocation!);
+
+    // /// Calculate hiker status update and publish value for UI
+    // _currentHikerMetricsSub.add(currMetrics);
+    // currentPathSub.add(_currentPath);
+    // currentRawPathSub.add(_unfilteredPath);
+    // elevationPlot.add(toElevationPlotValues(currMetrics));
+    // speedPlot.add(toSpeedPlotValues(currMetrics));
+
+    // _prevLocation =
+    //     _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
+    // _prevHikeMetrics = currMetrics;
+    // } else {
+    // print("YES MOVED ENOUGH");
+
+    final HikeMetrics currMetrics = accumulateMetrics(
+      prevMetrics: _prevHikeMetrics!,
+      currLoc: filteredLocation,
+      deltaDistance: deltaDistance,
+      locationHistory: _currentPath,
+      updatePeriodSec: deltaSec,
+    ); // .copyWith(distanceTraveled: totalDistance);
+
+    /// Save location update to current hike
+    _currentPath.add(filteredLocation);
+
+    /// Calculate hiker status update and publish value for UI
+    _currentHikerMetricsSub.add(currMetrics);
+    currentPathSub.add(_currentPath);
+    currentRawPathSub.add(_unfilteredPath);
+    elevationPlot.add(toElevationPlotValues(currMetrics));
+    speedPlot.add(toSpeedPlotValues(currMetrics));
+
+    _prevLocation = filteredLocation;
+    _prevHikeMetrics = currMetrics;
+    // }
   }
 
   PlotValues toElevationPlotValues(HikeMetrics metric) {
