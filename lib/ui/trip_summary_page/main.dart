@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 
 import '../../hiking_service.dart';
 import '../../main.dart';
+import '../../models/trip_status.dart';
 
 class TripSummaryPage extends StatefulWidget {
   const TripSummaryPage({Key? key, this.tripName}) : super(key: key);
@@ -321,10 +322,6 @@ class TripSummaryPageState extends State<TripSummaryPage> {
       //   );
       //   break;
     }
-  }
-
-  void onEnableBtnClicked(BuildContext context, HikingService _hikingService) {
-    _hikingService.toggleStatus(context, _hikingService, "");
   }
 
   Widget confirmDeletionPopup(

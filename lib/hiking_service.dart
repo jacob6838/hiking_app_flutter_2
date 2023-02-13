@@ -13,6 +13,7 @@ import 'package:rxdart/rxdart.dart';
 import 'archive_service.dart';
 import 'filters/location_filter.dart';
 import 'models/plot_values.dart';
+import 'models/trip_status.dart';
 
 const int millisecondsPerSecond = 1000;
 const double MilesPerHourPerMetersPerSecond = 2.23694;
@@ -28,7 +29,7 @@ const int minimumDistanceThreshold = 4;
 
 class HikingService {
   final LocationService _locationService;
-  bool _hikeIsActive = false;
+  TripStatus _hikeStatus = TripStatus.stopped;
   HikeMetrics _hikeMetricsTotal = const HikeMetrics();
   double _lastUpdateTimeSec = 0.0;
   PlotValues? elevationPlotValues;
@@ -47,7 +48,8 @@ class HikingService {
   LocationStatus? _prevLocation;
   HikeMetrics? _prevHikeMetrics;
 
-  final BehaviorSubject<bool> _activeStatusSub = BehaviorSubject.seeded(false);
+  final BehaviorSubject<TripStatus> _activeStatusSub =
+      BehaviorSubject.seeded(TripStatus.stopped);
   final BehaviorSubject<LocationStatus> _currentLocationStatusSub =
       BehaviorSubject.seeded(const LocationStatus());
   final BehaviorSubject<HikeMetrics> _currentHikerMetricsSub =
@@ -61,7 +63,7 @@ class HikingService {
       : _lastUpdateTimeSec = 0,
         _locationService = locationService {
     _locationService.locationStream
-        .where((_) => _hikeIsActive)
+        .where((_) => _hikeStatus == TripStatus.active)
         .map(toLocationStatus)
         .listen(_handleLocationUpdate);
     archiveService.activeDataArchive.listen(_handleArchiveChange);
@@ -71,7 +73,7 @@ class HikingService {
       BehaviorSubject<PlotValues>();
   final BehaviorSubject<PlotValues> speedPlot = BehaviorSubject<PlotValues>();
 
-  Stream<bool> get currentHikerStatus$ =>
+  Stream<TripStatus> get currentHikerStatus$ =>
       _activeStatusSub.stream.asBroadcastStream();
 
   BehaviorSubject<LocationStatus> get currentLocationStatus =>
@@ -80,9 +82,13 @@ class HikingService {
   Stream<HikeMetrics> get currentHikerMetrics$ =>
       _currentHikerMetricsSub.stream.asBroadcastStream();
 
-  Future<String?> toggleStatus(BuildContext context,
-      HikingService hikingService, String tripName) async {
-    if (!_hikeIsActive) {
+  Future<String?> updateStatus(
+      BuildContext context,
+      HikingService hikingService,
+      TripStatusCommand statusCommand,
+      String tripName) async {
+    TripStatus requestedStatus = statusCommand.newStatus;
+    if (requestedStatus == TripStatus.active) {
       if (!await hikingService._locationService.locationAlwaysGranted()) {
         await showDialog(
           context: context,
@@ -95,8 +101,8 @@ class HikingService {
       final gpsEnabled =
           await hikingService._locationService.requestEnableGps();
       if (gpsEnabled && locationAlwaysEnabled) {
-        _hikeIsActive = !_hikeIsActive;
-        _activeStatusSub.add(_hikeIsActive);
+        _hikeStatus = requestedStatus;
+        _activeStatusSub.add(_hikeStatus);
       } else {
         var reason = "";
         if (!gpsEnabled) {
@@ -112,43 +118,54 @@ class HikingService {
         return null;
       }
     } else {
-      _hikeIsActive = !_hikeIsActive;
-      _activeStatusSub.add(_hikeIsActive);
+      _hikeStatus = requestedStatus;
+      _activeStatusSub.add(_hikeStatus);
     }
 
-    if (_hikeIsActive) {
-      hikingService._locationService.startLocationUpdates();
-      // _prevLocation = toLocationStatus(await _locationService.location);
-      _prevLocation = const LocationStatus();
-      // _hikeMetricsTotal = getInitialMetrics(_prevLocation, getCurrentTimeSeconds());
-      _currentPath.clear();
-      _unfilteredPath.clear();
-      elevationPlotValues = PlotValues(
-        values: [],
-        xFormat: const PlotFormat(
-          axisTitle: "Time",
-        ),
-        yFormat: const PlotFormat(
-          axisTitle: "Elevation (ft)",
-        ),
-        height: 150,
-        width: 180,
-      );
-      speedPlotValues = PlotValues(
-        values: [],
-        xFormat: const PlotFormat(
-          axisTitle: "Time",
-        ),
-        yFormat: const PlotFormat(
-          axisTitle: "Speed (mi/hr)",
-        ),
-        height: 150,
-        width: 180,
-      );
-    } else {
-      hikingService._locationService.stopLocationService();
-      return archiveCurrentTripData(tripName);
+    switch (statusCommand) {
+      case TripStatusCommand.start:
+        hikingService._locationService.startLocationUpdates();
+        // _prevLocation = toLocationStatus(await _locationService.location);
+        _prevLocation = const LocationStatus();
+        // _hikeMetricsTotal = getInitialMetrics(_prevLocation, getCurrentTimeSeconds());
+        _currentPath.clear();
+        _unfilteredPath.clear();
+        elevationPlotValues = PlotValues(
+          values: [],
+          xFormat: const PlotFormat(
+            axisTitle: "Time",
+          ),
+          yFormat: const PlotFormat(
+            axisTitle: "Elevation (ft)",
+          ),
+          height: 150,
+          width: 180,
+        );
+        speedPlotValues = PlotValues(
+          values: [],
+          xFormat: const PlotFormat(
+            axisTitle: "Time",
+          ),
+          yFormat: const PlotFormat(
+            axisTitle: "Speed (mi/hr)",
+          ),
+          height: 150,
+          width: 180,
+        );
+        break;
+      case TripStatusCommand.pause:
+        break;
+      case TripStatusCommand.unpause:
+        break;
+      case TripStatusCommand.stop:
+        hikingService._locationService.stopLocationService();
+        return archiveCurrentTripData(tripName);
     }
+
+    if (statusCommand == TripStatusCommand.start) {
+    } else if (statusCommand == TripStatusCommand.pause) {
+    } else if (statusCommand == TripStatusCommand.unpause) {
+    } else if (statusCommand == TripStatusCommand.stop) {}
     return null;
   }
 
