@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hiking_app/models/units.dart';
 import 'package:kt_dart/collection.dart';
 
 import 'location_accuracy_type.dart';
@@ -73,12 +74,13 @@ class HikeMetricsData with _$HikeMetricsData {
 
 @freezed
 class Metric with _$Metric {
-  const factory Metric({
-    @Default("") String name,
-    @Default("") String value,
-    @Default(true) bool visible,
-    // @Default(KtList.empty()) KtList<LocationStatus> path,
-  }) = _Metric;
+  const factory Metric(
+      {@Default("") String name,
+      @Default("") String value,
+      @Default(true) bool visible,
+      @Default(UnitType.unspecified) UnitType unitType
+      // @Default(KtList.empty()) KtList<LocationStatus> path,
+      }) = _Metric;
 
   factory Metric.fromJson(Map<String, dynamic> json) => _$MetricFromJson(json);
 }

@@ -15,27 +15,37 @@ class LocationFilter {
   ExponentialAverageFilter? _headingFilter;
 
   LocationFilter(LocationStatus loc) {
-    _latitudeFilter = ExponentialAverageFilter(loc.latitude, _getVarianceAccuracy(loc.accuracy));
-    _longitudeFilter = ExponentialAverageFilter(loc.longitude, _getVarianceAccuracy(loc.accuracy));
-    _accuracyFilter = ExponentialAverageFilter(loc.accuracy.value.toDouble(), 1);
-    _altitudeFilter = ExponentialAverageFilter(loc.altitude, _getVarianceAccuracy(loc.accuracy) * 10);
-    _speedFilter = ExponentialAverageFilter(loc.speedMetersPerSec, _getVarianceAccuracy(loc.speedAccuracy));
-    _speedAccuracyFilter = ExponentialAverageFilter(loc.speedAccuracy.value.toDouble(), 1);
+    _latitudeFilter = ExponentialAverageFilter(
+        loc.latitude, _getVarianceAccuracy(loc.accuracyValue));
+    _longitudeFilter = ExponentialAverageFilter(
+        loc.longitude, _getVarianceAccuracy(loc.accuracyValue));
+    _accuracyFilter =
+        ExponentialAverageFilter(loc.accuracy.value.toDouble(), 1);
+    _altitudeFilter = ExponentialAverageFilter(
+        loc.altitude, _getVarianceAccuracy(loc.accuracyValue * 5));
+    _speedFilter = ExponentialAverageFilter(
+        loc.speedMetersPerSec, _getVarianceAccuracy(loc.speedAccuracyValue));
+    _speedAccuracyFilter =
+        ExponentialAverageFilter(loc.speedAccuracy.value.toDouble(), 1);
     _headingFilter = ExponentialAverageFilter(loc.headingDegrees, 1);
   }
 
   LocationStatus getValue(LocationStatus loc) => LocationStatus(
-        latitude: _latitudeFilter!.kalmanFilter(loc.latitude, _getVarianceAccuracy(loc.accuracy)),
-        longitude: _longitudeFilter!.kalmanFilter(loc.longitude, _getVarianceAccuracy(loc.accuracy)),
-        accuracy: toAccuracyType(_accuracyFilter!.kalmanFilter(loc.accuracy.value.toDouble(), 1)),
-        altitude: _altitudeFilter!.kalmanFilter(loc.altitude, _getVarianceAccuracy(loc.accuracy) * 10),
-        speedMetersPerSec: _speedFilter!.kalmanFilter(loc.speedMetersPerSec, _getVarianceAccuracy(loc.speedAccuracy)),
-        speedAccuracy: toAccuracyType(_speedAccuracyFilter!.kalmanFilter(loc.speedAccuracy.value.toDouble(), 1)),
+        latitude: _latitudeFilter!.kalmanFilter(
+            loc.latitude, _getVarianceAccuracy(loc.accuracyValue)),
+        longitude: _longitudeFilter!.kalmanFilter(
+            loc.longitude, _getVarianceAccuracy(loc.accuracyValue)),
+        accuracy: toAccuracyType(
+            _accuracyFilter!.kalmanFilter(loc.accuracy.value.toDouble(), 1)),
+        altitude: _altitudeFilter!.kalmanFilter(
+            loc.altitude, _getVarianceAccuracy(loc.accuracy.value * 5)),
+        speedMetersPerSec: _speedFilter!.kalmanFilter(loc.speedMetersPerSec,
+            _getVarianceAccuracy(loc.speedAccuracyValue)),
+        speedAccuracy: toAccuracyType(_speedAccuracyFilter!
+            .kalmanFilter(loc.speedAccuracy.value.toDouble(), 1)),
         headingDegrees: _headingFilter!.kalmanFilter(loc.headingDegrees, 1),
         timeStampSec: loc.timeStampSec,
       );
 
-  double _getVarianceDouble(double sigma) => pow(sigma, 2.0).toDouble();
-  double _getVarianceInt(int sigma) => pow(sigma, 2.0).toDouble();
-  double _getVarianceAccuracy(LocationAccuracyType sigma) => pow(sigma.value, 2.0).toDouble();
+  double _getVarianceAccuracy(double sigma) => pow(sigma, 2.0).toDouble();
 }

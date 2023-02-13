@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hiking_app/models/units.dart';
-import 'package:hiking_app/ui/settings_page/radio_group.dart';
-import 'package:hiking_app/ui/trip_summary_page/main.dart';
+import 'package:hiking_app/secure_storage_service.dart';
+import 'package:kt_dart/collection.dart';
+import '../../models/units.dart';
+import 'metrics_table_units.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,8 +10,17 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  MainUnits _unit = MainUnits.imperial;
-  SpeedUnitsImperial _speedUnit = SpeedUnitsImperial.mph;
+  SecureStorageService storageService = SecureStorageService();
+  KtMap<String, Unit> units = const KtMap<String, Unit>.empty();
+
+  @override
+  initState() async {
+    super.initState();
+
+    await storageService.init();
+    units = await storageService.retrieveUnits();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +43,9 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
         body: Center(
-            child: Column(children: const <Widget>[
-          RadioGroup(group: [MainUnits.metric, MainUnits.imperial], title: "Main Units"),
-          Divider(
-            color: Colors.black,
-            thickness: 2,
-          ),
-          RadioGroup(group: SpeedUnitsImperial.values, title: "Speed Units"),
-          Divider(
-            color: Colors.black,
-            thickness: 2,
-          ),
+            child: Column(children: <Widget>[
+          MetricsUnitTable(units),
+          OutlinedButton(child: const Text("Save"), onPressed: () {})
         ])));
   }
 

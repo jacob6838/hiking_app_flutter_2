@@ -1594,6 +1594,7 @@ mixin _$Metric {
   String get name => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
   bool get visible => throw _privateConstructorUsedError;
+  UnitType get unitType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1605,7 +1606,7 @@ abstract class $MetricCopyWith<$Res> {
   factory $MetricCopyWith(Metric value, $Res Function(Metric) then) =
       _$MetricCopyWithImpl<$Res, Metric>;
   @useResult
-  $Res call({String name, String value, bool visible});
+  $Res call({String name, String value, bool visible, UnitType unitType});
 }
 
 /// @nodoc
@@ -1624,6 +1625,7 @@ class _$MetricCopyWithImpl<$Res, $Val extends Metric>
     Object? name = null,
     Object? value = null,
     Object? visible = null,
+    Object? unitType = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -1638,6 +1640,10 @@ class _$MetricCopyWithImpl<$Res, $Val extends Metric>
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
+      unitType: null == unitType
+          ? _value.unitType
+          : unitType // ignore: cast_nullable_to_non_nullable
+              as UnitType,
     ) as $Val);
   }
 }
@@ -1648,7 +1654,7 @@ abstract class _$$_MetricCopyWith<$Res> implements $MetricCopyWith<$Res> {
       __$$_MetricCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String value, bool visible});
+  $Res call({String name, String value, bool visible, UnitType unitType});
 }
 
 /// @nodoc
@@ -1664,6 +1670,7 @@ class __$$_MetricCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
     Object? visible = null,
+    Object? unitType = null,
   }) {
     return _then(_$_Metric(
       name: null == name
@@ -1678,6 +1685,10 @@ class __$$_MetricCopyWithImpl<$Res>
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
+      unitType: null == unitType
+          ? _value.unitType
+          : unitType // ignore: cast_nullable_to_non_nullable
+              as UnitType,
     ));
   }
 }
@@ -1685,7 +1696,11 @@ class __$$_MetricCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Metric implements _Metric {
-  const _$_Metric({this.name = "", this.value = "", this.visible = true});
+  const _$_Metric(
+      {this.name = "",
+      this.value = "",
+      this.visible = true,
+      this.unitType = UnitType.unspecified});
 
   factory _$_Metric.fromJson(Map<String, dynamic> json) =>
       _$$_MetricFromJson(json);
@@ -1699,10 +1714,13 @@ class _$_Metric implements _Metric {
   @override
   @JsonKey()
   final bool visible;
+  @override
+  @JsonKey()
+  final UnitType unitType;
 
   @override
   String toString() {
-    return 'Metric(name: $name, value: $value, visible: $visible)';
+    return 'Metric(name: $name, value: $value, visible: $visible, unitType: $unitType)';
   }
 
   @override
@@ -1712,12 +1730,14 @@ class _$_Metric implements _Metric {
             other is _$_Metric &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.value, value) || other.value == value) &&
-            (identical(other.visible, visible) || other.visible == visible));
+            (identical(other.visible, visible) || other.visible == visible) &&
+            (identical(other.unitType, unitType) ||
+                other.unitType == unitType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, value, visible);
+  int get hashCode => Object.hash(runtimeType, name, value, visible, unitType);
 
   @JsonKey(ignore: true)
   @override
@@ -1735,7 +1755,10 @@ class _$_Metric implements _Metric {
 
 abstract class _Metric implements Metric {
   const factory _Metric(
-      {final String name, final String value, final bool visible}) = _$_Metric;
+      {final String name,
+      final String value,
+      final bool visible,
+      final UnitType unitType}) = _$_Metric;
 
   factory _Metric.fromJson(Map<String, dynamic> json) = _$_Metric.fromJson;
 
@@ -1745,6 +1768,8 @@ abstract class _Metric implements Metric {
   String get value;
   @override
   bool get visible;
+  @override
+  UnitType get unitType;
   @override
   @JsonKey(ignore: true)
   _$$_MetricCopyWith<_$_Metric> get copyWith =>

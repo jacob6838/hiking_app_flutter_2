@@ -178,10 +178,19 @@ _$_Metric _$$_MetricFromJson(Map<String, dynamic> json) => _$_Metric(
       name: json['name'] as String? ?? "",
       value: json['value'] as String? ?? "",
       visible: json['visible'] as bool? ?? true,
+      unitType: $enumDecodeNullable(_$UnitTypeEnumMap, json['unitType']) ??
+          UnitType.unspecified,
     );
 
 Map<String, dynamic> _$$_MetricToJson(_$_Metric instance) => <String, dynamic>{
       'name': instance.name,
       'value': instance.value,
       'visible': instance.visible,
+      'unitType': _$UnitTypeEnumMap[instance.unitType]!,
     };
+
+const _$UnitTypeEnumMap = {
+  UnitType.distance: 'distance',
+  UnitType.speed: 'speed',
+  UnitType.unspecified: 'unspecified',
+};

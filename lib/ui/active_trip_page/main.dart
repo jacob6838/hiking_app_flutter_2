@@ -73,9 +73,7 @@ class ActiveTripPageState extends State<ActiveTripPage> {
                         });
                       }),
                 ),
-                MetricsTable(
-                    hikingService: _hikingService!,
-                    metricsHiddenMap: List.filled(22, true)),
+                MetricsTable(hikingService: _hikingService!),
                 Row(children: <Widget>[
                   StreamBuilder<PlotValues>(
                       stream: _hikingService!.elevationPlot,

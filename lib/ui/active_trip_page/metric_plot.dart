@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hiking_app/models/plot_values.dart';
 
 import '../../hiking_service.dart';
-import '../../hiking_service_conversions.dart';
+import '../../models/units.dart';
 
 class MetricPlot extends StatefulWidget {
   const MetricPlot(

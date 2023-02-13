@@ -5,10 +5,9 @@ import '../../hiking_service.dart';
 import '../../hiking_service_conversions.dart';
 
 class MetricsTable extends StatefulWidget {
-  const MetricsTable({Key? key, required this.hikingService, required this.metricsHiddenMap}) : super(key: key);
+  const MetricsTable({Key? key, required this.hikingService}) : super(key: key);
 
   final HikingService hikingService;
-  final List<bool> metricsHiddenMap;
 
   @override
   _MetricsTableState createState() => _MetricsTableState();
@@ -27,11 +26,13 @@ class _MetricsTableState extends State<MetricsTable> {
         //   SizedBox.expand(
         //   child:
         StreamBuilder<HikeMetricsData?>(
-            stream: widget.hikingService.currentHikerMetrics$.map(hikeMetricsConversions.metricsToData),
+            stream: widget.hikingService.currentHikerMetrics$
+                .map(hikeMetricsConversions.metricsToData),
             builder: (context, snapshot) {
               return DataTable(
                   dataRowHeight: dataRowFontSize + dataRowHeightPadding,
-                  headingRowHeight: (dataRowFontSize + dataRowHeightPadding) * 1.2,
+                  headingRowHeight:
+                      (dataRowFontSize + dataRowHeightPadding) * 1.2,
                   dataTextStyle: const TextStyle(
                     fontSize: dataRowFontSize,
                     color: Colors.black,
@@ -43,14 +44,17 @@ class _MetricsTableState extends State<MetricsTable> {
                     fontWeight: FontWeight.bold,
                     // height: 1
                   ),
-                  columns: const <DataColumn>[DataColumn(label: Text("Metric")), DataColumn(label: Text("Value"))],
-                  rows: getDataRows(snapshot.data, widget.metricsHiddenMap));
+                  columns: const <DataColumn>[
+                    DataColumn(label: Text("Metric")),
+                    DataColumn(label: Text("Value"))
+                  ],
+                  rows: getDataRows(snapshot.data));
             }
             // ),
             );
   }
 
-  List<DataRow> getDataRows(HikeMetricsData? hikeMetrics, List<bool> metricsHiddenMap) {
+  List<DataRow> getDataRows(HikeMetricsData? hikeMetrics) {
     if (hikeMetrics == null) return <DataRow>[];
     final vals = List<int>.generate(22, (i) => i + 1);
     final rows = <DataRow>[];

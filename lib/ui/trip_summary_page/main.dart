@@ -229,9 +229,7 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                     ),
                   );
                 }),
-            MetricsTable(
-                hikingService: _hikingService!,
-                metricsHiddenMap: List.filled(22, true)),
+            MetricsTable(hikingService: _hikingService!),
             Padding(
               padding: EdgeInsets.only(bottom: 50),
               child: Row(children: <Widget>[

@@ -1,142 +1,168 @@
 import 'package:hiking_app/models/hike_metrics.dart';
 
 import 'models/location_accuracy_type.dart';
+import 'models/units.dart';
 
 class HikingServiceConversions {
   HikingServiceConversions();
 
-  static const _timeStartSecName = "timeStartSec";
-  static const _latitudeStartName = "latitudeStartName";
-  static const _longitudeStartName = "longitudeStartName";
-  static const _altitudeStartName = "altitudeStartName";
-  static const _latitudeName = "latitude";
-  static const _longitudeName = "longitude";
-  static const _altitudeName = "altitude";
-  static const _speedMetersPerSecName = "speed";
-  static const _headingDegreesName = "heading";
-  static const _locationAccuracyName = "accuracy";
-  static const _speedAccuracyName = "speed accuracy";
-  static const _altitudeMaxName = "max elevation";
-  static const _altitudeMinName = "min elevation";
-  static const _speedMaxName = "max speed";
-  static const _speedMinName = "min speed";
-  static const _averageSpeedMetersPerSecName = "average speed";
-  static const _netHeadingDegreesName = "net heading";
-  static const _distanceTraveledName = "distance traveled";
-  static const _netElevationChangeName = "net elevation change";
-  static const _cumulativeClimbMetersName = "cumulative ascent";
-  static const _cumulativeDescentMetersName = "cumulative descent";
-  static const _metricPeriodSecondsName = "time elapsed";
+  static const timeStartSecName = "timeStartSec";
+  static const latitudeStartName = "latitudeStartName";
+  static const longitudeStartName = "longitudeStartName";
+  static const altitudeStartName = "altitudeStartName";
+  static const latitudeName = "latitude";
+  static const longitudeName = "longitude";
+  static const altitudeName = "altitude";
+  static const speedMetersPerSecName = "speed";
+  static const headingDegreesName = "heading";
+  static const locationAccuracyName = "accuracy";
+  static const speedAccuracyName = "speed accuracy";
+  static const altitudeMaxName = "max elevation";
+  static const altitudeMinName = "min elevation";
+  static const speedMaxName = "max speed";
+  static const speedMinName = "min speed";
+  static const averageSpeedMetersPerSecName = "average speed";
+  static const netHeadingDegreesName = "net heading";
+  static const distanceTraveledName = "distance traveled";
+  static const netElevationChangeName = "net elevation change";
+  static const cumulativeClimbMetersName = "cumulative ascent";
+  static const cumulativeDescentMetersName = "cumulative descent";
+  static const metricPeriodSecondsName = "time elapsed";
 
   HikeMetricsData? metricsToData(HikeMetrics hikeMetrics) => HikeMetricsData(
         timeStartSec: Metric(
-            name: _timeStartSecName,
+            name: timeStartSecName,
             value: hikeMetrics.timeStartSec.toString(),
             visible: false),
         latitudeStart: Metric(
-            name: _latitudeStartName,
+            name: latitudeStartName,
             value: hikeMetrics.latitudeStart.toString(),
             visible: false),
         longitudeStart: Metric(
-            name: _longitudeStartName,
+            name: longitudeStartName,
             value: hikeMetrics.longitudeStart.toString(),
             visible: false),
         altitudeStart: Metric(
-            name: _altitudeStartName,
+            name: altitudeStartName,
             value: hikeMetrics.altitudeStart.toString(),
-            visible: false),
+            visible: false,
+            unitType: UnitType.distance),
         latitude: Metric(
-            name: _latitudeName,
+            name: latitudeName,
             value: _toCurrentLatitude(hikeMetrics.latitude)),
         longitude: Metric(
-            name: _longitudeName,
+            name: longitudeName,
             value: _toCurrentLongitude(hikeMetrics.longitude)),
         altitude: Metric(
-            name: _altitudeName,
-            value: _toCurrentAltitude(hikeMetrics.altitude)),
+            name: altitudeName,
+            value: _toCurrentAltitude(hikeMetrics.altitude),
+            unitType: UnitType.distance),
         speedMetersPerSec: Metric(
-            name: _speedMetersPerSecName,
-            value: _toSpeedMetersPerSec(hikeMetrics.speedMetersPerSec)),
+            name: speedMetersPerSecName,
+            value: _toSpeedMetersPerSec(hikeMetrics.speedMetersPerSec),
+            unitType: UnitType.speed),
         headingDegrees: Metric(
-            name: _headingDegreesName,
+            name: headingDegreesName,
             value: hikeMetrics.headingDegrees.toString(),
             visible: false),
         locationAccuracy: Metric(
-            name: _locationAccuracyName,
+            name: locationAccuracyName,
             value: _toCurrentAccuracy(hikeMetrics.locationAccuracy)),
         speedAccuracy: Metric(
-            name: _speedAccuracyName,
+            name: speedAccuracyName,
             value: hikeMetrics.speedAccuracy.toString(),
             visible: false),
         altitudeMax: Metric(
-            name: _altitudeMaxName,
-            value: _toAltitudeMax(hikeMetrics.altitudeMax)),
+            name: altitudeMaxName,
+            value: _toAltitudeMax(hikeMetrics.altitudeMax),
+            unitType: UnitType.distance),
         altitudeMin: Metric(
-            name: _altitudeMinName,
-            value: _toAltitudeMin(hikeMetrics.altitudeMin)),
+            name: altitudeMinName,
+            value: _toAltitudeMin(hikeMetrics.altitudeMin),
+            unitType: UnitType.distance),
         speedMax: Metric(
-            name: _speedMaxName, value: _toSpeedMax(hikeMetrics.speedMax)),
+            name: speedMaxName,
+            value: _toSpeedMax(hikeMetrics.speedMax),
+            unitType: UnitType.speed),
         speedMin: Metric(
-            name: _speedMinName,
+            name: speedMinName,
             value: hikeMetrics.speedMin.toString(),
-            visible: false),
+            visible: false,
+            unitType: UnitType.speed),
         averageSpeedMetersPerSec: Metric(
-            name: _averageSpeedMetersPerSecName,
+            name: averageSpeedMetersPerSecName,
             value: _toAverageSpeedMetersPerSec(
-                hikeMetrics.averageSpeedMetersPerSec)),
+                hikeMetrics.averageSpeedMetersPerSec),
+            unitType: UnitType.speed),
         netHeadingDegrees: Metric(
-            name: _netHeadingDegreesName,
+            name: netHeadingDegreesName,
             value: _toNetHeading(hikeMetrics.netHeadingDegrees),
             visible: false),
         distanceTraveled: Metric(
-            name: _distanceTraveledName,
-            value: _toDistanceTraveledString(hikeMetrics.distanceTraveled)),
+            name: distanceTraveledName,
+            value: _toDistanceTraveledString(hikeMetrics.distanceTraveled),
+            unitType: UnitType.distance),
         netElevationChange: Metric(
-            name: _netElevationChangeName,
-            value: _toElevationChangeString(hikeMetrics.netElevationChange)),
+            name: netElevationChangeName,
+            value: _toElevationChangeString(hikeMetrics.netElevationChange),
+            unitType: UnitType.distance),
         cumulativeClimbMeters: Metric(
-            name: _cumulativeClimbMetersName,
+            name: cumulativeClimbMetersName,
             value: _toCumulativeClimbMeters(hikeMetrics.cumulativeClimbMeters),
-            visible: false),
+            visible: false,
+            unitType: UnitType.distance),
         cumulativeDescentMeters: Metric(
-            name: _cumulativeDescentMetersName,
+            name: cumulativeDescentMetersName,
             value:
                 _toCumulativeDescentMeters(hikeMetrics.cumulativeDescentMeters),
-            visible: false),
+            visible: false,
+            unitType: UnitType.distance),
         metricPeriodSeconds: Metric(
-            name: _metricPeriodSecondsName,
-            value: _toTimeElapsedString(hikeMetrics.metricPeriodSeconds)),
+          name: metricPeriodSecondsName,
+          value: _toTimeElapsedString(hikeMetrics.metricPeriodSeconds),
+        ),
       );
 
-  String _toDistanceTraveledString(double val) {
-    if (val == null) return "stuff";
+  String _toDistanceTraveledString(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
     final miles = metersToFeet(val) / feetPerMile;
     return "${miles.toStringAsFixed(2)} mi";
   }
 
-  String _toElevationChangeString(double val) {
-    if (val == null) return "stuff";
+  String _toElevationChangeString(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
 
     final feet = metersToFeet(val).round();
     return "$feet ft";
   }
 
-  String _toTimeElapsedString(double val) {
-    if (val == null) return "stuff";
+  String _toTimeElapsedString(double val, {Unit? unit}) {
     final int minutes = (val / secPerMin).round() % minPerHour;
     final int hours = ((val / secPerMin) / minPerHour).floor();
     return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
   }
 
-  String _toCurrentLatitude(double val) =>
-      val == null ? "stuff" : val.toStringAsFixed(7);
-  String _toCurrentLongitude(double val) =>
-      val == null ? "stuff" : val.toStringAsFixed(7);
-  String _toCurrentAltitude(double val) =>
-      val == null ? "stuff" : "${metersToFeet(val).round()} ft";
+  String _toCurrentLatitude(double val, {Unit? unit}) {
+    return val.toStringAsFixed(7);
+  }
 
-  String _toCurrentAccuracy(LocationAccuracyType val) {
-    if (val == null) return "stuff";
+  String _toCurrentLongitude(double val, {Unit? unit}) {
+    return val.toStringAsFixed(7);
+  }
+
+  String _toCurrentAltitude(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
+
+    return "${metersToFeet(val).round()} ft";
+  }
+
+  String _toCurrentAccuracy(LocationAccuracyType val, {Unit? unit}) {
     String accuracy = "unknown";
     if (val == LocationAccuracyType.low) {
       accuracy = "low (> 25m)";
@@ -148,77 +174,77 @@ class HikingServiceConversions {
     return accuracy;
   }
 
-  String _toSpeedMetersPerSec(double val) {
-    if (val == null) return "stuff";
+  String _toSpeedMetersPerSec(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
     double speed = 0;
     speed = val * 2.23694;
     return "${speed.toStringAsFixed(1)} mph";
-    // if (val > 0.05) {
+    // if (val > 0.05, {Unit? unit}) {
     //   speed = (1 / (val * metersPerSecToMilesPerMin)).round();
     // }
     // return "$speed min/mile";
   }
 
-  String _toCumulativeClimbMeters(double val) {
-    if (val == null) return "stuff";
+  String _toCumulativeClimbMeters(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
     final metric = val.round();
     return "$metric ft";
   }
 
-  String _toCumulativeDescentMeters(double val) {
-    if (val == null) return "stuff";
+  String _toCumulativeDescentMeters(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
     final metric = val.round();
     return "$metric ft";
   }
 
-  String _toAverageSpeedMetersPerSec(double val) {
-    if (val == null) return "stuff";
-    int speed = 0;
-    speed = (val * 2.23694).round();
-    return "$speed mph";
+  String _toAverageSpeedMetersPerSec(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
+    double speed = val * 2.23694;
+    return "${speed.toStringAsFixed(1)} mph";
     if (val > 0.01) {
-      speed = (1 / (val * metersPerSecToMilesPerMin)).round();
+      speed = (1 / (val * metersPerSecToMilesPerMin));
     }
-    return "$speed min/mile";
+    return "${speed.toStringAsFixed(1)} min/mile";
   }
 
-  String _toSpeedMax(double val) {
-    if (val == null) return "stuff";
-    int speed = 0;
-    speed = (val * 2.23694).round();
-    return "$speed mph";
+  String _toSpeedMax(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
+    double speed = val * 2.23694;
+    return "${speed.toStringAsFixed(1)} mph";
     if (val > 0.05) {
-      speed = (1 / (val * metersPerSecToMilesPerMin)).round();
+      speed = (1 / (val * metersPerSecToMilesPerMin));
     }
     return "$speed min/mile";
   }
 
-  String _toAltitudeMin(double val) {
-    if (val == null) return "stuff";
+  String _toAltitudeMin(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
     final altMin = metersToFeet(val).round();
     return "$altMin ft";
   }
 
-  String _toAltitudeMax(double val) {
-    if (val == null) return "stuff";
+  String _toAltitudeMax(double val, {Unit? unit}) {
+    if (unit != null) {
+      return "${unit.fromDefault(val).toStringAsFixed(2)} ${unit.name}";
+    }
     final altMax = metersToFeet(val).round();
     return "$altMax ft";
   }
 
-  String _toNetHeading(double val) {
-    if (val == null) return "stuff";
+  String _toNetHeading(double val, {Unit? unit}) {
     final heading = val.round();
     return "$heading deg";
   }
-}
-
-const double feetPerMeter = 3.28084;
-const double metersPerSecToMilesPerMin = 0.0372823;
-const feetPerMile = 5280;
-
-const int minPerHour = 60;
-const int secPerMin = 60;
-
-double metersToFeet(double distance) {
-  return distance * feetPerMeter;
 }

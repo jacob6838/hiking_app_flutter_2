@@ -161,12 +161,6 @@ class HikingService {
         hikingService._locationService.stopLocationService();
         return archiveCurrentTripData(tripName);
     }
-
-    if (statusCommand == TripStatusCommand.start) {
-    } else if (statusCommand == TripStatusCommand.pause) {
-    } else if (statusCommand == TripStatusCommand.unpause) {
-    } else if (statusCommand == TripStatusCommand.stop) {}
-    return null;
   }
 
   void _handleArchiveChange(DataArchive dataArchive) async {
@@ -274,66 +268,61 @@ class HikingService {
     if (deltaSec < updateIntervalSec) return;
 
     final deltaDistance = SphericalUtil.computeDistanceBetween(
-      LatLng(locationStatus.latitude, locationStatus.longitude),
+      LatLng(filteredLocation.latitude, filteredLocation.longitude),
       LatLng(_prevLocation!.latitude, _prevLocation!.longitude),
     ).toDouble();
 
-    final totalDistance = SphericalUtil.computeDistanceBetween(
-      LatLng(locationStatus.latitude, locationStatus.longitude),
-      LatLng(_currentPath.first.latitude, _currentPath.first.longitude),
-    ).toDouble();
-    filteredLocation = filteredLocation.copyWith(
-        speedMetersPerSec:
-            totalDistance / (_prevHikeMetrics!.metricPeriodSeconds + deltaSec));
+    filteredLocation =
+        filteredLocation.copyWith(speedMetersPerSec: deltaDistance / deltaSec);
 
     currentLocationStatus.add(locationStatus);
 
-    if (deltaDistance < filteredLocation.accuracy.value / 2) {
-      // NOT MOVED ENOUGH\
-      filteredLocation = _prevLocation!;
+    if (_hikeStatus == TripStatus.paused) {
+      final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
+          metricPeriodSeconds:
+              _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
+
+      /// Save location update to current hike
+      _currentPath.add(_prevLocation!);
+
+      /// Calculate hiker status update and publish value for UI
+      _currentHikerMetricsSub.add(currMetrics);
+      currentPathSub.add(_currentPath);
+      currentRawPathSub.add(_unfilteredPath);
+      elevationPlot.add(toElevationPlotValues(currMetrics));
+      speedPlot.add(toSpeedPlotValues(currMetrics));
+
+      _prevLocation =
+          _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
+      _prevHikeMetrics = currMetrics;
+    } else {
+      if (deltaDistance < filteredLocation.accuracy.value / 2) {
+        // NOT MOVED ENOUGH
+        filteredLocation = _prevLocation!;
+      }
+
+      final HikeMetrics currMetrics = accumulateMetrics(
+        prevMetrics: _prevHikeMetrics!,
+        currLoc: filteredLocation,
+        deltaDistance: deltaDistance,
+        locationHistory: _currentPath,
+        updatePeriodSec: deltaSec,
+      ); // .copyWith(distanceTraveled: totalDistance);
+
+      /// Save location update to current hike
+      _currentPath.add(filteredLocation);
+
+      /// Calculate hiker status update and publish value for UI
+      _currentHikerMetricsSub.add(currMetrics);
+      currentPathSub.add(_currentPath);
+      currentRawPathSub.add(_unfilteredPath);
+      elevationPlot.add(toElevationPlotValues(currMetrics));
+      speedPlot.add(toSpeedPlotValues(currMetrics));
+
+      _prevLocation = filteredLocation;
+      _prevHikeMetrics = currMetrics;
+      // }
     }
-
-    // final HikeMetrics currMetrics = _prevHikeMetrics!.copyWith(
-    //     metricPeriodSeconds:
-    //         _prevHikeMetrics!.metricPeriodSeconds + deltaSec);
-
-    // /// Save location update to current hike
-    // _currentPath.add(_prevLocation!);
-
-    // /// Calculate hiker status update and publish value for UI
-    // _currentHikerMetricsSub.add(currMetrics);
-    // currentPathSub.add(_currentPath);
-    // currentRawPathSub.add(_unfilteredPath);
-    // elevationPlot.add(toElevationPlotValues(currMetrics));
-    // speedPlot.add(toSpeedPlotValues(currMetrics));
-
-    // _prevLocation =
-    //     _prevLocation!.copyWith(timeStampSec: filteredLocation.timeStampSec);
-    // _prevHikeMetrics = currMetrics;
-    // } else {
-    // print("YES MOVED ENOUGH");
-
-    final HikeMetrics currMetrics = accumulateMetrics(
-      prevMetrics: _prevHikeMetrics!,
-      currLoc: filteredLocation,
-      deltaDistance: deltaDistance,
-      locationHistory: _currentPath,
-      updatePeriodSec: deltaSec,
-    ); // .copyWith(distanceTraveled: totalDistance);
-
-    /// Save location update to current hike
-    _currentPath.add(filteredLocation);
-
-    /// Calculate hiker status update and publish value for UI
-    _currentHikerMetricsSub.add(currMetrics);
-    currentPathSub.add(_currentPath);
-    currentRawPathSub.add(_unfilteredPath);
-    elevationPlot.add(toElevationPlotValues(currMetrics));
-    speedPlot.add(toSpeedPlotValues(currMetrics));
-
-    _prevLocation = filteredLocation;
-    _prevHikeMetrics = currMetrics;
-    // }
   }
 
   PlotValues toElevationPlotValues(HikeMetrics metric) {
@@ -424,8 +413,8 @@ LocationStatus toLocationStatus(Location locationData) {
     accuracy: toAccuracyType(locationData.accuracy ?? 0.0),
     altitude: locationData.altitude ?? 0.0,
     speedMetersPerSec: locationData.speed ?? 0.0,
-    // speedAccuracyValue: locationData. ?? 0.0,
-    // speedAccuracy: toAccuracyType(locationData.speedAccuracy ?? 0.0),
+    speedAccuracyValue: 0.25,
+    speedAccuracy: toAccuracyType(0.25),
     headingDegrees: locationData.bearing ?? 0.0,
     timeStampSec: toSeconds(locationData.time ?? 0),
   );
@@ -439,8 +428,6 @@ HikeMetrics accumulateMetrics({
   required List<LocationStatus> locationHistory,
   required double updatePeriodSec,
 }) {
-  // final speedMetersPerSec = deltaDistance / updatePeriodSec;
-
   final deltaAltitude = currLoc.altitude - prevMetrics.altitude;
   final totalDistance = prevMetrics.distanceTraveled + deltaDistance;
   final metricPeriodSeconds = prevMetrics.metricPeriodSeconds + updatePeriodSec;
@@ -468,25 +455,6 @@ HikeMetrics accumulateMetrics({
         : prevMetrics.cumulativeDescentMeters,
     metricPeriodSeconds: metricPeriodSeconds,
   );
-  // _distanceTraveled += _distanceDelta.abs();
-  // final hikerData = HikerStatus(
-  //   latitude: _distanceTraveled.roundToDouble(),
-  //   elevationChange: 0.0,
-  //   timeElapsedSec: delta ~/ 1000, timeElapsed: (delta ~/ 1000).toString(),
-  // );
-}
-
-/// Return the distance traveled between the previous hike status end point and the current location
-double getAvgSpeed(
-  double prevAvgSpeedMetersPerSec,
-  double previousDurationSec,
-  double updatePeriodSec,
-  double currentSpeedMetersPerSec,
-) {
-  // print("prevAvg: $prevAvgSpeedMetersPerSec, prevPeriod: $previousDurationSec, currAvg: $currentSpeedMetersPerSec, currPeriod: $updatePeriodSec");
-  return (prevAvgSpeedMetersPerSec * previousDurationSec +
-          currentSpeedMetersPerSec * updatePeriodSec) /
-      (previousDurationSec + updatePeriodSec);
 }
 
 /// Convert milliseconds since epoch value to seconds
