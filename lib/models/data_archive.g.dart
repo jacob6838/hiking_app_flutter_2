@@ -6,8 +6,12 @@ part of 'data_archive.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DataArchive _$$_DataArchiveFromJson(Map<String, dynamic> json) =>
-    _$_DataArchive(
+_$DataArchiveImpl _$$DataArchiveImplFromJson(Map<String, dynamic> json) =>
+    _$DataArchiveImpl(
+      locationSummary: json['locationSummary'] == null
+          ? null
+          : LocationSummary.fromJson(
+              json['locationSummary'] as Map<String, dynamic>),
       hikeMetrics: json['hikeMetrics'] == null
           ? null
           : HikeMetrics.fromJson(json['hikeMetrics'] as Map<String, dynamic>),
@@ -26,8 +30,9 @@ _$_DataArchive _$$_DataArchiveFromJson(Map<String, dynamic> json) =>
           : PlotValues.fromJson(json['speedPlot'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_DataArchiveToJson(_$_DataArchive instance) =>
+Map<String, dynamic> _$$DataArchiveImplToJson(_$DataArchiveImpl instance) =>
     <String, dynamic>{
+      'locationSummary': instance.locationSummary,
       'hikeMetrics': instance.hikeMetrics,
       'locationHistory': instance.locationHistory,
       'unfilteredLocationHistory': instance.unfilteredLocationHistory,

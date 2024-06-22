@@ -9,6 +9,7 @@ import 'models/data_archive.dart';
 
 class ArchiveService {
   BehaviorSubject<List<String>> currentArchiveList = BehaviorSubject();
+  BehaviorSubject<List<String>> currentArchiveSummaries = BehaviorSubject();
   BehaviorSubject<DataArchive> activeDataArchive =
       BehaviorSubject.seeded(const DataArchive(hikeMetrics: HikeMetrics()));
 

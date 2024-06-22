@@ -12,7 +12,7 @@ part of 'hike_metrics.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 HikeMetrics _$HikeMetricsFromJson(Map<String, dynamic> json) {
   return _HikeMetrics.fromJson(json);
@@ -211,11 +211,11 @@ class _$HikeMetricsCopyWithImpl<$Res, $Val extends HikeMetrics>
 }
 
 /// @nodoc
-abstract class _$$_HikeMetricsCopyWith<$Res>
+abstract class _$$HikeMetricsImplCopyWith<$Res>
     implements $HikeMetricsCopyWith<$Res> {
-  factory _$$_HikeMetricsCopyWith(
-          _$_HikeMetrics value, $Res Function(_$_HikeMetrics) then) =
-      __$$_HikeMetricsCopyWithImpl<$Res>;
+  factory _$$HikeMetricsImplCopyWith(
+          _$HikeMetricsImpl value, $Res Function(_$HikeMetricsImpl) then) =
+      __$$HikeMetricsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -244,11 +244,11 @@ abstract class _$$_HikeMetricsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HikeMetricsCopyWithImpl<$Res>
-    extends _$HikeMetricsCopyWithImpl<$Res, _$_HikeMetrics>
-    implements _$$_HikeMetricsCopyWith<$Res> {
-  __$$_HikeMetricsCopyWithImpl(
-      _$_HikeMetrics _value, $Res Function(_$_HikeMetrics) _then)
+class __$$HikeMetricsImplCopyWithImpl<$Res>
+    extends _$HikeMetricsCopyWithImpl<$Res, _$HikeMetricsImpl>
+    implements _$$HikeMetricsImplCopyWith<$Res> {
+  __$$HikeMetricsImplCopyWithImpl(
+      _$HikeMetricsImpl _value, $Res Function(_$HikeMetricsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -277,7 +277,7 @@ class __$$_HikeMetricsCopyWithImpl<$Res>
     Object? cumulativeDescentMeters = null,
     Object? metricPeriodSeconds = null,
   }) {
-    return _then(_$_HikeMetrics(
+    return _then(_$HikeMetricsImpl(
       timeStartSec: null == timeStartSec
           ? _value.timeStartSec
           : timeStartSec // ignore: cast_nullable_to_non_nullable
@@ -372,8 +372,8 @@ class __$$_HikeMetricsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HikeMetrics implements _HikeMetrics {
-  const _$_HikeMetrics(
+class _$HikeMetricsImpl implements _HikeMetrics {
+  const _$HikeMetricsImpl(
       {this.timeStartSec = 0.0,
       this.latitudeStart = 0.0,
       this.longitudeStart = 0.0,
@@ -397,8 +397,8 @@ class _$_HikeMetrics implements _HikeMetrics {
       this.cumulativeDescentMeters = 0.0,
       this.metricPeriodSeconds = 0.0});
 
-  factory _$_HikeMetrics.fromJson(Map<String, dynamic> json) =>
-      _$$_HikeMetricsFromJson(json);
+  factory _$HikeMetricsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HikeMetricsImplFromJson(json);
 
   @override
   @JsonKey()
@@ -473,10 +473,10 @@ class _$_HikeMetrics implements _HikeMetrics {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HikeMetrics &&
+            other is _$HikeMetricsImpl &&
             (identical(other.timeStartSec, timeStartSec) ||
                 other.timeStartSec == timeStartSec) &&
             (identical(other.latitudeStart, latitudeStart) ||
@@ -556,12 +556,12 @@ class _$_HikeMetrics implements _HikeMetrics {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HikeMetricsCopyWith<_$_HikeMetrics> get copyWith =>
-      __$$_HikeMetricsCopyWithImpl<_$_HikeMetrics>(this, _$identity);
+  _$$HikeMetricsImplCopyWith<_$HikeMetricsImpl> get copyWith =>
+      __$$HikeMetricsImplCopyWithImpl<_$HikeMetricsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HikeMetricsToJson(
+    return _$$HikeMetricsImplToJson(
       this,
     );
   }
@@ -590,10 +590,10 @@ abstract class _HikeMetrics implements HikeMetrics {
       final double netElevationChange,
       final double cumulativeClimbMeters,
       final double cumulativeDescentMeters,
-      final double metricPeriodSeconds}) = _$_HikeMetrics;
+      final double metricPeriodSeconds}) = _$HikeMetricsImpl;
 
   factory _HikeMetrics.fromJson(Map<String, dynamic> json) =
-      _$_HikeMetrics.fromJson;
+      _$HikeMetricsImpl.fromJson;
 
   @override
   double get timeStartSec;
@@ -641,7 +641,7 @@ abstract class _HikeMetrics implements HikeMetrics {
   double get metricPeriodSeconds;
   @override
   @JsonKey(ignore: true)
-  _$$_HikeMetricsCopyWith<_$_HikeMetrics> get copyWith =>
+  _$$HikeMetricsImplCopyWith<_$HikeMetricsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1128,11 +1128,11 @@ class _$HikeMetricsDataCopyWithImpl<$Res, $Val extends HikeMetricsData>
 }
 
 /// @nodoc
-abstract class _$$_HikeMetricsDataCopyWith<$Res>
+abstract class _$$HikeMetricsDataImplCopyWith<$Res>
     implements $HikeMetricsDataCopyWith<$Res> {
-  factory _$$_HikeMetricsDataCopyWith(
-          _$_HikeMetricsData value, $Res Function(_$_HikeMetricsData) then) =
-      __$$_HikeMetricsDataCopyWithImpl<$Res>;
+  factory _$$HikeMetricsDataImplCopyWith(_$HikeMetricsDataImpl value,
+          $Res Function(_$HikeMetricsDataImpl) then) =
+      __$$HikeMetricsDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1206,11 +1206,11 @@ abstract class _$$_HikeMetricsDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_HikeMetricsDataCopyWithImpl<$Res>
-    extends _$HikeMetricsDataCopyWithImpl<$Res, _$_HikeMetricsData>
-    implements _$$_HikeMetricsDataCopyWith<$Res> {
-  __$$_HikeMetricsDataCopyWithImpl(
-      _$_HikeMetricsData _value, $Res Function(_$_HikeMetricsData) _then)
+class __$$HikeMetricsDataImplCopyWithImpl<$Res>
+    extends _$HikeMetricsDataCopyWithImpl<$Res, _$HikeMetricsDataImpl>
+    implements _$$HikeMetricsDataImplCopyWith<$Res> {
+  __$$HikeMetricsDataImplCopyWithImpl(
+      _$HikeMetricsDataImpl _value, $Res Function(_$HikeMetricsDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1239,7 +1239,7 @@ class __$$_HikeMetricsDataCopyWithImpl<$Res>
     Object? cumulativeDescentMeters = freezed,
     Object? metricPeriodSeconds = freezed,
   }) {
-    return _then(_$_HikeMetricsData(
+    return _then(_$HikeMetricsDataImpl(
       timeStartSec: freezed == timeStartSec
           ? _value.timeStartSec
           : timeStartSec // ignore: cast_nullable_to_non_nullable
@@ -1334,8 +1334,8 @@ class __$$_HikeMetricsDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HikeMetricsData implements _HikeMetricsData {
-  const _$_HikeMetricsData(
+class _$HikeMetricsDataImpl implements _HikeMetricsData {
+  const _$HikeMetricsDataImpl(
       {this.timeStartSec,
       this.latitudeStart,
       this.longitudeStart,
@@ -1359,8 +1359,8 @@ class _$_HikeMetricsData implements _HikeMetricsData {
       this.cumulativeDescentMeters,
       this.metricPeriodSeconds});
 
-  factory _$_HikeMetricsData.fromJson(Map<String, dynamic> json) =>
-      _$$_HikeMetricsDataFromJson(json);
+  factory _$HikeMetricsDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HikeMetricsDataImplFromJson(json);
 
   @override
   final Metric? timeStartSec;
@@ -1413,10 +1413,10 @@ class _$_HikeMetricsData implements _HikeMetricsData {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_HikeMetricsData &&
+            other is _$HikeMetricsDataImpl &&
             (identical(other.timeStartSec, timeStartSec) ||
                 other.timeStartSec == timeStartSec) &&
             (identical(other.latitudeStart, latitudeStart) ||
@@ -1496,12 +1496,13 @@ class _$_HikeMetricsData implements _HikeMetricsData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_HikeMetricsDataCopyWith<_$_HikeMetricsData> get copyWith =>
-      __$$_HikeMetricsDataCopyWithImpl<_$_HikeMetricsData>(this, _$identity);
+  _$$HikeMetricsDataImplCopyWith<_$HikeMetricsDataImpl> get copyWith =>
+      __$$HikeMetricsDataImplCopyWithImpl<_$HikeMetricsDataImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_HikeMetricsDataToJson(
+    return _$$HikeMetricsDataImplToJson(
       this,
     );
   }
@@ -1530,10 +1531,10 @@ abstract class _HikeMetricsData implements HikeMetricsData {
       final Metric? netElevationChange,
       final Metric? cumulativeClimbMeters,
       final Metric? cumulativeDescentMeters,
-      final Metric? metricPeriodSeconds}) = _$_HikeMetricsData;
+      final Metric? metricPeriodSeconds}) = _$HikeMetricsDataImpl;
 
   factory _HikeMetricsData.fromJson(Map<String, dynamic> json) =
-      _$_HikeMetricsData.fromJson;
+      _$HikeMetricsDataImpl.fromJson;
 
   @override
   Metric? get timeStartSec;
@@ -1581,7 +1582,7 @@ abstract class _HikeMetricsData implements HikeMetricsData {
   Metric? get metricPeriodSeconds;
   @override
   @JsonKey(ignore: true)
-  _$$_HikeMetricsDataCopyWith<_$_HikeMetricsData> get copyWith =>
+  _$$HikeMetricsDataImplCopyWith<_$HikeMetricsDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1643,19 +1644,21 @@ class _$MetricCopyWithImpl<$Res, $Val extends Metric>
 }
 
 /// @nodoc
-abstract class _$$_MetricCopyWith<$Res> implements $MetricCopyWith<$Res> {
-  factory _$$_MetricCopyWith(_$_Metric value, $Res Function(_$_Metric) then) =
-      __$$_MetricCopyWithImpl<$Res>;
+abstract class _$$MetricImplCopyWith<$Res> implements $MetricCopyWith<$Res> {
+  factory _$$MetricImplCopyWith(
+          _$MetricImpl value, $Res Function(_$MetricImpl) then) =
+      __$$MetricImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String value, bool visible});
 }
 
 /// @nodoc
-class __$$_MetricCopyWithImpl<$Res>
-    extends _$MetricCopyWithImpl<$Res, _$_Metric>
-    implements _$$_MetricCopyWith<$Res> {
-  __$$_MetricCopyWithImpl(_$_Metric _value, $Res Function(_$_Metric) _then)
+class __$$MetricImplCopyWithImpl<$Res>
+    extends _$MetricCopyWithImpl<$Res, _$MetricImpl>
+    implements _$$MetricImplCopyWith<$Res> {
+  __$$MetricImplCopyWithImpl(
+      _$MetricImpl _value, $Res Function(_$MetricImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1665,7 +1668,7 @@ class __$$_MetricCopyWithImpl<$Res>
     Object? value = null,
     Object? visible = null,
   }) {
-    return _then(_$_Metric(
+    return _then(_$MetricImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1684,11 +1687,11 @@ class __$$_MetricCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Metric implements _Metric {
-  const _$_Metric({this.name = "", this.value = "", this.visible = true});
+class _$MetricImpl implements _Metric {
+  const _$MetricImpl({this.name = "", this.value = "", this.visible = true});
 
-  factory _$_Metric.fromJson(Map<String, dynamic> json) =>
-      _$$_MetricFromJson(json);
+  factory _$MetricImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MetricImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1706,10 +1709,10 @@ class _$_Metric implements _Metric {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Metric &&
+            other is _$MetricImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.value, value) || other.value == value) &&
             (identical(other.visible, visible) || other.visible == visible));
@@ -1722,12 +1725,12 @@ class _$_Metric implements _Metric {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MetricCopyWith<_$_Metric> get copyWith =>
-      __$$_MetricCopyWithImpl<_$_Metric>(this, _$identity);
+  _$$MetricImplCopyWith<_$MetricImpl> get copyWith =>
+      __$$MetricImplCopyWithImpl<_$MetricImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MetricToJson(
+    return _$$MetricImplToJson(
       this,
     );
   }
@@ -1735,9 +1738,11 @@ class _$_Metric implements _Metric {
 
 abstract class _Metric implements Metric {
   const factory _Metric(
-      {final String name, final String value, final bool visible}) = _$_Metric;
+      {final String name,
+      final String value,
+      final bool visible}) = _$MetricImpl;
 
-  factory _Metric.fromJson(Map<String, dynamic> json) = _$_Metric.fromJson;
+  factory _Metric.fromJson(Map<String, dynamic> json) = _$MetricImpl.fromJson;
 
   @override
   String get name;
@@ -1747,6 +1752,6 @@ abstract class _Metric implements Metric {
   bool get visible;
   @override
   @JsonKey(ignore: true)
-  _$$_MetricCopyWith<_$_Metric> get copyWith =>
+  _$$MetricImplCopyWith<_$MetricImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

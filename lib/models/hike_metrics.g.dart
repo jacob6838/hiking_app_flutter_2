@@ -6,8 +6,8 @@ part of 'hike_metrics.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_HikeMetrics _$$_HikeMetricsFromJson(Map<String, dynamic> json) =>
-    _$_HikeMetrics(
+_$HikeMetricsImpl _$$HikeMetricsImplFromJson(Map<String, dynamic> json) =>
+    _$HikeMetricsImpl(
       timeStartSec: (json['timeStartSec'] as num?)?.toDouble() ?? 0.0,
       latitudeStart: (json['latitudeStart'] as num?)?.toDouble() ?? 0.0,
       longitudeStart: (json['longitudeStart'] as num?)?.toDouble() ?? 0.0,
@@ -41,7 +41,7 @@ _$_HikeMetrics _$$_HikeMetricsFromJson(Map<String, dynamic> json) =>
           (json['metricPeriodSeconds'] as num?)?.toDouble() ?? 0.0,
     );
 
-Map<String, dynamic> _$$_HikeMetricsToJson(_$_HikeMetrics instance) =>
+Map<String, dynamic> _$$HikeMetricsImplToJson(_$HikeMetricsImpl instance) =>
     <String, dynamic>{
       'timeStartSec': instance.timeStartSec,
       'latitudeStart': instance.latitudeStart,
@@ -74,8 +74,9 @@ const _$LocationAccuracyTypeEnumMap = {
   LocationAccuracyType.low: 'low',
 };
 
-_$_HikeMetricsData _$$_HikeMetricsDataFromJson(Map<String, dynamic> json) =>
-    _$_HikeMetricsData(
+_$HikeMetricsDataImpl _$$HikeMetricsDataImplFromJson(
+        Map<String, dynamic> json) =>
+    _$HikeMetricsDataImpl(
       timeStartSec: json['timeStartSec'] == null
           ? null
           : Metric.fromJson(json['timeStartSec'] as Map<String, dynamic>),
@@ -148,7 +149,8 @@ _$_HikeMetricsData _$$_HikeMetricsDataFromJson(Map<String, dynamic> json) =>
               json['metricPeriodSeconds'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_HikeMetricsDataToJson(_$_HikeMetricsData instance) =>
+Map<String, dynamic> _$$HikeMetricsDataImplToJson(
+        _$HikeMetricsDataImpl instance) =>
     <String, dynamic>{
       'timeStartSec': instance.timeStartSec,
       'latitudeStart': instance.latitudeStart,
@@ -174,13 +176,14 @@ Map<String, dynamic> _$$_HikeMetricsDataToJson(_$_HikeMetricsData instance) =>
       'metricPeriodSeconds': instance.metricPeriodSeconds,
     };
 
-_$_Metric _$$_MetricFromJson(Map<String, dynamic> json) => _$_Metric(
+_$MetricImpl _$$MetricImplFromJson(Map<String, dynamic> json) => _$MetricImpl(
       name: json['name'] as String? ?? "",
       value: json['value'] as String? ?? "",
       visible: json['visible'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$$_MetricToJson(_$_Metric instance) => <String, dynamic>{
+Map<String, dynamic> _$$MetricImplToJson(_$MetricImpl instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'value': instance.value,
       'visible': instance.visible,

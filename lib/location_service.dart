@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:background_location/background_location.dart';
+import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:location/location.dart' as loc;
@@ -95,5 +96,17 @@ class LocationService {
       _serviceEnabled = await locLocation.requestService();
     }
     return _serviceEnabled;
+  }
+
+  Future<geocoding.Placemark> getCurrentLocationDetails(
+      Location location) async {
+    // Use Geocoding to get address
+    List<geocoding.Placemark> placemarks =
+        await geocoding.placemarkFromCoordinates(
+      location.latitude!,
+      location.longitude!,
+    );
+
+    return placemarks[0];
   }
 }

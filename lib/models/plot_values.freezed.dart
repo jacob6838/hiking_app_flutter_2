@@ -12,7 +12,7 @@ part of 'plot_values.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PlotValues _$PlotValuesFromJson(Map<String, dynamic> json) {
   return _PlotValues.fromJson(json);
@@ -110,11 +110,11 @@ class _$PlotValuesCopyWithImpl<$Res, $Val extends PlotValues>
 }
 
 /// @nodoc
-abstract class _$$_PlotValuesCopyWith<$Res>
+abstract class _$$PlotValuesImplCopyWith<$Res>
     implements $PlotValuesCopyWith<$Res> {
-  factory _$$_PlotValuesCopyWith(
-          _$_PlotValues value, $Res Function(_$_PlotValues) then) =
-      __$$_PlotValuesCopyWithImpl<$Res>;
+  factory _$$PlotValuesImplCopyWith(
+          _$PlotValuesImpl value, $Res Function(_$PlotValuesImpl) then) =
+      __$$PlotValuesImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -131,11 +131,11 @@ abstract class _$$_PlotValuesCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlotValuesCopyWithImpl<$Res>
-    extends _$PlotValuesCopyWithImpl<$Res, _$_PlotValues>
-    implements _$$_PlotValuesCopyWith<$Res> {
-  __$$_PlotValuesCopyWithImpl(
-      _$_PlotValues _value, $Res Function(_$_PlotValues) _then)
+class __$$PlotValuesImplCopyWithImpl<$Res>
+    extends _$PlotValuesCopyWithImpl<$Res, _$PlotValuesImpl>
+    implements _$$PlotValuesImplCopyWith<$Res> {
+  __$$PlotValuesImplCopyWithImpl(
+      _$PlotValuesImpl _value, $Res Function(_$PlotValuesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -147,7 +147,7 @@ class __$$_PlotValuesCopyWithImpl<$Res>
     Object? height = null,
     Object? width = null,
   }) {
-    return _then(_$_PlotValues(
+    return _then(_$PlotValuesImpl(
       values: null == values
           ? _value._values
           : values // ignore: cast_nullable_to_non_nullable
@@ -174,8 +174,8 @@ class __$$_PlotValuesCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlotValues implements _PlotValues {
-  const _$_PlotValues(
+class _$PlotValuesImpl implements _PlotValues {
+  const _$PlotValuesImpl(
       {required final List<List<double>> values,
       required this.xFormat,
       required this.yFormat,
@@ -183,8 +183,8 @@ class _$_PlotValues implements _PlotValues {
       required this.width})
       : _values = values;
 
-  factory _$_PlotValues.fromJson(Map<String, dynamic> json) =>
-      _$$_PlotValuesFromJson(json);
+  factory _$PlotValuesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlotValuesImplFromJson(json);
 
   final List<List<double>> _values;
   @override
@@ -209,10 +209,10 @@ class _$_PlotValues implements _PlotValues {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlotValues &&
+            other is _$PlotValuesImpl &&
             const DeepCollectionEquality().equals(other._values, _values) &&
             (identical(other.xFormat, xFormat) || other.xFormat == xFormat) &&
             (identical(other.yFormat, yFormat) || other.yFormat == yFormat) &&
@@ -233,12 +233,12 @@ class _$_PlotValues implements _PlotValues {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlotValuesCopyWith<_$_PlotValues> get copyWith =>
-      __$$_PlotValuesCopyWithImpl<_$_PlotValues>(this, _$identity);
+  _$$PlotValuesImplCopyWith<_$PlotValuesImpl> get copyWith =>
+      __$$PlotValuesImplCopyWithImpl<_$PlotValuesImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlotValuesToJson(
+    return _$$PlotValuesImplToJson(
       this,
     );
   }
@@ -250,10 +250,10 @@ abstract class _PlotValues implements PlotValues {
       required final PlotFormat xFormat,
       required final PlotFormat yFormat,
       required final double height,
-      required final double width}) = _$_PlotValues;
+      required final double width}) = _$PlotValuesImpl;
 
   factory _PlotValues.fromJson(Map<String, dynamic> json) =
-      _$_PlotValues.fromJson;
+      _$PlotValuesImpl.fromJson;
 
   @override
   List<List<double>> get values;
@@ -267,7 +267,7 @@ abstract class _PlotValues implements PlotValues {
   double get width;
   @override
   @JsonKey(ignore: true)
-  _$$_PlotValuesCopyWith<_$_PlotValues> get copyWith =>
+  _$$PlotValuesImplCopyWith<_$PlotValuesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -338,22 +338,22 @@ class _$PlotFormatCopyWithImpl<$Res, $Val extends PlotFormat>
 }
 
 /// @nodoc
-abstract class _$$_PlotFormatCopyWith<$Res>
+abstract class _$$PlotFormatImplCopyWith<$Res>
     implements $PlotFormatCopyWith<$Res> {
-  factory _$$_PlotFormatCopyWith(
-          _$_PlotFormat value, $Res Function(_$_PlotFormat) then) =
-      __$$_PlotFormatCopyWithImpl<$Res>;
+  factory _$$PlotFormatImplCopyWith(
+          _$PlotFormatImpl value, $Res Function(_$PlotFormatImpl) then) =
+      __$$PlotFormatImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double? min, double? max, String? axisTitle, double? interval});
 }
 
 /// @nodoc
-class __$$_PlotFormatCopyWithImpl<$Res>
-    extends _$PlotFormatCopyWithImpl<$Res, _$_PlotFormat>
-    implements _$$_PlotFormatCopyWith<$Res> {
-  __$$_PlotFormatCopyWithImpl(
-      _$_PlotFormat _value, $Res Function(_$_PlotFormat) _then)
+class __$$PlotFormatImplCopyWithImpl<$Res>
+    extends _$PlotFormatCopyWithImpl<$Res, _$PlotFormatImpl>
+    implements _$$PlotFormatImplCopyWith<$Res> {
+  __$$PlotFormatImplCopyWithImpl(
+      _$PlotFormatImpl _value, $Res Function(_$PlotFormatImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -364,7 +364,7 @@ class __$$_PlotFormatCopyWithImpl<$Res>
     Object? axisTitle = freezed,
     Object? interval = freezed,
   }) {
-    return _then(_$_PlotFormat(
+    return _then(_$PlotFormatImpl(
       min: freezed == min
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
@@ -387,11 +387,11 @@ class __$$_PlotFormatCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlotFormat implements _PlotFormat {
-  const _$_PlotFormat({this.min, this.max, this.axisTitle, this.interval});
+class _$PlotFormatImpl implements _PlotFormat {
+  const _$PlotFormatImpl({this.min, this.max, this.axisTitle, this.interval});
 
-  factory _$_PlotFormat.fromJson(Map<String, dynamic> json) =>
-      _$$_PlotFormatFromJson(json);
+  factory _$PlotFormatImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlotFormatImplFromJson(json);
 
   @override
   final double? min;
@@ -409,10 +409,10 @@ class _$_PlotFormat implements _PlotFormat {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlotFormat &&
+            other is _$PlotFormatImpl &&
             (identical(other.min, min) || other.min == min) &&
             (identical(other.max, max) || other.max == max) &&
             (identical(other.axisTitle, axisTitle) ||
@@ -428,12 +428,12 @@ class _$_PlotFormat implements _PlotFormat {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlotFormatCopyWith<_$_PlotFormat> get copyWith =>
-      __$$_PlotFormatCopyWithImpl<_$_PlotFormat>(this, _$identity);
+  _$$PlotFormatImplCopyWith<_$PlotFormatImpl> get copyWith =>
+      __$$PlotFormatImplCopyWithImpl<_$PlotFormatImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlotFormatToJson(
+    return _$$PlotFormatImplToJson(
       this,
     );
   }
@@ -444,10 +444,10 @@ abstract class _PlotFormat implements PlotFormat {
       {final double? min,
       final double? max,
       final String? axisTitle,
-      final double? interval}) = _$_PlotFormat;
+      final double? interval}) = _$PlotFormatImpl;
 
   factory _PlotFormat.fromJson(Map<String, dynamic> json) =
-      _$_PlotFormat.fromJson;
+      _$PlotFormatImpl.fromJson;
 
   @override
   double? get min;
@@ -459,6 +459,6 @@ abstract class _PlotFormat implements PlotFormat {
   double? get interval;
   @override
   @JsonKey(ignore: true)
-  _$$_PlotFormatCopyWith<_$_PlotFormat> get copyWith =>
+  _$$PlotFormatImplCopyWith<_$PlotFormatImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.2.0+5
 
 environment:
-  sdk: ">=3.2.6 <4.0.0"
+  sdk: ">=3.4.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,7 +36,7 @@ dependencies:
   location: ^6.0.2
   azblob: ^2.3.0
   fl_chart: ^0.68.0
-  freezed: ^2.5.3
+  freezed: ^2.5.2
   provider: ^6.0.3
   google_maps_flutter: ^2.7.0
   kt_dart: ^1.1.0
@@ -49,6 +49,7 @@ dependencies:
   maps_toolkit: ^3.0.0
   shared_preferences: ^2.2.3
   permission_handler: ^11.3.1
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_test:

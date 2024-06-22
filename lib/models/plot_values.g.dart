@@ -6,8 +6,8 @@ part of 'plot_values.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PlotValues _$$_PlotValuesFromJson(Map<String, dynamic> json) =>
-    _$_PlotValues(
+_$PlotValuesImpl _$$PlotValuesImplFromJson(Map<String, dynamic> json) =>
+    _$PlotValuesImpl(
       values: (json['values'] as List<dynamic>)
           .map((e) =>
               (e as List<dynamic>).map((e) => (e as num).toDouble()).toList())
@@ -18,7 +18,7 @@ _$_PlotValues _$$_PlotValuesFromJson(Map<String, dynamic> json) =>
       width: (json['width'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_PlotValuesToJson(_$_PlotValues instance) =>
+Map<String, dynamic> _$$PlotValuesImplToJson(_$PlotValuesImpl instance) =>
     <String, dynamic>{
       'values': instance.values,
       'xFormat': instance.xFormat,
@@ -27,15 +27,15 @@ Map<String, dynamic> _$$_PlotValuesToJson(_$_PlotValues instance) =>
       'width': instance.width,
     };
 
-_$_PlotFormat _$$_PlotFormatFromJson(Map<String, dynamic> json) =>
-    _$_PlotFormat(
+_$PlotFormatImpl _$$PlotFormatImplFromJson(Map<String, dynamic> json) =>
+    _$PlotFormatImpl(
       min: (json['min'] as num?)?.toDouble(),
       max: (json['max'] as num?)?.toDouble(),
       axisTitle: json['axisTitle'] as String?,
       interval: (json['interval'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$_PlotFormatToJson(_$_PlotFormat instance) =>
+Map<String, dynamic> _$$PlotFormatImplToJson(_$PlotFormatImpl instance) =>
     <String, dynamic>{
       'min': instance.min,
       'max': instance.max,

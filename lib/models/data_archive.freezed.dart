@@ -12,7 +12,7 @@ part of 'data_archive.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DataArchive _$DataArchiveFromJson(Map<String, dynamic> json) {
   return _DataArchive.fromJson(json);
@@ -20,6 +20,7 @@ DataArchive _$DataArchiveFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DataArchive {
+  LocationSummary? get locationSummary => throw _privateConstructorUsedError;
   HikeMetrics? get hikeMetrics => throw _privateConstructorUsedError;
   List<LocationStatus>? get locationHistory =>
       throw _privateConstructorUsedError;
@@ -41,12 +42,14 @@ abstract class $DataArchiveCopyWith<$Res> {
       _$DataArchiveCopyWithImpl<$Res, DataArchive>;
   @useResult
   $Res call(
-      {HikeMetrics? hikeMetrics,
+      {LocationSummary? locationSummary,
+      HikeMetrics? hikeMetrics,
       List<LocationStatus>? locationHistory,
       List<LocationStatus>? unfilteredLocationHistory,
       PlotValues? elevationPlot,
       PlotValues? speedPlot});
 
+  $LocationSummaryCopyWith<$Res>? get locationSummary;
   $HikeMetricsCopyWith<$Res>? get hikeMetrics;
   $PlotValuesCopyWith<$Res>? get elevationPlot;
   $PlotValuesCopyWith<$Res>? get speedPlot;
@@ -65,6 +68,7 @@ class _$DataArchiveCopyWithImpl<$Res, $Val extends DataArchive>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? locationSummary = freezed,
     Object? hikeMetrics = freezed,
     Object? locationHistory = freezed,
     Object? unfilteredLocationHistory = freezed,
@@ -72,6 +76,10 @@ class _$DataArchiveCopyWithImpl<$Res, $Val extends DataArchive>
     Object? speedPlot = freezed,
   }) {
     return _then(_value.copyWith(
+      locationSummary: freezed == locationSummary
+          ? _value.locationSummary
+          : locationSummary // ignore: cast_nullable_to_non_nullable
+              as LocationSummary?,
       hikeMetrics: freezed == hikeMetrics
           ? _value.hikeMetrics
           : hikeMetrics // ignore: cast_nullable_to_non_nullable
@@ -93,6 +101,18 @@ class _$DataArchiveCopyWithImpl<$Res, $Val extends DataArchive>
           : speedPlot // ignore: cast_nullable_to_non_nullable
               as PlotValues?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationSummaryCopyWith<$Res>? get locationSummary {
+    if (_value.locationSummary == null) {
+      return null;
+    }
+
+    return $LocationSummaryCopyWith<$Res>(_value.locationSummary!, (value) {
+      return _then(_value.copyWith(locationSummary: value) as $Val);
+    });
   }
 
   @override
@@ -133,20 +153,23 @@ class _$DataArchiveCopyWithImpl<$Res, $Val extends DataArchive>
 }
 
 /// @nodoc
-abstract class _$$_DataArchiveCopyWith<$Res>
+abstract class _$$DataArchiveImplCopyWith<$Res>
     implements $DataArchiveCopyWith<$Res> {
-  factory _$$_DataArchiveCopyWith(
-          _$_DataArchive value, $Res Function(_$_DataArchive) then) =
-      __$$_DataArchiveCopyWithImpl<$Res>;
+  factory _$$DataArchiveImplCopyWith(
+          _$DataArchiveImpl value, $Res Function(_$DataArchiveImpl) then) =
+      __$$DataArchiveImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {HikeMetrics? hikeMetrics,
+      {LocationSummary? locationSummary,
+      HikeMetrics? hikeMetrics,
       List<LocationStatus>? locationHistory,
       List<LocationStatus>? unfilteredLocationHistory,
       PlotValues? elevationPlot,
       PlotValues? speedPlot});
 
+  @override
+  $LocationSummaryCopyWith<$Res>? get locationSummary;
   @override
   $HikeMetricsCopyWith<$Res>? get hikeMetrics;
   @override
@@ -156,23 +179,28 @@ abstract class _$$_DataArchiveCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DataArchiveCopyWithImpl<$Res>
-    extends _$DataArchiveCopyWithImpl<$Res, _$_DataArchive>
-    implements _$$_DataArchiveCopyWith<$Res> {
-  __$$_DataArchiveCopyWithImpl(
-      _$_DataArchive _value, $Res Function(_$_DataArchive) _then)
+class __$$DataArchiveImplCopyWithImpl<$Res>
+    extends _$DataArchiveCopyWithImpl<$Res, _$DataArchiveImpl>
+    implements _$$DataArchiveImplCopyWith<$Res> {
+  __$$DataArchiveImplCopyWithImpl(
+      _$DataArchiveImpl _value, $Res Function(_$DataArchiveImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? locationSummary = freezed,
     Object? hikeMetrics = freezed,
     Object? locationHistory = freezed,
     Object? unfilteredLocationHistory = freezed,
     Object? elevationPlot = freezed,
     Object? speedPlot = freezed,
   }) {
-    return _then(_$_DataArchive(
+    return _then(_$DataArchiveImpl(
+      locationSummary: freezed == locationSummary
+          ? _value.locationSummary
+          : locationSummary // ignore: cast_nullable_to_non_nullable
+              as LocationSummary?,
       hikeMetrics: freezed == hikeMetrics
           ? _value.hikeMetrics
           : hikeMetrics // ignore: cast_nullable_to_non_nullable
@@ -199,9 +227,10 @@ class __$$_DataArchiveCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DataArchive implements _DataArchive {
-  const _$_DataArchive(
-      {this.hikeMetrics,
+class _$DataArchiveImpl implements _DataArchive {
+  const _$DataArchiveImpl(
+      {this.locationSummary,
+      this.hikeMetrics,
       final List<LocationStatus>? locationHistory,
       final List<LocationStatus>? unfilteredLocationHistory,
       this.elevationPlot,
@@ -209,9 +238,11 @@ class _$_DataArchive implements _DataArchive {
       : _locationHistory = locationHistory,
         _unfilteredLocationHistory = unfilteredLocationHistory;
 
-  factory _$_DataArchive.fromJson(Map<String, dynamic> json) =>
-      _$$_DataArchiveFromJson(json);
+  factory _$DataArchiveImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DataArchiveImplFromJson(json);
 
+  @override
+  final LocationSummary? locationSummary;
   @override
   final HikeMetrics? hikeMetrics;
   final List<LocationStatus>? _locationHistory;
@@ -242,14 +273,16 @@ class _$_DataArchive implements _DataArchive {
 
   @override
   String toString() {
-    return 'DataArchive(hikeMetrics: $hikeMetrics, locationHistory: $locationHistory, unfilteredLocationHistory: $unfilteredLocationHistory, elevationPlot: $elevationPlot, speedPlot: $speedPlot)';
+    return 'DataArchive(locationSummary: $locationSummary, hikeMetrics: $hikeMetrics, locationHistory: $locationHistory, unfilteredLocationHistory: $unfilteredLocationHistory, elevationPlot: $elevationPlot, speedPlot: $speedPlot)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DataArchive &&
+            other is _$DataArchiveImpl &&
+            (identical(other.locationSummary, locationSummary) ||
+                other.locationSummary == locationSummary) &&
             (identical(other.hikeMetrics, hikeMetrics) ||
                 other.hikeMetrics == hikeMetrics) &&
             const DeepCollectionEquality()
@@ -266,6 +299,7 @@ class _$_DataArchive implements _DataArchive {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      locationSummary,
       hikeMetrics,
       const DeepCollectionEquality().hash(_locationHistory),
       const DeepCollectionEquality().hash(_unfilteredLocationHistory),
@@ -275,12 +309,12 @@ class _$_DataArchive implements _DataArchive {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DataArchiveCopyWith<_$_DataArchive> get copyWith =>
-      __$$_DataArchiveCopyWithImpl<_$_DataArchive>(this, _$identity);
+  _$$DataArchiveImplCopyWith<_$DataArchiveImpl> get copyWith =>
+      __$$DataArchiveImplCopyWithImpl<_$DataArchiveImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DataArchiveToJson(
+    return _$$DataArchiveImplToJson(
       this,
     );
   }
@@ -288,15 +322,18 @@ class _$_DataArchive implements _DataArchive {
 
 abstract class _DataArchive implements DataArchive {
   const factory _DataArchive(
-      {final HikeMetrics? hikeMetrics,
+      {final LocationSummary? locationSummary,
+      final HikeMetrics? hikeMetrics,
       final List<LocationStatus>? locationHistory,
       final List<LocationStatus>? unfilteredLocationHistory,
       final PlotValues? elevationPlot,
-      final PlotValues? speedPlot}) = _$_DataArchive;
+      final PlotValues? speedPlot}) = _$DataArchiveImpl;
 
   factory _DataArchive.fromJson(Map<String, dynamic> json) =
-      _$_DataArchive.fromJson;
+      _$DataArchiveImpl.fromJson;
 
+  @override
+  LocationSummary? get locationSummary;
   @override
   HikeMetrics? get hikeMetrics;
   @override
@@ -309,6 +346,6 @@ abstract class _DataArchive implements DataArchive {
   PlotValues? get speedPlot;
   @override
   @JsonKey(ignore: true)
-  _$$_DataArchiveCopyWith<_$_DataArchive> get copyWith =>
+  _$$DataArchiveImplCopyWith<_$DataArchiveImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

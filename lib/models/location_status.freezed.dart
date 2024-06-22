@@ -12,7 +12,7 @@ part of 'location_status.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 LocationStatus _$LocationStatusFromJson(Map<String, dynamic> json) {
   return _LocationStatus.fromJson(json);
@@ -126,11 +126,11 @@ class _$LocationStatusCopyWithImpl<$Res, $Val extends LocationStatus>
 }
 
 /// @nodoc
-abstract class _$$_LocationStatusCopyWith<$Res>
+abstract class _$$LocationStatusImplCopyWith<$Res>
     implements $LocationStatusCopyWith<$Res> {
-  factory _$$_LocationStatusCopyWith(
-          _$_LocationStatus value, $Res Function(_$_LocationStatus) then) =
-      __$$_LocationStatusCopyWithImpl<$Res>;
+  factory _$$LocationStatusImplCopyWith(_$LocationStatusImpl value,
+          $Res Function(_$LocationStatusImpl) then) =
+      __$$LocationStatusImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -147,11 +147,11 @@ abstract class _$$_LocationStatusCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LocationStatusCopyWithImpl<$Res>
-    extends _$LocationStatusCopyWithImpl<$Res, _$_LocationStatus>
-    implements _$$_LocationStatusCopyWith<$Res> {
-  __$$_LocationStatusCopyWithImpl(
-      _$_LocationStatus _value, $Res Function(_$_LocationStatus) _then)
+class __$$LocationStatusImplCopyWithImpl<$Res>
+    extends _$LocationStatusCopyWithImpl<$Res, _$LocationStatusImpl>
+    implements _$$LocationStatusImplCopyWith<$Res> {
+  __$$LocationStatusImplCopyWithImpl(
+      _$LocationStatusImpl _value, $Res Function(_$LocationStatusImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -168,7 +168,7 @@ class __$$_LocationStatusCopyWithImpl<$Res>
     Object? headingDegrees = null,
     Object? timeStampSec = null,
   }) {
-    return _then(_$_LocationStatus(
+    return _then(_$LocationStatusImpl(
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -215,8 +215,8 @@ class __$$_LocationStatusCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_LocationStatus implements _LocationStatus {
-  const _$_LocationStatus(
+class _$LocationStatusImpl implements _LocationStatus {
+  const _$LocationStatusImpl(
       {this.latitude = 0.0,
       this.longitude = 0.0,
       this.accuracyValue = 0.0,
@@ -228,8 +228,8 @@ class _$_LocationStatus implements _LocationStatus {
       this.headingDegrees = 0.0,
       this.timeStampSec = 0.0});
 
-  factory _$_LocationStatus.fromJson(Map<String, dynamic> json) =>
-      _$$_LocationStatusFromJson(json);
+  factory _$LocationStatusImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationStatusImplFromJson(json);
 
   @override
   @JsonKey()
@@ -268,10 +268,10 @@ class _$_LocationStatus implements _LocationStatus {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LocationStatus &&
+            other is _$LocationStatusImpl &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -312,12 +312,13 @@ class _$_LocationStatus implements _LocationStatus {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LocationStatusCopyWith<_$_LocationStatus> get copyWith =>
-      __$$_LocationStatusCopyWithImpl<_$_LocationStatus>(this, _$identity);
+  _$$LocationStatusImplCopyWith<_$LocationStatusImpl> get copyWith =>
+      __$$LocationStatusImplCopyWithImpl<_$LocationStatusImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LocationStatusToJson(
+    return _$$LocationStatusImplToJson(
       this,
     );
   }
@@ -334,10 +335,10 @@ abstract class _LocationStatus implements LocationStatus {
       final double speedAccuracyValue,
       final LocationAccuracyType speedAccuracy,
       final double headingDegrees,
-      final double timeStampSec}) = _$_LocationStatus;
+      final double timeStampSec}) = _$LocationStatusImpl;
 
   factory _LocationStatus.fromJson(Map<String, dynamic> json) =
-      _$_LocationStatus.fromJson;
+      _$LocationStatusImpl.fromJson;
 
   @override
   double get latitude;
@@ -361,6 +362,6 @@ abstract class _LocationStatus implements LocationStatus {
   double get timeStampSec;
   @override
   @JsonKey(ignore: true)
-  _$$_LocationStatusCopyWith<_$_LocationStatus> get copyWith =>
+  _$$LocationStatusImplCopyWith<_$LocationStatusImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

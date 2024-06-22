@@ -6,8 +6,8 @@ part of 'location_status.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LocationStatus _$$_LocationStatusFromJson(Map<String, dynamic> json) =>
-    _$_LocationStatus(
+_$LocationStatusImpl _$$LocationStatusImplFromJson(Map<String, dynamic> json) =>
+    _$LocationStatusImpl(
       latitude: (json['latitude'] as num?)?.toDouble() ?? 0.0,
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0.0,
       accuracyValue: (json['accuracyValue'] as num?)?.toDouble() ?? 0.0,
@@ -25,7 +25,8 @@ _$_LocationStatus _$$_LocationStatusFromJson(Map<String, dynamic> json) =>
       timeStampSec: (json['timeStampSec'] as num?)?.toDouble() ?? 0.0,
     );
 
-Map<String, dynamic> _$$_LocationStatusToJson(_$_LocationStatus instance) =>
+Map<String, dynamic> _$$LocationStatusImplToJson(
+        _$LocationStatusImpl instance) =>
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
