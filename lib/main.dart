@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hiking_app/location_service.dart';
 import 'package:hiking_app/providers.dart';
 import 'package:hiking_app/ui/trip_summary_page/main.dart';
+import 'package:hiking_app/ui/trips_page.dart';
 import 'package:provider/provider.dart';
 
 import 'hiking_service.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const TripSummaryPage(),
+      home: const TripsPage(),
+      // const TripSummaryPage(),
+      //
     );
   }
 }

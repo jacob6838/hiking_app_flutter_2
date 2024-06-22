@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hiking_app/models/trip_summary.dart';
 import 'package:hiking_app/ui/about_page/main.dart';
 import 'package:hiking_app/ui/active_trip_page/main.dart';
 import 'package:hiking_app/ui/active_trip_page/metric_plot.dart';
@@ -29,7 +30,6 @@ class TripSummaryPage extends StatefulWidget {
 
 class TripSummaryPageState extends State<TripSummaryPage> {
   HikingService? _hikingService;
-  String? dropdownValue;
   bool isStartButtonEnabled = true;
   bool isDropdownEnabled = true;
   GoogleMapController? mapController;
@@ -42,7 +42,6 @@ class TripSummaryPageState extends State<TripSummaryPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dropdownValue = widget.tripName;
   }
 
   bool validateBounds(LatLngBounds bounds) {
@@ -57,19 +56,6 @@ class TripSummaryPageState extends State<TripSummaryPage> {
   @override
   Widget build(BuildContext context) {
     _hikingService = Provider.of<HikingService>(context);
-    _hikingService!.archiveService.currentArchiveList
-        .listen((archiveList) async {
-      if (_prevDropdownValue == null && archiveList.isNotEmpty) {
-        print("ARCHIVE LIST: $archiveList");
-        _prevDropdownValue = archiveList.first;
-        await _hikingService!.archiveService
-            .activateArchive(_prevDropdownValue!);
-        setState(() {
-          dropdownValue = _prevDropdownValue;
-        });
-      }
-    });
-
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -93,77 +79,6 @@ class TripSummaryPageState extends State<TripSummaryPage> {
         child: ListView(
           // shrinkWrap: true,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Container(),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: StreamBuilder<List<String>>(
-                    stream: _hikingService!.archiveService.currentArchiveList,
-                    builder: (context, snapshot) {
-                      final dropDownValues = snapshot.data;
-                      return DropdownButton<String>(
-                        value: dropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        // iconSize: 24,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.deepPurpleAccent,
-                        ),
-                        onChanged: (String? newValue) {
-                          if (newValue == null) return;
-                          _hikingService!.archiveService
-                              .activateArchive(newValue);
-                          print("Setting archive to: $newValue");
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                        items: dropDownValues
-                            ?.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: InkWell(
-                    onTap: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) => confirmDeletionPopup(
-                          context,
-                          "Are you sure you want to delete trip $dropdownValue?",
-                          () async {
-                            await _hikingService!.archiveService
-                                .deleteArchive(dropdownValue!);
-                            setState(() {
-                              dropdownValue = _hikingService!.archiveService
-                                  .currentArchiveList.value.first;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                    child: const Icon(
-                      Icons.delete_forever_outlined,
-                      color: Colors.red,
-                      size: 50,
-                    ),
-                  ),
-                ),
-              ],
-            ),
             StreamBuilder<List<LocationStatus>>(
                 stream: _hikingService!.currentPathSub,
                 builder: (context, snapshot) {

@@ -28,7 +28,8 @@ class HikingServiceConversions {
   static const _cumulativeDescentMetersName = "cumulative descent";
   static const _metricPeriodSecondsName = "time elapsed";
 
-  HikeMetricsData? metricsToData(HikeMetrics hikeMetrics) => HikeMetricsData(
+  static HikeMetricsData metricsToData(HikeMetrics hikeMetrics) =>
+      HikeMetricsData(
         timeStartSec: Metric(
             name: _timeStartSecName,
             value: hikeMetrics.timeStartSec.toString(),
@@ -108,35 +109,28 @@ class HikingServiceConversions {
             value: _toTimeElapsedString(hikeMetrics.metricPeriodSeconds)),
       );
 
-  String _toDistanceTraveledString(double val) {
-    if (val == null) return "stuff";
+  static String _toDistanceTraveledString(double val) {
     final miles = metersToFeet(val) / feetPerMile;
     return "${miles.toStringAsFixed(2)} mi";
   }
 
-  String _toElevationChangeString(double val) {
-    if (val == null) return "stuff";
-
+  static String _toElevationChangeString(double val) {
     final feet = metersToFeet(val).round();
     return "$feet ft";
   }
 
-  String _toTimeElapsedString(double val) {
-    if (val == null) return "stuff";
+  static String _toTimeElapsedString(double val) {
     final int minutes = (val / secPerMin).round() % minPerHour;
     final int hours = ((val / secPerMin) / minPerHour).floor();
     return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
   }
 
-  String _toCurrentLatitude(double val) =>
-      val == null ? "stuff" : val.toStringAsFixed(7);
-  String _toCurrentLongitude(double val) =>
-      val == null ? "stuff" : val.toStringAsFixed(7);
-  String _toCurrentAltitude(double val) =>
-      val == null ? "stuff" : "${metersToFeet(val).round()} ft";
+  static String _toCurrentLatitude(double val) => val.toStringAsFixed(7);
+  static String _toCurrentLongitude(double val) => val.toStringAsFixed(7);
+  static String _toCurrentAltitude(double val) =>
+      "${metersToFeet(val).round()} ft";
 
-  String _toCurrentAccuracy(LocationAccuracyType val) {
-    if (val == null) return "stuff";
+  static String _toCurrentAccuracy(LocationAccuracyType val) {
     String accuracy = "unknown";
     if (val == LocationAccuracyType.low) {
       accuracy = "low (> 25m)";
@@ -148,8 +142,7 @@ class HikingServiceConversions {
     return accuracy;
   }
 
-  String _toSpeedMetersPerSec(double val) {
-    if (val == null) return "stuff";
+  static String _toSpeedMetersPerSec(double val) {
     double speed = 0;
     speed = val * 2.23694;
     return "${speed.toStringAsFixed(1)} mph";
@@ -159,19 +152,17 @@ class HikingServiceConversions {
     // return "$speed min/mile";
   }
 
-  String _toCumulativeClimbMeters(double val) {
-    if (val == null) return "stuff";
+  static String _toCumulativeClimbMeters(double val) {
     final metric = val.round();
     return "$metric ft";
   }
 
-  String _toCumulativeDescentMeters(double val) {
-    if (val == null) return "stuff";
+  static String _toCumulativeDescentMeters(double val) {
     final metric = val.round();
     return "$metric ft";
   }
 
-  String _toAverageSpeedMetersPerSec(double val) {
+  static String _toAverageSpeedMetersPerSec(double val) {
     if (val == null) return "stuff";
     int speed = 0;
     speed = (val * 2.23694).round();
@@ -182,8 +173,7 @@ class HikingServiceConversions {
     return "$speed min/mile";
   }
 
-  String _toSpeedMax(double val) {
-    if (val == null) return "stuff";
+  static String _toSpeedMax(double val) {
     int speed = 0;
     speed = (val * 2.23694).round();
     return "$speed mph";
@@ -193,20 +183,17 @@ class HikingServiceConversions {
     return "$speed min/mile";
   }
 
-  String _toAltitudeMin(double val) {
-    if (val == null) return "stuff";
+  static String _toAltitudeMin(double val) {
     final altMin = metersToFeet(val).round();
     return "$altMin ft";
   }
 
-  String _toAltitudeMax(double val) {
-    if (val == null) return "stuff";
+  static String _toAltitudeMax(double val) {
     final altMax = metersToFeet(val).round();
     return "$altMax ft";
   }
 
-  String _toNetHeading(double val) {
-    if (val == null) return "stuff";
+  static String _toNetHeading(double val) {
     final heading = val.round();
     return "$heading deg";
   }

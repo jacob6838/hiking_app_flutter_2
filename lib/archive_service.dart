@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:hiking_app/models/hike_metrics.dart';
+import 'package:hiking_app/models/location_accuracy_type.dart';
+import 'package:hiking_app/models/location_summary.dart';
+import 'package:hiking_app/models/trip_summary.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,9 +12,10 @@ import 'models/data_archive.dart';
 
 class ArchiveService {
   BehaviorSubject<List<String>> currentArchiveList = BehaviorSubject();
-  BehaviorSubject<List<String>> currentArchiveSummaries = BehaviorSubject();
+  BehaviorSubject<List<TripSummary>> currentTripSummaries = BehaviorSubject();
   BehaviorSubject<DataArchive> activeDataArchive =
       BehaviorSubject.seeded(const DataArchive(hikeMetrics: HikeMetrics()));
+  final String _SUMMARY_ARCHIVE_NAME = "trip_summaries";
 
   ArchiveService() {
     print("INITIALIZING DATA ARCHIVE");
@@ -36,7 +40,26 @@ class ArchiveService {
       names = files.map((it) => it.first).toList();
       names = names.reversed.toList();
     }
+    // List<TripSummary> summaries =
+    //     names.map(TripSummary.fromNameString).toList();
+    List<TripSummary> summaries = [
+      const TripSummary(
+        name: "lake view",
+        locationName: "Test Traiasdlhead",
+        startTimeSeconds: 1719023723,
+        durationSeconds: 3607,
+        distanceMeters: 12355,
+      ),
+      const TripSummary(
+        name: "mountain view",
+        locationName: "Test Trailhead",
+        startTimeSeconds: 1719023000,
+        durationSeconds: 1255,
+        distanceMeters: 1255,
+      ),
+    ];
     print(names);
+    currentTripSummaries.value = summaries;
     return names;
   }
 
