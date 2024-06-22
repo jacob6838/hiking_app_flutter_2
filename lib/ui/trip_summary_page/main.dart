@@ -153,17 +153,13 @@ class TripSummaryPageState extends State<TripSummaryPage> {
                     stream: _hikingService!.elevationPlot,
                     builder: (context, snapshot) {
                       final plotValues = snapshot.data ?? PlotValues();
-                      return MetricPlot(
-                          hikingService: _hikingService!,
-                          plotValues: plotValues);
+                      return MetricPlot(plotValues: plotValues);
                     }),
                 StreamBuilder<PlotValues>(
                     stream: _hikingService!.speedPlot,
                     builder: (context, snapshot) {
                       final plotValues = snapshot.data ?? PlotValues();
-                      return MetricPlot(
-                          hikingService: _hikingService!,
-                          plotValues: plotValues);
+                      return MetricPlot(plotValues: plotValues);
                     }),
               ]),
             )

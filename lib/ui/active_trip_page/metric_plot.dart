@@ -6,11 +6,8 @@ import '../../hiking_service.dart';
 import '../../hiking_service_conversions.dart';
 
 class MetricPlot extends StatefulWidget {
-  const MetricPlot(
-      {Key? key, required this.hikingService, required this.plotValues})
-      : super(key: key);
+  const MetricPlot({Key? key, required this.plotValues}) : super(key: key);
 
-  final HikingService hikingService;
   final PlotValues plotValues;
 
   @override
@@ -35,15 +32,27 @@ class MetricPlotState extends State<MetricPlot> {
           lineTouchData: LineTouchData(enabled: false),
           lineBarsData: [
             LineChartBarData(
-              spots:
-                  plotValues.values.map((it) => FlSpot(it[0], it[1])).toList(),
-              // isCurved: true,
-              barWidth: 3,
-              color: Colors.purpleAccent,
-              dotData: FlDotData(
-                show: false,
-              ),
+              spots: [FlSpot(1, 1), FlSpot(2, 3), FlSpot(3, 10)], // Dataset 1
+              isCurved: true,
+              color: Colors.blue,
+              belowBarData: BarAreaData(show: false),
             ),
+            LineChartBarData(
+              spots: [FlSpot(1, 2), FlSpot(2, 4), FlSpot(3, 15)], // Dataset 2
+              isCurved: true,
+              color: Colors.red,
+              belowBarData: BarAreaData(show: false),
+            ),
+            // LineChartBarData(
+            //   spots:
+            //       plotValues.values.map((it) => FlSpot(it[0], it[1])).toList(),
+            //   // isCurved: true,
+            //   barWidth: 3,
+            //   color: Colors.purpleAccent,
+            //   dotData: FlDotData(
+            //     show: false,
+            //   ),
+            // ),
           ],
           minX: plotValues.xFormat.min,
           maxX: plotValues.xFormat.max,
@@ -59,26 +68,45 @@ class MetricPlotState extends State<MetricPlot> {
                 getTitlesWidget: (value, _) {
                   final int minutes = (value / secPerMin).round() % minPerHour;
                   final int hours = ((value / secPerMin) / minPerHour).floor();
-                  return Text("$hours:$minutes");
+                  return Text("$hours:$minutes",
+                      style: TextStyle(color: Colors.white));
                 },
               ),
             ),
             leftTitles: AxisTitles(
               sideTitles: SideTitles(
-                showTitles: true,
-                interval: plotValues.yFormat.interval,
-                reservedSize: 50,
-              ),
+                  showTitles: true,
+                  interval: plotValues.yFormat.interval,
+                  reservedSize: 50,
+                  getTitlesWidget: (value, _) => Text(
+                      '${value.toStringAsFixed(0)} mph',
+                      style: TextStyle(color: Colors.white))),
             ),
             rightTitles: AxisTitles(
               sideTitles: SideTitles(
-                showTitles: false,
-              ),
+                  showTitles: true,
+                  interval: plotValues.yFormat.interval,
+                  reservedSize: 50,
+                  getTitlesWidget: (value, _) => Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text('${value.toStringAsFixed(0)} ft',
+                            style: TextStyle(color: Colors.white)),
+                      )),
             ),
             topTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
               ),
+            ),
+          ),
+          backgroundColor:
+              Color.fromARGB(255, 48, 48, 48), // Change background color here
+          borderData: FlBorderData(
+            show: true,
+            border: Border.all(
+              color:
+                  Color.fromARGB(255, 47, 79, 255), // Change border color here
+              width: 2,
             ),
           ),
           // axisTitleData: FlAxisTitleData(

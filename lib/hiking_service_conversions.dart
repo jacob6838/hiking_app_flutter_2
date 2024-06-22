@@ -168,7 +168,7 @@ class HikingServiceConversions {
     speed = (val * 2.23694).round();
     return "$speed mph";
     if (val > 0.01) {
-      speed = (1 / (val * metersPerSecToMilesPerMin)).round();
+      speed = (1 / (val * metersPerSecToMilesPerMinVal)).round();
     }
     return "$speed min/mile";
   }
@@ -178,7 +178,7 @@ class HikingServiceConversions {
     speed = (val * 2.23694).round();
     return "$speed mph";
     if (val > 0.05) {
-      speed = (1 / (val * metersPerSecToMilesPerMin)).round();
+      speed = (1 / (val * metersPerSecToMilesPerMinVal)).round();
     }
     return "$speed min/mile";
   }
@@ -200,7 +200,7 @@ class HikingServiceConversions {
 }
 
 const double feetPerMeter = 3.28084;
-const double metersPerSecToMilesPerMin = 0.0372823;
+const double metersPerSecToMilesPerMinVal = 0.0372823;
 const feetPerMile = 5280;
 
 const int minPerHour = 60;
@@ -208,4 +208,46 @@ const int secPerMin = 60;
 
 double metersToFeet(double distance) {
   return distance * feetPerMeter;
+}
+
+double metersToMiles(double distance) {
+  return distance * feetPerMeter / feetPerMile;
+}
+
+double metersPerSecToMilesPerHour(double speed) {
+  return speed * 2.23694;
+}
+
+double metersPerSecToMilesPerMin(double speed) {
+  return speed * metersPerSecToMilesPerMinVal;
+}
+
+double metersPerSecToFeetPerMin(double speed) {
+  return speed * feetPerMeter;
+}
+
+double metersPerSecToFeetPerSec(double speed) {
+  return speed * feetPerMeter;
+}
+
+double metersPerSecToKmPerHour(double speed) {
+  return speed * 3.6;
+}
+
+double metersPerSecToKmPerMin(double speed) {
+  return speed * 3.6 / 60;
+}
+
+double metersPerSecToMetersPerMin(double speed) {
+  return speed * 60;
+}
+
+double metersPerSecToMinutesPerKm(double speed) {
+  if (speed == 0) return 0;
+  return 1 / (speed * 3.6 / 60);
+}
+
+double metersPerSecToMinutesPerMile(double speed) {
+  if (speed == 0) return 0;
+  return 1 / (speed * 2.23694);
 }
