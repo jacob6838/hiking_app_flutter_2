@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hiking_app/models/hike_metrics.dart';
 import 'package:hiking_app/models/plot_values.dart';
 import 'package:hiking_app/ui/active_trip_page/metric_display_small.dart';
+import 'package:hiking_app/ui/map.dart';
 import 'package:hiking_app/ui/trip_summary_page/main.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -56,92 +57,76 @@ class ActiveTripPageState extends State<ActiveTripPage> {
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
-            ListView(
-              // shrinkWrap: true,
-              children: <Widget>[
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                            initialValue: tripName,
-                            onChanged: (val) {
-                              print(tripName);
-                              setState(() {
-                                tripName = val;
-                              });
-                            }),
-                      ),
-                      MetricsTable(
-                          hikingService: _hikingService!,
-                          metricsHiddenMap: List.filled(22, true)),
-                      Row(children: <Widget>[
-                        StreamBuilder<PlotValues>(
-                            stream: _hikingService!.elevationPlot,
-                            builder: (context, snapshot) {
-                              final plotValues = snapshot.data ?? PlotValues();
-                              return MetricPlot(plotValues: plotValues);
-                            }),
-                        StreamBuilder<PlotValues>(
-                            stream: _hikingService!.speedPlot,
-                            builder: (context, snapshot) {
-                              final plotValues = snapshot.data ?? PlotValues();
-                              return MetricPlot(plotValues: plotValues);
-                            }),
-                      ]),
-                      StreamBuilder<bool>(
-                          stream: _hikingService!.currentHikerStatus$,
-                          builder: (context, AsyncSnapshot<bool> snapshot) {
-                            final bool activeStatus = snapshot.data ?? false;
-                            return SizedBox(
-                                height: 80,
-                                width: 80,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                      color: !activeStatus
-                                          ? Colors.green
-                                          : Colors.red,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        if (activeStatus) {
-                                          setState(() {
-                                            isDropdownEnabled = true;
-                                          });
-                                          await onEnableBtnClicked(context,
-                                              _hikingService!, tripName);
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const TripSummaryPage()),
-                                          );
-                                          // tripName: name
-                                        } else {
-                                          setState(() {
-                                            isDropdownEnabled = false;
-                                          });
-                                          onEnableBtnClicked(context,
-                                              _hikingService!, tripName);
-                                        }
-                                      },
-                                      child: Icon(
-                                        !activeStatus
-                                            ? Icons.play_arrow
-                                            : Icons.stop_rounded,
-                                        color: Colors.white,
-                                        size: 60,
-                                      ),
-                                    )));
-                          }),
-                    ],
-                  ),
-                ),
-              ],
+            Expanded(
+              child: MapPage(
+                hikingService: _hikingService,
+              ),
             ),
+            Container(
+              height: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                        initialValue: tripName,
+                        onChanged: (val) {
+                          print(tripName);
+                          setState(() {
+                            tripName = val;
+                          });
+                        }),
+                  ),
+                  StreamBuilder<bool>(
+                      stream: _hikingService!.currentHikerStatus$,
+                      builder: (context, AsyncSnapshot<bool> snapshot) {
+                        final bool activeStatus = snapshot.data ?? false;
+                        return SizedBox(
+                            height: 80,
+                            width: 80,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      !activeStatus ? Colors.green : Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    if (activeStatus) {
+                                      setState(() {
+                                        isDropdownEnabled = true;
+                                      });
+                                      await onEnableBtnClicked(
+                                          context, _hikingService!, tripName);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const TripSummaryPage()),
+                                      );
+                                      // tripName: name
+                                    } else {
+                                      setState(() {
+                                        isDropdownEnabled = false;
+                                      });
+                                      onEnableBtnClicked(
+                                          context, _hikingService!, tripName);
+                                    }
+                                  },
+                                  child: Icon(
+                                    !activeStatus
+                                        ? Icons.play_arrow
+                                        : Icons.stop_rounded,
+                                    color: Colors.white,
+                                    size: 60,
+                                  ),
+                                )));
+                      }),
+                ],
+              ),
+            ),
+
             // Positioned(
             //   bottom: 50,
             //   left: 0,

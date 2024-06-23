@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hiking_app/location_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hiking_app/providers.dart';
+import 'package:hiking_app/ui/map.dart';
 import 'package:hiking_app/ui/trip_summary_page/main.dart';
 import 'package:hiking_app/ui/trips_page.dart';
 import 'package:provider/provider.dart';
 
-import 'hiking_service.dart';
-
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(MultiProvider(providers: globalProviders(), child: MyApp()));
 }
 
