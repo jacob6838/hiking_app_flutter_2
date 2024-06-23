@@ -21,8 +21,6 @@ class MapPage extends StatelessWidget {
         TileLayer(
           urlTemplate:
               "https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=${dotenv.env['MAPTILER_API_KEY']}",
-          // 'https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=ffSM31w0WC5ndF9f53tR',
-          // urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'com.hikelytics.hiking_app',
         ),
         RichAttributionWidget(
