@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hiking_app/models/data_archive.dart';
 import 'package:hiking_app/models/hike_metrics.dart';
 import 'package:hiking_app/models/plot_values.dart';
 import 'package:hiking_app/ui/active_trip_page/metric_display_small.dart';
@@ -6,6 +7,7 @@ import 'package:hiking_app/ui/map.dart';
 import 'package:hiking_app/ui/trip_summary_page/main.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart' as rxdart;
 
 import '../../hiking_service.dart';
 import '../../main.dart';
@@ -20,7 +22,7 @@ class ActiveTripPage extends StatefulWidget {
 }
 
 class ActiveTripPageState extends State<ActiveTripPage> {
-  HikingService? _hikingService;
+  late HikingService _hikingService;
   bool isDropdownEnabled = true;
   String tripName = "";
   bool _isExpanded = false;
@@ -168,40 +170,30 @@ class ActiveTripPageState extends State<ActiveTripPage> {
                       ),
                       // Your existing ListView.builder
                       Expanded(
-                          // StreamBuilder<HikeMetrics>(
-                          //   stream: _hikingService?.currentHikerMetrics$,
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.hasData) {
-                          //       return
-                          child: ListView.builder(
-                              controller: scrollController,
-                              itemCount: 1,
-                              padding: EdgeInsets.only(top: 16),
-                              itemBuilder: (context, index) {
-                                return MetricDisplaySmall(
-                                  hikeMetrics: HikeMetrics(
-                                    altitude: 0,
-                                    averageSpeedMetersPerSec: 0,
-                                    cumulativeClimbMeters: 0,
-                                    distanceTraveled: 0,
-                                    metricPeriodSeconds: 0,
-                                  ),
-                                  elevationPlot: PlotValues(
-                                      // height: 100,
-                                      // width: 200,
-                                      ),
-                                  speedPlot: PlotValues(
-                                      // height: 100,
-                                      // width: 200,
-                                      ),
-                                );
-                              })
-                          // } else {
-                          //   return Center(child: CircularProgressIndicator());
-                          // }
-                          //   },
-                          // ),
-                          )
+                        child: StreamBuilder<DataArchive>(
+                          stream: rxdart.Rx.combineLatest3(
+                              _hikingService.currentHikerMetrics$,
+                              _hikingService.elevationPlot,
+                              _hikingService.speedPlot,
+                              (m, e, s) => DataArchive(
+                                  hikeMetrics: m,
+                                  elevationPlot: e,
+                                  speedPlot: s)),
+                          builder: (context, snapshot) {
+                            return ListView.builder(
+                                controller: scrollController,
+                                itemCount: 1,
+                                padding: EdgeInsets.only(top: 16),
+                                itemBuilder: (context, index) {
+                                  return MetricDisplaySmall(
+                                    hikeMetrics: snapshot.data?.hikeMetrics,
+                                    elevationPlot: snapshot.data?.elevationPlot,
+                                    speedPlot: snapshot.data?.speedPlot,
+                                  );
+                                });
+                          },
+                        ),
+                      )
                     ]));
               },
               // ),

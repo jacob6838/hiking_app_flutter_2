@@ -73,10 +73,10 @@ class _MetricDisplaySmallState extends State<MetricDisplaySmall> {
         Padding(
           padding: const EdgeInsets.only(top: 25, bottom: 0),
           child: Center(
-            child: widget.elevationPlot == null
+            child: widget.speedPlot == null
                 ? null
                 : MetricPlot(
-                    plotValues: widget.elevationPlot!
+                    plotValues: widget.speedPlot!
                         .copyWith(height: 200, width: screenWidth * 0.9),
                   ),
           ),
@@ -123,9 +123,11 @@ class _MetricDisplaySmallState extends State<MetricDisplaySmall> {
   }
 
   String getDurationString(double durationSeconds) {
-    int hours = durationSeconds ~/ 3600;
-    int minutes = (durationSeconds % 3600) ~/ 60;
-    return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
+    double durSeconds = durationSeconds / 1000;
+    int hours = durSeconds ~/ 3600;
+    int minutes = ((durSeconds % 3600) / 60).floor();
+    int seconds = (durSeconds % 60).round();
+    return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
 
   String getTripDate(int startTimeSeconds) {

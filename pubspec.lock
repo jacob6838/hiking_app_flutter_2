@@ -44,10 +44,11 @@ packages:
   background_location:
     dependency: "direct main"
     description:
-      name: background_location
-      sha256: fbb83ceb8cefcc6793f0a362f12773c28fc290a5e2c76cb593ee592ec7b6cb32
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: "55c7845ce11b72975ab529d2b2fdf1c982fa01a8"
+      url: "https://github.com/lukaskurz/background_location.git"
+    source: git
     version: "0.13.0"
   boolean_selector:
     dependency: transitive

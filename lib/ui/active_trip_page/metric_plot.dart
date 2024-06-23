@@ -32,27 +32,15 @@ class MetricPlotState extends State<MetricPlot> {
           lineTouchData: LineTouchData(enabled: false),
           lineBarsData: [
             LineChartBarData(
-              spots: [FlSpot(1, 1), FlSpot(2, 3), FlSpot(3, 10)], // Dataset 1
-              isCurved: true,
-              color: Colors.blue,
-              belowBarData: BarAreaData(show: false),
+              spots:
+                  plotValues.values.map((it) => FlSpot(it[0], it[1])).toList(),
+              // isCurved: true,
+              barWidth: 3,
+              color: Colors.purpleAccent,
+              dotData: FlDotData(
+                show: false,
+              ),
             ),
-            LineChartBarData(
-              spots: [FlSpot(1, 2), FlSpot(2, 4), FlSpot(3, 15)], // Dataset 2
-              isCurved: true,
-              color: Colors.red,
-              belowBarData: BarAreaData(show: false),
-            ),
-            // LineChartBarData(
-            //   spots:
-            //       plotValues.values.map((it) => FlSpot(it[0], it[1])).toList(),
-            //   // isCurved: true,
-            //   barWidth: 3,
-            //   color: Colors.purpleAccent,
-            //   dotData: FlDotData(
-            //     show: false,
-            //   ),
-            // ),
           ],
           minX: plotValues.xFormat.min,
           maxX: plotValues.xFormat.max,
